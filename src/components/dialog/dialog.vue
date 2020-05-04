@@ -76,8 +76,7 @@ export default {
     },
     async onMask(e) {
       if (typeof this.click === 'function') {
-        await this.click(index, e);
-        this.close('mask', e);
+        this.click('mask', e);
       } else {
         this.$emit('mask');
       }

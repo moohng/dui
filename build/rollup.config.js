@@ -16,32 +16,25 @@ const entries = [
 ]
 
 function jsConfig(name, input) {
-  return {
+  const basePlugins = [
+    resolve(),
+    commonjs(), // 兼容 commonjs 规范的第三方模块使用 ES6 方式导入
+    vue({
+      css: false,
+    }),
+  ]
+  return [{
     input,
-    output: [
-      {
-        file: `dist/${name}.min.js`,
-        format: 'umd',
-        name,
-        plugins: [
-          // postcss({
-          //   extract: `${name}.min.css`,
-          //   minimize: true,
-          //   plugins: [px2vw(), autoprefixer()],
-          // }),
-        ],
-      },
-    ],
-    plugins: [
-      resolve(),
-      commonjs(), // 兼容 commonjs 规范的第三方模块使用 ES6 方式导入
+    output: {
+      file: `dist/${name}.min.js`,
+      format: 'umd',
+      name,
+    },
+    plugins: basePlugins.concat([
       postcss({
         extract: `${name}.min.css`,
         minimize: true,
         plugins: [px2vw(), autoprefixer()],
-      }),
-      vue({
-        css: false,
       }),
       babel({
         babelrc: false, // 忽略项目中的babel配置文件，使用此配置
@@ -62,11 +55,25 @@ function jsConfig(name, input) {
         exclude: 'node_modules/**',
       }),
       terser(),
-    ],
-  }
+    ]),
+  }, {
+    input,
+    output: {
+      file: name === 'dui.base' ? `lib/dui/${name}.js` : `lib/${name}/index.js`,
+      format: 'es',
+      name,
+    },
+    plugins: basePlugins.concat([
+      postcss({
+        extract: `${name}.css`,
+        // minimize: true,
+        plugins: [px2vw(), autoprefixer()],
+      }),
+    ])
+  }]
 }
 
-del(['dist'])
+del(['dist', 'lib'])
 
 module.exports = entries.reduce((results, { name, input }) => {
   if (input) {

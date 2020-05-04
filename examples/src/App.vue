@@ -8,8 +8,9 @@
 <script>
 import Vue from 'vue';
 import { Dialog } from '@moohng/dui';
-// import Dialog from '@moohng/dui';
+// import Dialog from '@moohng/dui/lib/dialog';
 import HelloWorld from './components/HelloWorld.vue';
+import '@moohng/dui/lib/dialog/dialog.css';
 
 Vue.use(Dialog);
 
@@ -24,6 +25,8 @@ export default {
       this.$dialog({
         title: '提示',
         content: '你好那',
+      }, (index) => {
+        console.log(index);
       });
     },
   },
@@ -31,9 +34,9 @@ export default {
 </script>
 
 <style lang="scss">
-// @import '~@moohng/dui/dist/dui.min.css';
-@import '~@moohng/dui/dist/dui.base.min.css';
-@import '~@moohng/dui/dist/dialog.min.css';
+// @import '~@moohng/dui/lib/dui/dui.css';
+@import '~@moohng/dui/lib/dui/dui.base.css';
+// @import '~@moohng/dui/lib/dialog/dialog.css';
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;

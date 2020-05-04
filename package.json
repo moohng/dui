@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "基于 Vue 2 的轻量级组件库",
   "main": "dist/dui.min.js",
-  "module": "src/dui.js",
+  "module": "lib/dui/index.js",
   "browser": "dist/dui.min.js",
   "author": "Kevin",
   "license": "MIT",
