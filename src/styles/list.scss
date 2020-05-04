@@ -1,0 +1,35 @@
+.dui-list+.dui-list {
+  @extend .margin-top-xs;
+}
+.dui-list.no-bottom {
+  .dui-item::after {
+    border: 0;
+  }
+}
+.dui-list.indent {
+  padding-left: 30px;
+  padding-right: 30px;
+  @extend .bg-white;
+  .dui-item {
+    padding: 16px 0;
+  }
+}
+.dui-item {
+  position: relative;
+  padding: 16px 30px;
+  min-height: 112px;
+  @extend .bg-white;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  @extend .solid-bottom;
+  &:last-child::after {
+    border: 0;
+  }
+  &.indent {
+    margin-left: 30px;
+    margin-right: 30px;
+    padding-left: 0;
+    padding-right: 0;
+  }
+}

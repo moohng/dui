@@ -1,0 +1,20 @@
+.mask {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, .6);
+  z-index: 9999;
+  opacity: 0;
+  transition: opacity .3s;
+  pointer-events: none;
+  &.transparent {
+    background-color: transparent;
+  }
+}
+.mask.show,
+.toggle .mask {
+  opacity: 1;
+  pointer-events: auto;
+}

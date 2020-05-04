@@ -1,0 +1,23 @@
+.dui-loading {
+  &__body {
+    position: fixed;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: rgba(255, 255, 255, .9);
+    background-color: #4c4c4c;
+    border-radius: 10px;
+    z-index: 10000;
+    opacity: 0;
+    .dui-icon__loading {
+      width: 76px;
+      height: 76px;
+    }
+  }
+  &.toggle {
+    .dui-loading__body {
+      opacity: 1;
+    }
+  }
+}

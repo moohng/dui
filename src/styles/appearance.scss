@@ -1,0 +1,181 @@
+/* 间隔 */
+@each $key, $value in (xxl: 96px, xl: 64px, lg: 48px, df: 32px, sm: 24px, xs: 16px, xxs: 8px) {
+  @if $key == df {
+    @each $dir in top, right, bottom, left {
+      .margin-#{$dir} {
+        margin-#{$dir}: $value;
+      }
+      .padding-#{$dir} {
+        padding-#{$dir}: $value;
+      }
+    }
+    .margin {
+      margin: $value;
+    }
+    .padding {
+      padding: $value;
+    }
+    .margin-tb {
+      margin-top: $value;
+      margin-bottom: $value;
+    }
+    .margin-lr {
+      margin-left: $value;
+      margin-right: $value;
+    }
+    .padding-tb {
+      padding-top: $value;
+      padding-bottom: $value;
+    }
+    .padding-lr {
+      padding-left: $value;
+      padding-right: $value;
+    }
+  } @else {
+    @each $dir in top, right, bottom, left {
+      .margin-#{$dir}-#{$key} {
+        margin-#{$dir}: $value;
+      }
+      .padding-#{$dir}-#{$key} {
+        padding-#{$dir}: $value;
+      }
+    }
+    .margin-#{$key} {
+      margin: $value;
+    }
+    .padding-#{$key} {
+      padding: $value;
+    }
+    .margin-tb-#{$key} {
+      margin-top: $value;
+      margin-bottom: $value;
+    }
+    .margin-lr-#{$key} {
+      margin-left: $value;
+      margin-right: $value;
+    }
+    .padding-tb-#{$key} {
+      padding-top: $value;
+      padding-bottom: $value;
+    }
+    .padding-lr-#{$key} {
+      padding-left: $value;
+      padding-right: $value;
+    }
+  }
+}
+
+/* 字体大小 */
+@each $key, $value in (xl: 40px, lg: 34px, df: 28px, sm: 24px, xs: 20px) {
+  .text-#{$key} {
+    font-size: $value;
+  }
+}
+.text-bold,
+.text-bolder {
+  font-weight: 700;
+}
+.text-cut {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+@for $row from 2 through 6 {
+  .text-#{$row} {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    line-clamp: $row;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+
+/* 颜色 */
+@each $name, $value in (
+  (df, #f7f7f7),
+  (red, #ff4f44),
+  (orange, #ff9056),
+  (yellow, #fbbd08),
+  (green, #39b54a),
+  (cyan, #1cbbb4),
+  (blue, #0081ff),
+  (olive, #8dc63f),
+  (purple, #6739b6),
+  (mauve, #9c26b0),
+  (pink, #e03997),
+  (brown, #a5673f),
+  (grey, #898989),
+  (gray, #aaa),
+  (black, #333),
+  (white, #fff),
+) {
+  @if ($name == df or $name == white) {
+    .bg-#{$name} {
+      color: #333;
+      background-color: $value;
+    }
+  } @else {
+    .bg-#{$name} {
+      @extend .text-white;
+      background-color: $value;
+    }
+  }
+  .text-#{$name},
+  .line-#{$name} {
+    color: $value;
+  }
+}
+
+@each $dir in left, right, center {
+  .text-#{$dir} {
+    text-align: $dir;
+  }
+}
+
+.solid,
+.solid-top,
+.solid-right,
+.solid-bottom,
+.solid-left {
+  position: relative;
+  &::after {
+    content: '';
+    position: absolute;
+    width: 200%;
+    height: 200%;
+    top: 0;
+    left: 0;
+    transform: scale(.5);
+    transform-origin: 0 0;
+    border-radius: inherit;
+    box-sizing: border-box;
+    pointer-events: none;
+  }
+}
+.solid::after {
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+.solid-top::after {
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+.solid-right::after {
+  border-right: 1px solid rgba(0, 0, 0, 0.1);
+}
+.solid-bottom::after {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+.solid-left::after {
+  border-left: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.radius {
+  border-radius: 6px;
+}
+
+.round {
+	border-radius: 2000px;
+}
+
+.block {
+  display: block;
+}

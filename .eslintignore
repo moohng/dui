@@ -1,0 +1,6 @@
+dist/
+lib/
+config/
+test/
+build/
+*.config.js

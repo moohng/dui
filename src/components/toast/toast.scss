@@ -1,0 +1,19 @@
+.dui-toast {
+  padding: 8px 20px;
+  position: absolute;
+  bottom: 15%;
+  left: 50%;
+  max-width: 80%;
+  color: #ffffff;
+  text-align: center;
+  transform: translateX(-50%);
+  background-color: rgba(50, 50, 50, .8);
+  border-radius: 8px;
+  opacity: 0;
+  transition: all .3s;
+  pointer-events: none;
+  &.show {
+    opacity: 1;
+    pointer-events: auto;
+  }
+}

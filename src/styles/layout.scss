@@ -1,0 +1,86 @@
+.flex {
+  display: flex;
+}
+.align-start {
+	align-items: flex-start;
+}
+.align-center {
+  align-items: center;
+}
+.align-end {
+	align-items: flex-end;
+}
+.align-stretch {
+	align-items: stretch;
+}
+.self-start {
+	align-self: flex-start;
+}
+.self-center {
+	align-self: flex-center;
+}
+.self-end {
+	align-self: flex-end;
+}
+.self-stretch {
+	align-self: stretch;
+}
+.justify-start {
+	justify-content: flex-start;
+}
+.justify-end {
+	justify-content: flex-end;
+}
+.justify-center {
+	justify-content: center;
+}
+.justify-between {
+	justify-content: space-between;
+}
+.justify-around {
+	justify-content: space-around;
+}
+.flex-sub {
+  flex: 1;
+}
+.flex-twice {
+  flex: 2;
+}
+.flex-treble {
+  flex: 3;
+}
+.flex-direction {
+	flex-direction: column;
+}
+.flex-wrap {
+	flex-wrap: wrap;
+}
+.flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.grid {
+  display: flex;
+  flex-wrap: wrap;
+}
+@for $index from 1 through 5 {
+  .col-#{$index} {
+    width: 100 / $index * 1%;
+    box-sizing: border-box;
+    &.square {
+      position: relative;
+      margin-right: 20px;
+      margin-bottom: 20px;
+      @extend .radius;
+      padding-bottom: calc((100% - (#{$index - 1}) * 20px) / #{$index});
+      height: 0;
+      width: calc((100% - (#{$index - 1}) * 20px) / #{$index});
+      overflow: hidden;
+      &:nth-child(#{$index}n) {
+        margin-right: 0;
+      }
+    }
+  }
+}
