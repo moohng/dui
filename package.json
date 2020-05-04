@@ -9,7 +9,7 @@
   "license": "MIT",
   "private": false,
   "scripts": {
-    "del": "del",
+    "demo": "live-server --no-browser --watch=demo,dist",
     "build": "rollup -c build/rollup.config.js",
     "lint": "eslint --ext .js src --fix",
     "precommit": "lint-staged"

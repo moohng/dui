@@ -1,0 +1,7 @@
+dist/
+lib/
+config/
+test/
+build/
+*.config.js
+node_modules

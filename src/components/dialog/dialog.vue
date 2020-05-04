@@ -1,6 +1,6 @@
 <template>
   <div class="dui-dialog" :class="{ toggle: show }">
-    <div class="mask"></div>
+    <div class="mask" @click="onMask"></div>
     <div class="dui-dialog__body">
       <slot>
         <div class="dui-dialog__hd padding-lr-lg padding-top-xl padding-bottom" v-if="title">
@@ -72,6 +72,14 @@ export default {
         this.close();
       } else {
         this.close();
+      }
+    },
+    async onMask(e) {
+      if (typeof this.click === 'function') {
+        await this.click(index, e);
+        this.close('mask', e);
+      } else {
+        this.$emit('mask');
       }
     },
   },
