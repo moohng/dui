@@ -1,3 +1,4 @@
+import './actionsheet.scss';
 import Actionsheet from './actionsheet.vue';
 import { assignProps } from '../../tools/utils';
 
@@ -28,7 +29,7 @@ Actionsheet.install = function install(Vue) {
       cancel,
       cancelClass,
     });
-    Vue.duiDialog.click = callback;
+    Vue.duiActionsheet.click = callback;
     setTimeout(() => {
       Vue.duiActionsheet.open();
     }, 10);

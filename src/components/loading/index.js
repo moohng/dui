@@ -1,3 +1,4 @@
+import './loading.scss';
 import Loading from './loading.vue';
 
 

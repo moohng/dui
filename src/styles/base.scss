@@ -1,0 +1,40 @@
+/* 层级：toast: 99999 > modal: 9999 > popup: 999 > tabbar: 100 > navbar: 99 > self */
+
+html {
+  -ms-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+}
+html,
+body {
+  margin: 0;
+}
+body {
+  font-family: -apple-system-font, Helvetica Neue, Helvetica, sans-serif;
+  color: #333333;
+  font-size: 28px;
+  line-height: 1.6;
+  overflow-x: hidden;
+  word-break: break-all;
+}
+::-webkit-input-placeholder {
+  color: #dbdbdb;
+}
+img {
+  max-width: 100%;
+}
+
+// 禁止弹窗滚动穿透
+body.stop-scroll {
+  position: fixed;
+  width: 100%;
+}
+
+@import './vars.scss';
+
+@import './layout.scss';
+@import './appearance.scss';
+
+@import './button.scss';
+@import './list.scss';
+@import './icon.scss';
+@import './mask.scss';

@@ -2,14 +2,22 @@
   "name": "@moohng/dui",
   "version": "1.0.0",
   "description": "基于 Vue 2 的轻量级组件库",
-  "main": "index.js",
+  "main": "dist/dui.min.js",
+  "module": "src/dui.js",
+  "browser": "dist/dui.min.js",
   "author": "Kevin",
   "license": "MIT",
   "private": false,
   "scripts": {
-    "build": "node build/build.js",
-    "lint": "eslint --ext .js src --fix"
+    "del": "del",
+    "build": "rollup -c build/rollup.config.js",
+    "lint": "eslint --ext .js src --fix",
+    "precommit": "lint-staged"
   },
+  "files": [
+    "lib",
+    "packages"
+  ],
   "devDependencies": {
     "@babel/core": "^7.9.6",
     "@babel/plugin-proposal-nullish-coalescing-operator": "^7.8.3",
@@ -18,9 +26,11 @@
     "@moohng/postcss-px2vw": "^1.0.2",
     "autoprefixer": "^9.7.6",
     "babel-eslint": "^10.1.0",
+    "del": "^5.1.0",
     "eslint": "^6.8.0",
     "eslint-config-airbnb-base": "^14.1.0",
     "eslint-plugin-import": "^2.20.2",
+    "husky": "^4.2.5",
     "lint-staged": "^10.2.2",
     "rollup": "^2.7.6",
     "rollup-plugin-babel": "^4.4.0",
@@ -36,11 +46,8 @@
     "last 2 versions",
     "not dead"
   ],
-  "gitHooks": {
-    "pre-commit": "lint-staged"
-  },
   "lint-staged": {
-    "*.{js,jsx,vue}": [
+    "*.{js,vue}": [
       "yarn lint",
       "git add"
     ]

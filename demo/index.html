@@ -5,12 +5,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>dui</title>
   <script src="//cdn.bootcdn.net/ajax/libs/vue/2.6.11/vue.min.js"></script>
-  <link rel="stylesheet" href="../dist/dui.min.css">
+  <!-- <link rel="stylesheet" href="../dist/dui.min.css"> -->
+  <link rel="stylesheet" href="../dist/dui.base.min.css">
+  <link rel="stylesheet" href="../dist/actionsheet.min.css">
 </head>
 <body>
   <div id="app">{{ content }}</div>
 
-  <script src="../dist/dui.min.js"></script>
+  <!-- <script src="../dist/dui.min.js"></script> -->
+  <script src="../dist/actionsheet.min.js"></script>
   <script>
     var vm = new Vue({
       el: '#app',

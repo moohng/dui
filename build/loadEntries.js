@@ -3,7 +3,7 @@ const fs = require('fs')
 
 
 module.exports = function () {
-  const entryPath = path.resolve('src')
+  const entryPath = path.resolve('src/components')
   const entries = fs.readdirSync(entryPath)
 
   const results = []
@@ -15,20 +15,12 @@ module.exports = function () {
 
     // 是目录
     if (stats.isDirectory()) {
-      results.push({ name: dir, input: path.join(filePath, 'index.js') })
+      results.push({
+        name: dir,
+        input: path.join(filePath, 'index.js'),
+        style: path.join(filePath, `${dir}.scss`),
+      })
       continue
-    }
-
-    // 是文件
-    if (stats.isFile()) {
-      if (dir === 'index.js') {
-        results.push({ name: 'dan', input: filePath })
-        continue
-      }
-      if (/(.+)\.js$/.test(dir)) {
-        results.push({ name: RegExp.$1, input: filePath })
-        continue
-      }
     }
   }
 
