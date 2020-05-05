@@ -27,8 +27,8 @@ function jsConfig(name, input) {
     input,
     output: {
       file: `dist/${name}.min.js`,
-      format: 'umd',
-      name,
+      format: 'iife',
+      // name,
     },
     plugins: basePlugins.concat([
       postcss({

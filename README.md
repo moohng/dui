@@ -1,12 +1,18 @@
 # dui
 
+<p>
+  <img alt="Node.js CI" src="https://github.com/moohng/dui/workflows/Node.js%20CI/badge.svg">
+  <img alt="Node.js Package" src="https://github.com/moohng/dui/workflows/Node.js%20Package/badge.svg">
+</p>
+
+
 dui 是移动端轻量级 Vue 2 组件库，主要特性是可以**单个导入**常用的组件，减小包体积；尤其在简单的h5页面开发时，可以快速集成常用组件，减少重复劳动，提高生产力。
 
 dui 以 css 样式布局为主，尽可能的让用户自由的组织dom结构。一般组件是很难做到通用性的，尤其是在样式上，而在保证功能完整性的同时又很难控制代码体积。dui 不是在重复造轮子，它的主要使用场景是**小项目、单纯的HTML页面**。
 
 > 注意：dui 是基于 [postcss-px2vw](https://github.com/moohng/postcss-px2vw) 的移动端适配解决方案实现的，当然你也可以任意覆盖 dui 的样式。
 
-## 使用
+## 导入
 
 dui 包括一套样式布局方案和一套组件库，样式分为基础样式（dui.base）和组件样式，引入组件的时候，必须手动同时引入基础样式和对应的组件样式。
 
@@ -61,9 +67,9 @@ import '@moohng/dui/lib/dialog/dialog.css';
 Vue.use(Dialog);
 ```
 
-### 使用方式
+## 使用
 
-在模板中使用（可自由定义弹窗主题内容）
+在模板中使用（可自由定义弹窗主题内容），如果是通过`script`标签导入，组件会自动注册，直接使用
 
 ```html
 <template>
@@ -76,7 +82,7 @@ Vue.use(Dialog);
 </template>
 ```
 
-api 快速使用（样式不能自由定义）
+api 快速使用（样式不能自由定义），组件注册时，自动注入 `$dialog` 方法
 
 ```html
 <script>
