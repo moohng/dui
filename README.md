@@ -1,8 +1,8 @@
 # dui
 
 <p>
-  <img alt="Node.js CI" src="https://github.com/moohng/dui/workflows/Node.js%20CI/badge.svg">
-  <img alt="Node.js Package" src="https://github.com/moohng/dui/workflows/Node.js%20Package/badge.svg">
+  <img alt="build" src="https://github.com/moohng/dui/workflows/build/badge.svg">
+  <img alt="npm" src="https://github.com/moohng/dui/workflows/npm/badge.svg">
 </p>
 
 
