@@ -18,7 +18,7 @@ module.exports = function () {
       results.push({
         name: dir,
         input: path.join(filePath, 'index.js'),
-        style: path.join(filePath, `${dir}.scss`),
+        // style: path.join(filePath, `${dir}.scss`),
       })
       continue
     }
