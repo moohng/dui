@@ -1,6 +1,6 @@
 {
   "name": "@moohng/dui",
-  "version": "1.0.5",
+  "version": "1.0.7",
   "private": false,
   "description": "基于 Vue 2 的轻量级组件库",
   "author": "Kevin",
