@@ -1,6 +1,6 @@
 {
   "name": "@moohng/dui",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "private": false,
   "description": "基于 Vue 2 的轻量级组件库",
   "author": "Kevin",
@@ -16,7 +16,8 @@
   "browser": "dist/dui.min.js",
   "files": [
     "dist",
-    "lib"
+    "lib",
+    "src"
   ],
   "keywords": [
     "dui",

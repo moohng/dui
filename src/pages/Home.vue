@@ -1,5 +1,16 @@
 <template>
   <div class="home">
+    <!-- <div class="status-bar bg-orange">
+      <div class="status-bar--fixed"></div>
+    </div> -->
+    <div class="nav-bar with-status-bar bg-orange">
+      <div class="nav-bar--fixed nav-bar__content">
+        <div class="nav-bar__title">Hello</div>
+        <div>返回</div>
+        <div>操作</div>
+      </div>
+    </div>
+    <div class="padding-lr padding-tb-sm text-grey">快捷操作</div>
     <div class="dui-list indent">
       <div class="dui-item" @click="onToastClick">Toast</div>
       <div class="dui-item" @click="onActionSheetClick">Action Sheet</div>

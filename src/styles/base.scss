@@ -17,11 +17,15 @@ body {
   overflow-x: hidden;
   word-break: break-all;
 }
+* {
+  box-sizing: border-box;
+}
 ::-webkit-input-placeholder {
   color: $placeholderColor;
 }
 img {
   max-width: 100%;
+  vertical-align: middle;
 }
 
 // 禁止弹窗滚动穿透
@@ -30,11 +34,17 @@ body.stop-scroll {
   width: 100%;
 }
 
+[v-cloak] {
+  display: none;
+}
+
 
 @import './layout.scss';
 @import './appearance.scss';
 
-@import './button.scss';
-@import './list.scss';
 @import './icon.scss';
 @import './mask.scss';
+
+@import './button.scss';
+@import './list.scss';
+@import './navbar.scss';
