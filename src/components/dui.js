@@ -1,8 +1,8 @@
-import './styles/dui.scss';
-import ActionSheet from './components/actionsheet/index';
-import Dialog from './components/dialog/index';
-import Toast from './components/toast/index';
-import Loading from './components/loading/index';
+import '../styles/dui.scss';
+import ActionSheet from './actionsheet';
+import Dialog from './dialog';
+import Toast from './toast';
+import Loading from './loading';
 
 function install(Vue) {
   Vue.use(ActionSheet);

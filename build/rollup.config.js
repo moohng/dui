@@ -11,7 +11,7 @@ const loadEntries = require('./loadEntries')
 
 const entries = [
   ...loadEntries(),
-  { name: 'dui', input: 'src/dui.js' },
+  { name: 'dui', input: 'src/components/dui.js' },
   { name: 'dui.base', input: 'src/styles/base.scss' },
 ]
 

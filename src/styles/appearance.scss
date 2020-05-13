@@ -81,7 +81,7 @@
   white-space: nowrap;
 }
 @for $row from 2 through 6 {
-  .text-#{$row} {
+  .text-cut-#{$row} {
     display: -webkit-box;
     -webkit-box-orient: vertical;
     line-clamp: $row;
