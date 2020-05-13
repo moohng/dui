@@ -1,9 +1,9 @@
 .DS_Store
 .vscode/
 node_modules/
-/dist
-/lib
-/gh-pages
+dist/
+lib/
+gh-pages/
 
 # local env files
 .env.local
