@@ -1,5 +1,5 @@
 /* 间隔 */
-@each $key, $value in (xxl: 96px, xl: 64px, lg: 48px, df: 32px, sm: 24px, xs: 16px, xxs: 8px) {
+@each $key, $value in (xxl: 48px, xl: 32px, lg: 24px, df: 16px, sm: 12px, xs: 8px, xxs: 4px) {
   @if $key == df {
     @each $dir in top, right, bottom, left {
       .margin-#{$dir} {
@@ -66,7 +66,7 @@
 }
 
 /* 字体大小 */
-@each $key, $value in (xl: 40px, lg: 34px, df: 28px, sm: 24px, xs: 20px) {
+@each $key, $value in (xl: 20px, lg: 17px, df: 14px, sm: 12px, xs: 10px) {
   .text-#{$key} {
     font-size: $value;
   }
@@ -169,7 +169,7 @@
 }
 
 .radius {
-  border-radius: 6px;
+  border-radius: 3px;
 }
 
 .round {

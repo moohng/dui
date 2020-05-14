@@ -61,6 +61,6 @@ $navBarHeight: 44PX;
     top: 0;
   }
   .nav-bar__title {
-    top: calc(100% - #{$statusBarHeight});
+    top: calc(50% + #{$statusBarHeight / 2});
   }
 }

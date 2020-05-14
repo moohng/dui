@@ -67,7 +67,13 @@ function jsConfig(name, input) {
       postcss({
         extract: `${name}.css`,
         // minimize: true,
-        plugins: [px2vw(), autoprefixer()],
+        plugins: [
+          px2vw({
+            viewportWidth: 375,
+            rootValue: 37.5,
+          }),
+          autoprefixer(),
+        ],
       }),
     ])
   }]

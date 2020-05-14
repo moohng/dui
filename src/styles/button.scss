@@ -1,12 +1,12 @@
 .dui-button {
   display: inline-block;
-  padding: 20px 48px;
-  font-size: 32px;
+  padding: 10px 24px;
+  font-size: 16px;
   // color: $colorBlack;
   // background-color: $colorWhite;
   outline: 0;
   border: 0;
-  border-radius: 12px;
+  border-radius: 6px;
   box-sizing: border-box;
   &:active {
     opacity: 0.9;
@@ -31,14 +31,14 @@
   }
 }
 .dui-button.lg {
-  padding: 24px 56px;
-  font-size: 40px;
+  padding: 12px 28px;
+  font-size: 20px;
 }
 .dui-button.sm {
-  padding: 16px 40px;
-  font-size: 28px;
+  padding: 8px 20px;
+  font-size: 14px;
 }
 .dui-button.xs {
-  padding: 12px 32px;
-  font-size: 28px;
+  padding: 6px 16px;
+  font-size: 14px;
 }

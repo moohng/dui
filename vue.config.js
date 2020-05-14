@@ -26,7 +26,10 @@ module.exports = {
     loaderOptions: {
       postcss: {
         plugins: [
-          px2vw({}),
+          px2vw({
+            viewportWidth: 375,
+            rootValue: 37.5,
+          }),
         ],
       },
     },
