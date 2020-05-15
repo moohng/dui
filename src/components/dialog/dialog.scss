@@ -4,21 +4,23 @@
   &__body {
     opacity: 0;
     position: fixed;
-    top: 50%;
+    top: 45%;
     left: 50%;
-    width: 640px;
-    max-width: 90%;
-    line-height: 1.4;
-    font-size: $textLarge;
-    text-align: center;
-    background-color: $colorWhite;
     transform: scale(1.185) translate(-50%, -50%);
     transform-origin: 0 0;
     transition: all .3s;
-    border-radius: 24px;
     overflow: hidden;
     z-index: 10000;
     pointer-events: none;
+    &--default {
+      width: 640px;
+      max-width: 90%;
+      line-height: 1.4;
+      font-size: $textLarge;
+      text-align: center;
+      background-color: $colorWhite;
+      border-radius: 24px;
+    }
   }
   &__hd+&__ft {
     margin-top: 32px;

@@ -4,13 +4,14 @@ $navBarHeight: 44PX;
 .status-bar {
   width: 100%;
   height: $statusBarHeight;
+  background: #fff;
   &--fixed {
     position: fixed;
     left: 0;
     top: 0;
     width: 100%;
     height: $statusBarHeight;
-    background-color: inherit;
+    background: inherit;
     z-index: 99;
   }
   &.fixed {
@@ -34,7 +35,7 @@ $navBarHeight: 44PX;
     top: 0;
     width: 100%;
     height: $statusBarHeight + $navBarHeight;
-    background-color: inherit;
+    background: inherit;
     z-index: 99;
   }
   &__content {

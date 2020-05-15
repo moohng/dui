@@ -1,7 +1,7 @@
 <template>
   <div class="dui-dialog" :class="{ toggle: show }">
     <div class="mask" @click="onMask"></div>
-    <div class="dui-dialog__body">
+    <div class="dui-dialog__body" :class="{'dui-dialog__body--default': !$slots.default}">
       <slot>
         <div class="dui-dialog__hd padding-lr-lg padding-top-xl padding-bottom" v-if="title">
           <strong>{{ title }}</strong>
@@ -46,6 +46,10 @@ export default {
           class: '',
         },
       ],
+    },
+    className: {
+      type: [Array, String, Object],
+      default: '',
     },
   },
   data() {
