@@ -1,7 +1,7 @@
 $statusBarHeight: 20PX;
 $navBarHeight: 44PX;
 
-.status-bar {
+.dui-status-bar {
   width: 100%;
   height: $statusBarHeight;
   background: #fff;
@@ -19,7 +19,7 @@ $navBarHeight: 44PX;
   }
 }
 
-.nav-bar {
+.dui-nav-bar {
   position: relative;
   width: 100%;
   height: $navBarHeight;
@@ -53,15 +53,15 @@ $navBarHeight: 44PX;
     font-size: 16PX;
   }
 }
-.status-bar+.nav-bar .nav-bar--fixed {
+.dui-status-bar+.dui-nav-bar .dui-nav-bar--fixed {
   top: $statusBarHeight;
 }
-.nav-bar.with-status-bar {
-  .nav-bar--fixed {
+.dui-nav-bar.with-status-bar {
+  .dui-nav-bar--fixed {
     padding-top: $statusBarHeight;
     top: 0;
   }
-  .nav-bar__title {
+  .dui-nav-bar__title {
     top: calc(50% + #{$statusBarHeight / 2});
   }
 }

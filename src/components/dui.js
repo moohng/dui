@@ -3,6 +3,7 @@ import ActionSheet from './actionsheet';
 import Dialog from './dialog';
 import Toast from './toast';
 import Loading from './loading';
+import Scroller from './scroller';
 
 function install(Vue) {
   // 注册组件
@@ -10,6 +11,7 @@ function install(Vue) {
   Vue.use(Dialog);
   Vue.use(Toast);
   Vue.use(Loading);
+  Vue.use(Scroller);
 
   // 其他插件
 }
@@ -27,4 +29,5 @@ export {
   Dialog,
   Toast,
   Loading,
+  Scroller,
 };

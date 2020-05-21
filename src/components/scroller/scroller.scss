@@ -1,0 +1,29 @@
+.dui-page {
+  height: 100%;
+}
+.dui-scroller {
+  height: calc(100% - 64PX);
+  overflow: hidden;
+  &__wrapper {
+    position: relative;
+    min-height: calc(100% + 1px);
+  }
+}
+
+.text {
+  text-align: center;
+  color: #999;
+}
+.pulldown-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 15PX;
+  width: 100%;
+  transform: translateY(-100%) translateZ(0);
+  @extend .text;
+}
+.pullup-wrapper {
+  padding: 15px;
+  @extend .text;
+}

@@ -84,3 +84,45 @@
     }
   }
 }
+
+@each $size, $height in (
+  (xl, 2),
+  (lg, 1.8),
+  (df, 1.6),
+  (sm, 1.4),
+  (xs, 1.2),
+  (xxs, 1),
+) {
+  .line-#{$size} {
+    line-height: $height;
+  }
+}
+
+.float-left {
+  float: left;
+}
+.float-right {
+  float: right;
+}
+.clearfix {
+  *zoom: 1;
+  &::after {
+    content: '';
+    display: table;
+    clear: both;
+  }
+}
+
+.over-hidden {
+  overflow: hidden;
+}
+.over-scroll {
+  overflow: scroll;
+}
+.over-auto {
+  overflow: auto;
+}
+
+.relative {
+  position: relative;
+}
