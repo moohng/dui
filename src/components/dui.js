@@ -1,4 +1,4 @@
-import '../styles/dui.scss';
+import '../styles/base.scss';
 import ActionSheet from './actionsheet';
 import Dialog from './dialog';
 import Toast from './toast';

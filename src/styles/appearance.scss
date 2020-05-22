@@ -66,7 +66,7 @@
 }
 
 /* 字体大小 */
-@each $key, $value in (xl: 20px, lg: 17px, df: 14px, sm: 12px, xs: 10px) {
+@each $key, $value in (xl: 20px, lg: 18px, df: 14px, sm: 12px, xs: 10px) {
   .text-#{$key} {
     font-size: $value;
   }
@@ -183,4 +183,7 @@
 
 .bg-img {
   background: #f1f1f1 center / contain no-repeat;
+  &.cover {
+    background-size: cover;
+  }
 }

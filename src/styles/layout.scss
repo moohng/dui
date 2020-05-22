@@ -65,22 +65,36 @@
   display: flex;
   flex-wrap: wrap;
 }
+@mixin square($gapSpace, $index) {
+  position: relative;
+  margin-right: $gapSpace;
+  margin-bottom: $gapSpace;
+  padding-bottom: calc((100% - (#{$index - 1}) * #{$gapSpace}) / #{$index});
+  height: 0;
+  width: calc((100% - (#{$index - 1}) * #{$gapSpace}) / #{$index});
+  overflow: hidden;
+  &:nth-child(#{$index}n) {
+    margin-right: 0;
+  }
+}
 @for $index from 1 through 5 {
   .col-#{$index} {
     width: 100 / $index * 1%;
     box-sizing: border-box;
+    &.square.lg {
+      @include square(20px, $index);
+    }
     &.square {
-      position: relative;
-      margin-right: 20px;
-      margin-bottom: 20px;
-      @extend .radius;
-      padding-bottom: calc((100% - (#{$index - 1}) * 20px) / #{$index});
-      height: 0;
-      width: calc((100% - (#{$index - 1}) * 20px) / #{$index});
-      overflow: hidden;
-      &:nth-child(#{$index}n) {
-        margin-right: 0;
-      }
+      @include square(15px, $index);
+    }
+    &.square.sm {
+      @include square(10px, $index);
+    }
+    &.square.xs {
+      @include square(6px, $index);
+    }
+    &.square.xxs {
+      @include square(4px, $index);
     }
   }
 }
