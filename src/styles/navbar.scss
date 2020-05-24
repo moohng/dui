@@ -34,7 +34,7 @@ $navBarHeight: 44PX;
     left: 0;
     top: 0;
     width: 100%;
-    height: $statusBarHeight + $navBarHeight;
+    height: $navBarHeight;
     background: inherit;
     z-index: 99;
   }
@@ -60,6 +60,7 @@ $navBarHeight: 44PX;
   .dui-nav-bar--fixed {
     padding-top: $statusBarHeight;
     top: 0;
+    height: $statusBarHeight + $navBarHeight;
   }
   .dui-nav-bar__title {
     top: calc(50% + #{$statusBarHeight / 2});

@@ -28,7 +28,7 @@ module.exports = {
         plugins: [
           px2vw({
             viewportWidth: 375,
-            rootValue: 37.5,
+            rootValue: false,
           }),
         ],
       },

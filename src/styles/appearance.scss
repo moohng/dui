@@ -92,36 +92,36 @@
 
 /* 颜色 */
 @each $name, $value in (
-  (df, #f7f7f7),
-  (red, #ff4f44),
-  (orange, #ff9056),
-  (yellow, #fbbd08),
-  (green, #39b54a),
-  (cyan, #1cbbb4),
-  (blue, #0081ff),
-  (olive, #8dc63f),
-  (purple, #6739b6),
-  (mauve, #9c26b0),
-  (pink, #e03997),
-  (brown, #a5673f),
-  (grey, #898989),
-  (gray, #aaa),
-  (black, #333),
-  (white, #fff),
+  (-df, #f7f7f7),
+  (-red, #ff4f44),
+  (-orange, #ff9056),
+  (-yellow, #fbbd08),
+  (-green, #39b54a),
+  (-cyan, #1cbbb4),
+  (-blue, #0081ff),
+  (-olive, #8dc63f),
+  (-purple, #6739b6),
+  (-mauve, #9c26b0),
+  (-pink, #e03997),
+  (-brown, #a5673f),
+  (-grey, #898989),
+  (-gray, #aaa),
+  (-black, #333),
+  (-white, #fff),
 ) {
-  @if ($name == df or $name == white) {
-    .bg-#{$name} {
+  @if ($name == -df or $name == -white) {
+    .bg#{$name} {
       color: #333;
       background-color: $value;
     }
   } @else {
-    .bg-#{$name} {
+    .bg#{$name} {
       @extend .text-white;
       background-color: $value;
     }
   }
-  .text-#{$name},
-  .line-#{$name} {
+  .text#{$name},
+  .line#{$name} {
     color: $value;
   }
 }
@@ -138,34 +138,33 @@
 .solid-bottom,
 .solid-left {
   position: relative;
+  border-color: rgba(0, 0, 0, 0.1);
+  &[class*=line] {
+    border-color: currentColor;
+  }
   &::after {
     content: '';
     position: absolute;
-    width: 200%;
-    height: 200%;
+    width: calc(200% - 2PX);
+    height: calc(200% - 2PX);
     top: 0;
     left: 0;
     transform: scale(.5);
     transform-origin: 0 0;
+    border-color: inherit;
     border-radius: inherit;
-    box-sizing: border-box;
     pointer-events: none;
   }
 }
 .solid::after {
-  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-style: solid;
+  border-width: 1px;
 }
-.solid-top::after {
-  border-top: 1px solid rgba(0, 0, 0, 0.1);
-}
-.solid-right::after {
-  border-right: 1px solid rgba(0, 0, 0, 0.1);
-}
-.solid-bottom::after {
-  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-}
-.solid-left::after {
-  border-left: 1px solid rgba(0, 0, 0, 0.1);
+@each $dir in top, right, bottom, left {
+  .solid-#{$dir}::after {
+    border-#{$dir}-style: solid;
+    border-#{$dir}-width: 1px;
+  }
 }
 
 .radius {

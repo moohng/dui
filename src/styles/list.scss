@@ -7,28 +7,26 @@
   }
 }
 .dui-list.indent {
-  padding-left: 15px;
-  padding-right: 15px;
-  @extend .bg-white;
+  @extend .padding-lr;
+  background-color: #fff;
   .dui-item {
-    padding: 8px 0;
+    padding-left: 0;
+    padding-right: 0;
   }
 }
 .dui-item {
-  position: relative;
-  padding: 8px 15px;
+  @extend .padding-tb-xs;
+  @extend .padding-lr;
   min-height: 56px;
-  @extend .bg-white;
-  box-sizing: border-box;
-  display: flex;
-  align-items: center;
+  background-color: #fff;
+  @extend .flex;
+  @extend .align-center;
   @extend .solid-bottom;
   &:last-child::after {
     border: 0;
   }
   &.indent {
-    margin-left: 15px;
-    margin-right: 15px;
+    @extend .margin-lr;
     padding-left: 0;
     padding-right: 0;
   }

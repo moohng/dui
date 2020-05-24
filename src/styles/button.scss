@@ -1,16 +1,13 @@
 .dui-button {
   display: inline-block;
   padding: 10px 24px;
-  font-size: 16px;
+  font-size: 14px;
   text-align: center;
   text-decoration: none;
-  line-height: inherit;
-  // color: $colorBlack;
-  // background-color: $colorWhite;
+  line-height: 1.2;
   outline: 0;
   border: 0;
   border-radius: 6px;
-  box-sizing: border-box;
   &:active {
     opacity: 0.9;
   }
@@ -19,12 +16,10 @@
     opacity: 0.6;
     color: #ffffff;
   }
-  &[class*="line"] {
-    background-color: transparent;
+  &[class*=line] {
     @extend .solid;
-    &::after {
-      border-color: currentColor;
-    }
+    background-color: transparent;
+    border-color: currentColor;
   }
   &.block {
     width: 100%;
@@ -36,13 +31,17 @@
 .dui-button+.dui-button {
   margin-left: 8px;
 }
+.dui-button.block+.dui-button.block {
+  margin-top: 8px;
+  margin-left: 0;
+}
 .dui-button.lg {
   padding: 12px 28px;
-  font-size: 20px;
+  font-size: 16px;
 }
 .dui-button.sm {
   padding: 8px 20px;
-  font-size: 14px;
+  font-size: 12px;
 }
 .dui-button.xs {
   padding: 6px 14px;

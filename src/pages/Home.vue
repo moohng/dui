@@ -3,12 +3,19 @@
     <!-- <div class="status-bar bg-orange">
       <div class="status-bar--fixed"></div>
     </div> -->
-    <div class="nav-bar with-status-bar bg-orange">
-      <div class="nav-bar--fixed nav-bar__content">
-        <div class="nav-bar__title">Hello</div>
+    <div class="dui-nav-bar with-status-bar bg-orange">
+      <div class="dui-nav-bar--fixed dui-nav-bar__content">
+        <div class="dui-nav-bar__title">Hello Dui</div>
         <div>返回</div>
         <div>操作</div>
       </div>
+    </div>
+    <div class="padding-lr padding-tb-sm text-grey">基本布局（base）</div>
+    <div class="dui-list indent">
+      <div class="dui-item" @click="onToastClick">Toast</div>
+      <div class="dui-item line-red" @click="onActionSheetClick">Action Sheet</div>
+      <div class="dui-item" @click="onDialogClick">Dialog</div>
+      <div class="dui-item" @click="onLoadingClick">Loading</div>
     </div>
     <div class="padding-lr padding-tb-sm text-grey">快捷操作</div>
     <div class="dui-list indent">
@@ -35,18 +42,10 @@
       </div>
     </div>
     <div class="padding margin-top bg-white">
-      <div class="margin-top-sm">
-        <button class="dui-button block lg bg-red">large</button>
-      </div>
-      <div class="margin-top-sm">
-        <button class="dui-button block bg-red">default</button>
-      </div>
-      <div class="margin-top-sm">
-        <button class="dui-button block sm line-red round">small</button>
-      </div>
-      <div class="margin-top-sm">
-        <button class="dui-button block xs line-orange">xsmall</button>
-      </div>
+      <button class="dui-button block lg bg-red">large</button>
+      <button class="dui-button block bg-red">default</button>
+      <button class="dui-button block sm line-red round">small</button>
+      <button class="dui-button block xs line-orange">xsmall</button>
     </div>
   </div>
 </template>
