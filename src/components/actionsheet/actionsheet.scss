@@ -7,13 +7,15 @@
     bottom: 0;
     width: 100%;
     z-index: 10000;
-    background-color: $colorDefault;
-    border-top-left-radius: 24px;
-    border-top-right-radius: 24px;
     transform: translate(0, 100%);
     transition: transform .3s;
     overflow: hidden;
     backface-visibility: hidden;
+  }
+  &__body--default {
+    background-color: $colorDefault;
+    border-top-left-radius: 24px;
+    border-top-right-radius: 24px;
   }
   &.toggle {
     .dui-actionsheet__body {
