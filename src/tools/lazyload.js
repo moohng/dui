@@ -11,7 +11,6 @@ function throttle(func, time) {
     }
     timer = setTimeout(() => {
       func.apply(this, args);
-      clearTimeout(timer);
       timer = null;
     }, time);
   };
@@ -61,30 +60,33 @@ class Lazyload {
     const {
       top, left, bottom, right,
     } = el.getBoundingClientRect();
-    if ((top < window.innerHeight && bottom > 0) || (left < window.innerWidth && right > 0)) { // 屏幕中
-      const { src } = el.dataset;
-      if (this.imgList.includes(src)) {
-        setImage(el, src);
-        return;
+    if ((top < window.innerHeight && bottom > 0) && (left < window.innerWidth && right > 0)) { // 屏幕中
+      const { tempSrc: src } = el;
+      if (this.imgList.includes(src)) { // 如果图片已被缓存
+        setImage(el, src); // 设置图片
+        this.remove(el); // 移除节点
+      } else {
+        // 开始加载
+        const img = new Image();
+        img.onload = () => {
+          setImage(el, src); // 设置图片
+          this.imgList.push(src); // 添加缓存
+          this.remove(el); // 移除节点
+        };
+        img.src = src;
       }
-      // 开始加载
-      const img = new Image();
-      img.onload = () => {
-        this.imgList.push(src);
-        setImage(el, src);
-      };
-      img.src = src;
     }
   }
 
-  add(el, src) {
-    el.dataset.src = el.dataset.src || src;
+  add(el, src = el.dataset.src) {
+    el.tempSrc = src;
     if (!this.nodeList.includes(el)) {
       this.nodeList.push(el);
     }
-    // 占位图
+    // 设置占位图
     setImage(el, this.defaultUrl);
-    setTimeout(() => this.loadImage(el));
+    this.loadImage(el);
+    // setTimeout(() => this.loadImage(el));
   }
 
   remove(el) {
@@ -94,5 +96,29 @@ class Lazyload {
     }
   }
 }
+
+Lazyload.install = function install(Vue) {
+  const lz = Lazyload.init();
+  // 监听 data-src 节点
+  document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('[data-src]').forEach((item) => {
+      lz.add(item);
+    });
+  }, false);
+  // v-src 自定义指令
+  Vue.directive('src', {
+    inserted: (el, { value }) => {
+      lz.add(el, value);
+    },
+    update: (el, { value, oldValue }) => {
+      if (value !== oldValue) {
+        lz.add(el, value);
+      }
+    },
+    unbind: (el) => {
+      lz.remove(el);
+    },
+  });
+};
 
 export default Lazyload;

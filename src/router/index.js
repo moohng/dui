@@ -2,6 +2,7 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 import Home from '../pages/Home.vue';
 import Dialog from '../pages/Dialog.vue';
+import Lazyload from '../pages/Lazyload.vue';
 
 Vue.use(VueRouter);
 
@@ -15,6 +16,11 @@ const routes = [
     path: '/dialog',
     name: 'Dialog',
     component: Dialog,
+  },
+  {
+    path: '/lazyload',
+    name: 'Lazyload',
+    component: Lazyload,
   },
   // {
   //   path: '/about',

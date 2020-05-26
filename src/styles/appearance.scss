@@ -66,7 +66,7 @@
 }
 
 /* 字体大小 */
-@each $key, $value in (xl: 20px, lg: 18px, df: 14px, sm: 12px, xs: 10px) {
+@each $key, $value in (xl: 20px, lg: 18px, md: 16px, df: 14px, sm: 12px, xs: 10px) {
   .text-#{$key} {
     font-size: $value;
   }

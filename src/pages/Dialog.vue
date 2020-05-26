@@ -15,10 +15,10 @@
     </div>
     <!-- 背景弹窗 -->
     <dui-dialog ref="bgDialog" @mask="$refs.bgDialog.close()">
-      <div class="bg-dialog__wrapper bg-img cover" v-src="'http://www.kutoo8.com/upload/image/00158649/15_1920x1200.jpg'"></div>
+      <div class="bg-dialog__wrapper bg-img cover" v-src="'https://images.quarkblockchain.cn/images/user/bj.png'"></div>
     </dui-dialog>
     <dui-dialog ref="imgDialog" @mask="$refs.imgDialog.close()">
-      <img v-src="'http://www.kutoo8.com/upload/image/00158649/15_1920x1200.jpg'" />
+      <img v-src="'https://images.quarkblockchain.cn/images/user/bj.png'" />
     </dui-dialog>
   </div>
 </template>

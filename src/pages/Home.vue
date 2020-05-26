@@ -12,20 +12,22 @@
     </div>
     <div class="padding-lr padding-tb-sm text-grey">基本布局（base）</div>
     <div class="dui-list indent">
-      <div class="dui-item" @click="onToastClick">Toast</div>
+      <div class="dui-item" @click="$router.push('dialog')">Dialog</div>
       <div class="dui-item line-red" @click="onActionSheetClick">Action Sheet</div>
       <div class="dui-item" @click="onDialogClick">Dialog</div>
       <div class="dui-item" @click="onLoadingClick">Loading</div>
     </div>
-    <div class="padding-lr padding-tb-sm text-grey">快捷操作</div>
+    <div class="padding-lr padding-tb-sm text-grey">组件列表</div>
     <div class="dui-list indent">
+      <div class="dui-item" @click="$router.push('dialog')">Dialog</div>
       <div class="dui-item" @click="onToastClick">Toast</div>
       <div class="dui-item" @click="onActionSheetClick">Action Sheet</div>
       <div class="dui-item" @click="onDialogClick">Dialog</div>
       <div class="dui-item" @click="onLoadingClick">Loading</div>
     </div>
+    <div class="padding-lr padding-tb-sm text-grey">其他工具</div>
     <div class="dui-list">
-      <div class="dui-item" v-for="n in 4" :key="n">站位{{ n }}</div>
+      <div class="dui-item" @click="$router.push('lazyload')">图片懒加载</div>
     </div>
     <div class="padding margin-top bg-white grid">
       <div class="col-2 padding-xs">

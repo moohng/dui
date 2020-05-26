@@ -5,7 +5,7 @@ import Toast from './toast';
 import Loading from './loading';
 import Scroller from './scroller';
 
-import bgPlugin from '../tools/bgPlugin';
+import lazyloadPlugin from '../tools/lazyload';
 
 function install(Vue) {
   // 注册组件
@@ -16,7 +16,7 @@ function install(Vue) {
   Vue.use(Scroller);
 
   // 其他插件
-  Vue.use(bgPlugin);
+  Vue.use(lazyloadPlugin);
 }
 
 if (typeof window.Vue !== 'undefined') {
