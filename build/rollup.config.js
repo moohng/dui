@@ -34,7 +34,10 @@ function jsConfig(name, input) {
       postcss({
         extract: `${name}.min.css`,
         minimize: true,
-        plugins: [px2vw(), autoprefixer()],
+        plugins: [px2vw({
+          viewportWidth: 375,
+          rootValue: false,
+        }), autoprefixer()],
       }),
       babel({
         babelrc: false, // 忽略项目中的babel配置文件，使用此配置
@@ -70,7 +73,7 @@ function jsConfig(name, input) {
         plugins: [
           px2vw({
             viewportWidth: 375,
-            rootValue: 37.5,
+            rootValue: false,
           }),
           autoprefixer(),
         ],

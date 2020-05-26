@@ -1,7 +1,7 @@
 <template>
   <div class="dui-actionsheet" :class="{ toggle: show }">
     <div class="mask" @click="close()"></div>
-    <div class="dui-actionsheet__body">
+    <div class="dui-actionsheet__body" :class="{'dui-actionsheet__body--default': !$slots.default}">
       <slot>
         <div class="dui-item" v-if="title">
           <p class="flex-sub text-sm text-gray text-center">{{ title }}</p>
