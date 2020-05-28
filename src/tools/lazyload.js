@@ -73,20 +73,25 @@ class Lazyload {
           this.imgList.push(src); // 添加缓存
           this.remove(el); // 移除节点
         };
+        img.onerror = () => {
+          this.remove(el);
+        };
         img.src = src;
       }
     }
   }
 
   add(el, src = el.dataset.src) {
+    if (!src) {
+      return;
+    }
     el.tempSrc = src;
     if (!this.nodeList.includes(el)) {
       this.nodeList.push(el);
     }
     // 设置占位图
     setImage(el, this.defaultUrl);
-    this.loadImage(el);
-    // setTimeout(() => this.loadImage(el));
+    setTimeout(() => this.loadImage(el));
   }
 
   remove(el) {
@@ -99,12 +104,6 @@ class Lazyload {
 
 Lazyload.install = function install(Vue) {
   const lz = Lazyload.init();
-  // 监听 data-src 节点
-  document.addEventListener('DOMContentLoaded', () => {
-    document.querySelectorAll('[data-src]').forEach((item) => {
-      lz.add(item);
-    });
-  }, false);
   // v-src 自定义指令
   Vue.directive('src', {
     inserted: (el, { value }) => {

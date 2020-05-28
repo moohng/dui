@@ -5,12 +5,14 @@
       <slot name="pulldown" scope="pullingdown">
         <div class="pulldown-wrapper" v-if="pulldown" ref="pulldown">
           <div v-show="pullingdown === 'before'">
-            <span>下拉刷新</span>
+            <span>{{ pullingdownText[pullingdown] }}</span>
           </div>
           <div v-show="pullingdown === 'loading'">
-            <span>正在刷新...</span>
+            <span>{{ pullingdownText[pullingdown] }}</span>
           </div>
-          <div v-show="pullingdown === 'after'"><span>刷新完成</span></div>
+          <div v-show="pullingdown === 'after'">
+            <span>{{ isSuccess ? pullingdownText.success : pullingdownText.fail }}</span>
+          </div>
         </div>
       </slot>
       <!-- 列表 -->
@@ -37,9 +39,11 @@
 import BScroll from '@better-scroll/core';
 import PullDown from '@better-scroll/pull-down';
 import Pullup from '@better-scroll/pull-up';
+import ObserveDOM from '@better-scroll/observe-dom';
 
 BScroll.use(PullDown);
 BScroll.use(Pullup);
+BScroll.use(ObserveDOM);
 
 export default {
   name: 'dui-scroller',
@@ -50,7 +54,7 @@ export default {
     },
     stopTime: {
       type: Number,
-      default: 600,
+      default: 400,
     },
     pullup: {
       type: [Boolean, Object], // { threshold：触发下拉刷新距离 }
@@ -60,6 +64,13 @@ export default {
   data() {
     return {
       pullingdown: 'before',
+      pullingdownText: {
+        before: '下拉刷新',
+        loading: '正在刷新...',
+        success: '刷新成功',
+        fail: '刷新失败',
+      },
+      isSuccess: true,
 
       hasNext: 'more',
     };
@@ -67,7 +78,7 @@ export default {
   methods: {
     finishPullup(hasNext) {
       this.scroller.finishPullUp();
-      this.scroller.refresh();
+      // this.scroller.refresh();
       if (!hasNext) {
         this.scroller.closePullUp();
         this.hasNext = 'noMore';
@@ -75,31 +86,53 @@ export default {
         this.hasNext = 'more';
       }
     },
-    finishPulldown() {
+    finishPulldown(isSuccess = true) {
+      this.isSuccess = isSuccess;
       this.pullingdown = 'after';
       setTimeout(() => {
         this.scroller.finishPullDown();
+        setTimeout(() => {
+          // this.scroller.refresh();
+          this.pullingdown = 'before';
+          // 开启上拉加载更多
+          if (this.pullup) {
+            this.hasNext = 'more';
+            this.scroller.openPullUp();
+          }
+        }, 600);
       }, this.stopTime);
-      setTimeout(() => {
-        this.scroller.refresh();
-        this.pullingdown = 'before';
-        // 开启上拉加载更多
-        if (this.pullup) {
-          this.hasNext = 'more';
-          this.scroller.openPullUp();
-        }
-      }, 800);
+    },
+    startPulldown() {
+      if (this.pulldown) {
+        this.scroller.autoPullDownRefresh();
+      }
+    },
+    open(type) {
+      if (type === 'pullup') {
+        this.scroller.openPullUp();
+      } else if (type === 'pulldown') {
+        this.scroller.openPullDown();
+      }
+    },
+    close(type) {
+      if (type === 'pullup') {
+        this.scroller.closePullUp();
+      } else if (type === 'pulldown') {
+        this.scroller.closePullDown();
+      }
     },
   },
   mounted() {
     const pulldownHeight = this.$refs.pulldown ? this.$refs.pulldown.getBoundingClientRect().height : 64;
     this.scroller = new BScroll(this.$refs.bsWrapper, {
+      observeDOM: true,
       bounceTime: 600,
       pullDownRefresh: typeof this.pulldown === 'boolean' ? {
         threshold: pulldownHeight + 10,
         stop: pulldownHeight,
       } : this.pulldown,
       pullUpLoad: this.pullup,
+      tap: 'tap',
     });
     if (this.pulldown) {
       this.scroller.on('pullingDown', () => {

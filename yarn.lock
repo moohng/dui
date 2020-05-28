@@ -750,6 +750,13 @@
   dependencies:
     "@better-scroll/shared-utils" "^2.0.0-beta.8"
 
+"@better-scroll/observe-dom@^2.0.0-beta.8":
+  version "2.0.0-beta.8"
+  resolved "https://registry.npm.taobao.org/@better-scroll/observe-dom/download/@better-scroll/observe-dom-2.0.0-beta.8.tgz#8116553d9a41e25830955dc4372a2294c7df3fe1"
+  integrity sha1-gRZVPZpB4lgwlV3ENyoilMffP+E=
+  dependencies:
+    "@better-scroll/core" "^2.0.0-beta.8"
+
 "@better-scroll/pull-down@^2.0.0-beta.8":
   version "2.0.0-beta.8"
   resolved "https://registry.npm.taobao.org/@better-scroll/pull-down/download/@better-scroll/pull-down-2.0.0-beta.8.tgz#62d8df2eea8e4b87bed54730e449654aff4479bf"
