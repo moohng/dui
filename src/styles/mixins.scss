@@ -1,0 +1,6 @@
+// iPhone X 兼容
+@mixin ipx($p, $v) {
+  @media only screen and (device-width: 375px) and (device-height: 812px) and (-webkit-min-device-pixel-ratio: 3) {
+    #{$p}: $v;
+  }
+}
