@@ -1,7 +1,11 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 import Home from '../pages/Home.vue';
+import Button from '../pages/Button.vue';
+
 import Dialog from '../pages/Dialog.vue';
+import PullDown from '../pages/PullDown.vue';
+
 import Lazyload from '../pages/Lazyload.vue';
 
 Vue.use(VueRouter);
@@ -21,6 +25,16 @@ const routes = [
     path: '/lazyload',
     name: 'Lazyload',
     component: Lazyload,
+  },
+  {
+    path: '/button',
+    name: 'Button',
+    component: Button,
+  },
+  {
+    path: '/pulldown',
+    name: 'PullDown',
+    component: PullDown,
   },
   // {
   //   path: '/about',

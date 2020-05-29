@@ -12,42 +12,20 @@
     </div>
     <div class="padding-lr padding-tb-sm text-grey">基本布局（base）</div>
     <div class="dui-list indent">
-      <div class="dui-item" @click="$router.push('dialog')">Dialog</div>
-      <div class="dui-item line-red" @click="onActionSheetClick">Action Sheet</div>
-      <div class="dui-item" @click="onDialogClick">Dialog</div>
-      <div class="dui-item" @click="onLoadingClick">Loading</div>
+      <div class="dui-item line-red" @click="$router.push('layout')">Layout</div>
+      <div class="dui-item" @click="$router.push('button')">Button</div>
     </div>
     <div class="padding-lr padding-tb-sm text-grey">组件列表</div>
     <div class="dui-list indent">
       <div class="dui-item" @click="$router.push('dialog')">Dialog</div>
       <div class="dui-item" @click="onToastClick">Toast</div>
       <div class="dui-item" @click="onActionSheetClick">Action Sheet</div>
-      <div class="dui-item" @click="onDialogClick">Dialog</div>
       <div class="dui-item" @click="onLoadingClick">Loading</div>
+      <div class="dui-item" @click="$router.push('pulldown')">下拉刷新</div>
     </div>
     <div class="padding-lr padding-tb-sm text-grey">其他工具</div>
     <div class="dui-list">
       <div class="dui-item" @click="$router.push('lazyload')">图片懒加载</div>
-    </div>
-    <div class="padding margin-top bg-white grid">
-      <div class="col-2 padding-xs">
-        <button class="dui-button lg bg-red">large</button>
-      </div>
-      <div class="col-3 padding-xs">
-        <button class="dui-button bg-red">default</button>
-      </div>
-      <div class="col-3 padding-xs">
-        <button class="dui-button sm line-red round">small</button>
-      </div>
-      <div class="col-3 padding-xs">
-        <button class="dui-button xs bg-df">xsmall</button>
-      </div>
-    </div>
-    <div class="padding margin-top bg-white">
-      <button class="dui-button block lg bg-red">large</button>
-      <button class="dui-button block bg-red">default</button>
-      <button class="dui-button block sm line-red round">small</button>
-      <button class="dui-button block xs line-orange">xsmall</button>
     </div>
   </div>
 </template>

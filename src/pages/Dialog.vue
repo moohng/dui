@@ -3,7 +3,7 @@
     <div class="dui-nav-bar bg-red">
       <div class="dui-nav-bar--fixed dui-nav-bar__content">
         <div class="dui-nav-bar__title">Dialog</div>
-        <div>返回</div>
+        <div @click="$router.back()">返回</div>
       </div>
     </div>
     <div class="dui-list indent">
