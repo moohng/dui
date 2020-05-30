@@ -1,22 +1,4 @@
-function pop() {}
-
-function querySelector(selector, defaultSelector) {
-  if (selector instanceof HTMLElement) {
-    return selector;
-  }
-  try {
-    const el = document.querySelector(selector);
-    if (el === null) {
-      throw new Error();
-    }
-    return el;
-  } catch (err) {
-    if (defaultSelector) {
-      return defaultSelector;
-    }
-    throw new Error('必须提供有效的下拉刷新DOM节点');
-  }
-}
+import { querySelector, pop, domReady } from './utils';
 
 function ani(el, y, time, func) {
   el.style.transform = `translateY(${y}px) translateZ(0)`;
@@ -52,23 +34,27 @@ class PullDown {
     this.handlerMove = this.handlerMove.bind(this);
     this.handlerEnd = this.handlerEnd.bind(this);
 
-    if (document.readyState === 'complete') {
-      setTimeout(() => this.init(), 0);
-    } else {
-      const handler = () => {
-        document.removeEventListener('DOMContentLoaded', handler, false);
-        this.init();
-      };
-      document.addEventListener('DOMContentLoaded', handler, false);
-    }
+    domReady(() => {
+      this.init();
+    });
   }
 
   init() {
     this.$el = querySelector(this.el);
     this.$wrapper = querySelector(this.wrapper, document.scrollingElement);
-    this.$scroller = this.$el.offsetParent;
+    this.$scroller = this.$el.parentElement;
     this.stop = this.$el.offsetHeight;
     this.threshold = this.threshold || this.stop * 1.12;
+
+    // 设置下拉组件的样式
+    const { style } = this.$el;
+    style.position = 'absolute';
+    style.top = '0';
+    style.left = '0';
+    style.width = '100%';
+    style.transform = 'translateY(-100%)';
+
+    this.$scroller.style.position = 'relative';
 
     // 监听事件
     this.$wrapper.addEventListener('touchstart', this.handlerStart);
@@ -149,13 +135,12 @@ class PullDown {
 }
 
 PullDown.install = function install(Vue) {
-  let pulldown = null;
   Vue.directive('pulldown', {
-    inserted: (el, { value }) => {
-      pulldown = new PullDown(el, value);
+    inserted(el, { value }) {
+      el.pulldown = new PullDown(el, value);
     },
-    unbind: () => {
-      pulldown.destroy();
+    unbind(el) {
+      el.pulldown.destroy();
     },
   });
 };

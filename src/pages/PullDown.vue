@@ -1,10 +1,11 @@
 <template>
-  <div class="dui-page bg-red" id="wrapper">
-    <div class="relative">
-      <div class="pulldown-wrapper padding" ref="pulldown" v-pulldown="pulldownOptions">{{ pulldownText }}</div>
-      <ul class="bg-gray">
+  <div class="dui-page" ref="wrapper">
+    <div class="padding-top bg-white">
+      <div class="padding text-center" ref="pulldown" v-pulldown="getPulldownOptions()">{{ pulldownText }}</div>
+      <ul>
         <li v-for="n in 100" :key="n">页面内容{{ n }}</li>
       </ul>
+      <div class="padding text-center" v-pullup="getPullupOptions()">{{ pullupText }}</div>
     </div>
   </div>
 </template>
@@ -13,14 +14,14 @@
 export default {
   data() {
     return {
-      startY: 0,
-      moveY: 0,
       pulldownText: '下拉刷新',
-
-      isRefreshing: false,
-
-      pulldownOptions: {
-        wrapper: '#wrapper',
+      pullupText: '正在加载...',
+    };
+  },
+  methods: {
+    getPulldownOptions() {
+      return {
+        wrapper: () => this.$refs.wrapper,
         onPullDownRefresh: () => {
           this.pulldownText = '正在刷新...';
           return new Promise((resolve) => {
@@ -37,8 +38,28 @@ export default {
             this.pulldownText = '下拉刷新';
           }
         },
-      },
-    };
+      };
+    },
+    getPullupOptions() {
+      return {
+        threshold: 0,
+        wrapper: () => this.$refs.wrapper,
+        // onLoadMore: () => new Promise((resolve) => {
+        //   this.pullupText = '正在加载...';
+        //   setTimeout(() => {
+        //     resolve(true);
+        //     this.pullupText = '没有更多了';
+        //   }, 2000);
+        // }),
+        onLoadMore: (finished) => {
+          this.pullupText = '正在加载...';
+          setTimeout(() => {
+            finished(true);
+            this.pullupText = '没有更多了';
+          }, 2000);
+        },
+      };
+    },
   },
 };
 </script>
@@ -46,6 +67,6 @@ export default {
 <style lang="scss" scoped>
 .dui-page {
   height: 100vh;
-  overflow: scroll;
+  overflow: auto;
 }
 </style>

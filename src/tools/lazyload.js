@@ -1,20 +1,4 @@
-function throttle(func, time) {
-  let timer = null;
-  let isFirst = true;
-  return (...args) => {
-    if (timer) {
-      return;
-    }
-    if (isFirst) {
-      func.apply(this, args);
-      isFirst = false;
-    }
-    timer = setTimeout(() => {
-      func.apply(this, args);
-      timer = null;
-    }, time);
-  };
-}
+import { throttle } from './utils';
 
 function setImage(el, src) {
   if (el instanceof Image) {
