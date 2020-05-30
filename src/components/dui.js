@@ -6,6 +6,7 @@ import Loading from './loading';
 import Scroller from './scroller';
 
 import lazyloadPlugin from '../tools/lazyload';
+import pullDownPlugin from '../tools/pulldown';
 
 function install(Vue) {
   // 注册组件
@@ -17,6 +18,7 @@ function install(Vue) {
 
   // 其他插件
   Vue.use(lazyloadPlugin);
+  Vue.use(pullDownPlugin);
 }
 
 if (typeof window.Vue !== 'undefined') {
