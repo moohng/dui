@@ -1,5 +1,5 @@
 <template>
-  <div class="home">
+  <div class="dui-page">
     <!-- <div class="status-bar bg-orange">
       <div class="status-bar--fixed"></div>
     </div> -->
@@ -25,6 +25,10 @@
     </div>
     <div class="padding-lr padding-tb-sm text-grey">其他工具</div>
     <div class="dui-list">
+      <div class="dui-item" @click="$router.push('lazyload')">图片懒加载</div>
+      <div class="dui-item" @click="$router.push('lazyload')">图片懒加载</div>
+      <div class="dui-item" @click="$router.push('lazyload')">图片懒加载</div>
+      <div class="dui-item" @click="$router.push('lazyload')">图片懒加载</div>
       <div class="dui-item" @click="$router.push('lazyload')">图片懒加载</div>
     </div>
   </div>

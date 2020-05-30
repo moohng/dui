@@ -21,9 +21,9 @@ class Lazyload {
   constructor() {
     this.nodeList = [];
     this.imgList = []; // 已缓存图片
-    this.eventList = ['scroll', 'touchmove'];
+    this.eventList = ['scroll', 'touchmove']; // scroll 事件有兼容性问题（移动端无效）
     this.defaultUrl = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';
-    this.handlerLoad = throttle.call(this, this.myHandlerLoad, 400);
+    this.handlerLoad = throttle.call(this, this.myHandlerLoad, 200);
 
     this.initEvent();
   }

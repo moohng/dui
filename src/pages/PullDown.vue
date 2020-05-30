@@ -63,10 +63,3 @@ export default {
   },
 };
 </script>
-
-<style lang="scss" scoped>
-.dui-page {
-  height: 100vh;
-  overflow: auto;
-}
-</style>

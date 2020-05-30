@@ -11,6 +11,7 @@ body {
   margin: 0;
 }
 body {
+  height: 100vh;
   font-family: -apple-system-font, Helvetica Neue, Helvetica, sans-serif;
   color: $colorBlack;
   font-size: $textDefault;
@@ -33,12 +34,6 @@ input {
   outline: 0;
   font-size: inherit;
   background: transparent;
-}
-
-// 禁止弹窗滚动穿透
-body.stop-scroll {
-  position: fixed;
-  width: 100%;
 }
 
 [v-cloak] {
