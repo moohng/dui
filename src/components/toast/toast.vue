@@ -1,5 +1,7 @@
 <template>
-  <div class="dui-toast" :class="{ show: toastShow }">{{ toastText }}</div>
+  <div class="dui-toast" :class="{ show: toastShow }">
+    <slot>{{ toastText }}</slot>
+  </div>
 </template>
 
 <script>

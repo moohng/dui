@@ -39,11 +39,9 @@
 import BScroll from '@better-scroll/core';
 import PullDown from '@better-scroll/pull-down';
 import Pullup from '@better-scroll/pull-up';
-import ObserveDOM from '@better-scroll/observe-dom';
 
 BScroll.use(PullDown);
 BScroll.use(Pullup);
-BScroll.use(ObserveDOM);
 
 export default {
   name: 'dui-scroller',
@@ -78,7 +76,7 @@ export default {
   methods: {
     finishPullup(hasNext) {
       this.scroller.finishPullUp();
-      // this.scroller.refresh();
+      this.scroller.refresh();
       if (!hasNext) {
         this.scroller.closePullUp();
         this.hasNext = 'noMore';
@@ -92,7 +90,7 @@ export default {
       setTimeout(() => {
         this.scroller.finishPullDown();
         setTimeout(() => {
-          // this.scroller.refresh();
+          this.scroller.refresh();
           this.pullingdown = 'before';
           // 开启上拉加载更多
           if (this.pullup) {

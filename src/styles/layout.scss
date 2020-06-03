@@ -155,6 +155,7 @@
 }
 
 .dui-page {
-  @include fixed;
+  @include abs;
+  -webkit-overflow-scrolling: touch;
   overflow: auto;
 }
