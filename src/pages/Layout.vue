@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="dui-page">
     <div class="dui-nav-bar bg-red">
       <div class="dui-nav-bar--fixed dui-nav-bar__content">
         <div class="dui-nav-bar__title">Layout</div>

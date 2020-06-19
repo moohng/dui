@@ -15,14 +15,12 @@ function ani(el, y, time, func) {
 
 class PullDown {
   constructor(el, {
-    wrapper,
     threshold,
     stopTime = 400,
     onPullDownRefresh = pop,
     onPullDown = pop,
   } = {}) {
     this.el = el;
-    this.wrapper = wrapper;
     this.threshold = threshold;
     this.stopTime = stopTime;
     this.onPullDownRefresh = onPullDownRefresh;
@@ -39,7 +37,7 @@ class PullDown {
 
   init() {
     this.$el = querySelector(this.el);
-    this.$wrapper = querySelector(this.wrapper, document.scrollingElement);
+    this.$wrapper = document.scrollingElement;
     this.$scroller = this.$el.parentElement;
     this.stop = this.$el.offsetHeight;
     this.threshold = this.threshold || this.stop * 1.12;

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="dui-page">
     <!-- <div class="status-bar bg-orange">
       <div class="status-bar--fixed"></div>
     </div> -->

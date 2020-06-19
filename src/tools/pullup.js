@@ -2,7 +2,6 @@ import { querySelector, pop } from './utils';
 
 class PullUp {
   constructor(el, {
-    wrapper,
     threshold,
     onLoadMore = pop,
   } = {}) {
@@ -12,7 +11,6 @@ class PullUp {
     this.lastPosition = 0;
 
     this.$el = querySelector(el, null);
-    this.$wrapper = querySelector(wrapper);
 
     this.pullupHeight = this.$el ? this.$el.offsetHeight : 0;
     if (typeof this.threshold === 'number') {
@@ -21,12 +19,11 @@ class PullUp {
     // 使用节流函数会掉帧，可能导致不能触发加载更多
     // this.handlerScroll = throttle.call(this, this.handlerScroll, 16.7);
     this.handlerScroll = this.handlerScroll.bind(this);
-    this.$wrapper.addEventListener('scroll', this.handlerScroll, false);
-    // window.addEventListener('touchmove', this.handlerScroll, false);
+    window.addEventListener('scroll', this.handlerScroll, false);
   }
 
   handlerScroll() {
-    const { scrollTop, scrollHeight, clientHeight } = this.$wrapper || document.scrollingElement;
+    const { scrollTop, scrollHeight, clientHeight } = document.scrollingElement;
     const toBottom = scrollHeight - scrollTop - clientHeight;
     if (!this.loading && toBottom < this.lastPosition && toBottom <= this.pullupHeight) {
       this.loading = true;
@@ -46,8 +43,7 @@ class PullUp {
   }
 
   destroy() {
-    this.$wrapper.removeEventListener('scroll', this.handlerScroll, false);
-    // window.addEventListener('touchmove', this.handlerScroll, false);
+    window.removeEventListener('scroll', this.handlerScroll, false);
   }
 }
 

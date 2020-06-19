@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="dui-page">
     <div class="padding margin-top bg-white grid">
       <div class="col-2 padding-xs">
         <button class="dui-button lg bg-red">large</button>

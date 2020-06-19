@@ -158,9 +158,3 @@
 .full-height {
   height: 100%;
 }
-
-.dui-page {
-  @include abs;
-  -webkit-overflow-scrolling: touch;
-  overflow: auto;
-}
