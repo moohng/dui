@@ -1,7 +1,7 @@
 <template>
-  <div>
+  <div class="dui-page">
     <div class="img" v-for="(img, index) in imgList" :key="index">
-      <img v-src="img" alt="img">
+      <img v-src.lazy="img" alt="img">
     </div>
   </div>
 </template>

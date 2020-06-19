@@ -90,12 +90,20 @@ Lazyload.install = function install(Vue) {
   const lz = Lazyload.init();
   // v-src 自定义指令
   Vue.directive('src', {
-    inserted: (el, { value }) => {
-      lz.add(el, value);
-    },
-    update: (el, { value, oldValue }) => {
-      if (value !== oldValue) {
+    inserted: (el, { value, modifiers }) => {
+      if (modifiers.lazy) {
         lz.add(el, value);
+      } else {
+        setImage(el, value);
+      }
+    },
+    update: (el, { value, oldValue, modifiers }) => {
+      if (value !== oldValue) {
+        if (modifiers.lazy) {
+          lz.add(el, value);
+        } else {
+          setImage(el, value);
+        }
       }
     },
     unbind: (el) => {

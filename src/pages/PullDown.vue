@@ -15,7 +15,7 @@ export default {
   data() {
     return {
       pulldownText: '下拉刷新',
-      pullupText: '正在加载...',
+      pullupText: '上拉加载更多',
     };
   },
   methods: {

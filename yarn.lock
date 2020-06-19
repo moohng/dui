@@ -743,39 +743,6 @@
     lodash "^4.17.13"
     to-fast-properties "^2.0.0"
 
-"@better-scroll/core@^2.0.0-beta.8":
-  version "2.0.0-beta.8"
-  resolved "https://registry.npm.taobao.org/@better-scroll/core/download/@better-scroll/core-2.0.0-beta.8.tgz#c067d64f28922d050a616f7d84f8d2c907e391cf"
-  integrity sha1-wGfWTyiSLQUKYW99hPjSyQfjkc8=
-  dependencies:
-    "@better-scroll/shared-utils" "^2.0.0-beta.8"
-
-"@better-scroll/observe-dom@^2.0.0-beta.8":
-  version "2.0.0-beta.8"
-  resolved "https://registry.npm.taobao.org/@better-scroll/observe-dom/download/@better-scroll/observe-dom-2.0.0-beta.8.tgz#8116553d9a41e25830955dc4372a2294c7df3fe1"
-  integrity sha1-gRZVPZpB4lgwlV3ENyoilMffP+E=
-  dependencies:
-    "@better-scroll/core" "^2.0.0-beta.8"
-
-"@better-scroll/pull-down@^2.0.0-beta.8":
-  version "2.0.0-beta.8"
-  resolved "https://registry.npm.taobao.org/@better-scroll/pull-down/download/@better-scroll/pull-down-2.0.0-beta.8.tgz#62d8df2eea8e4b87bed54730e449654aff4479bf"
-  integrity sha1-YtjfLuqOS4e+1Ucw5EllSv9Eeb8=
-  dependencies:
-    "@better-scroll/core" "^2.0.0-beta.8"
-
-"@better-scroll/pull-up@^2.0.0-beta.8":
-  version "2.0.0-beta.8"
-  resolved "https://registry.npm.taobao.org/@better-scroll/pull-up/download/@better-scroll/pull-up-2.0.0-beta.8.tgz#6da87facac4d5e9dc4e599976970ce2fcdc2c260"
-  integrity sha1-bah/rKxNXp3E5ZmXaXDOL83CwmA=
-  dependencies:
-    "@better-scroll/core" "^2.0.0-beta.8"
-
-"@better-scroll/shared-utils@^2.0.0-beta.8":
-  version "2.0.0-beta.8"
-  resolved "https://registry.npm.taobao.org/@better-scroll/shared-utils/download/@better-scroll/shared-utils-2.0.0-beta.8.tgz#0f884af36ea251dddccaf2d7b1a550a5273bc2a2"
-  integrity sha1-D4hK826iUd3cyvLXsaVQpSc7wqI=
-
 "@hapi/address@2.x.x":
   version "2.1.4"
   resolved "https://registry.npm.taobao.org/@hapi/address/download/@hapi/address-2.1.4.tgz#5d67ed43f3fd41a69d4b9ff7b56e7c0d1d0a81e5"

@@ -41,21 +41,6 @@ input {
   display: none;
 }
 
-// iPhone X 底部兼容
-@media only screen and (device-width: 375px) and (device-height: 812px) and (-webkit-min-device-pixel-ratio: 3) {
-  @supports (bottom: constant(safe-area-inset-bottom)) {
-    body {
-      padding-bottom: constant(safe-area-inset-bottom); /* iOS < 11.2 */
-    }
-  }
-  @supports (bottom: env(safe-area-inset-bottom)) {
-    body {
-      padding-bottom: env(safe-area-inset-bottom); /* iOS >= 11.2 */
-    }
-  }
-}
-
-
 @import './layout.scss';
 @import './appearance.scss';
 

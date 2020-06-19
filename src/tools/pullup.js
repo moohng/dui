@@ -1,6 +1,4 @@
-import {
-  querySelector, domReady, pop,
-} from './utils';
+import { querySelector, pop } from './utils';
 
 class PullUp {
   constructor(el, {
@@ -13,19 +11,18 @@ class PullUp {
     this.loading = false;
     this.lastPosition = 0;
 
-    domReady(() => {
-      this.$el = querySelector(el, null);
-      this.$wrapper = querySelector(wrapper);
+    this.$el = querySelector(el, null);
+    this.$wrapper = querySelector(wrapper);
 
-      this.pullupHeight = this.$el ? this.$el.offsetHeight : 0;
-      if (typeof this.threshold === 'number') {
-        this.pullupHeight = this.threshold;
-      }
-      // 使用节流函数会掉帧，可能导致不能触发加载更多
-      // this.handlerScroll = throttle.call(this, this.handlerScroll, 16.7);
-      this.handlerScroll = this.handlerScroll.bind(this);
-      this.$wrapper.addEventListener('scroll', this.handlerScroll, false);
-    });
+    this.pullupHeight = this.$el ? this.$el.offsetHeight : 0;
+    if (typeof this.threshold === 'number') {
+      this.pullupHeight = this.threshold;
+    }
+    // 使用节流函数会掉帧，可能导致不能触发加载更多
+    // this.handlerScroll = throttle.call(this, this.handlerScroll, 16.7);
+    this.handlerScroll = this.handlerScroll.bind(this);
+    this.$wrapper.addEventListener('scroll', this.handlerScroll, false);
+    // window.addEventListener('touchmove', this.handlerScroll, false);
   }
 
   handlerScroll() {
@@ -49,7 +46,8 @@ class PullUp {
   }
 
   destroy() {
-    this.$wrapper.removeEventListener('scroll', this.handler, false);
+    this.$wrapper.removeEventListener('scroll', this.handlerScroll, false);
+    // window.addEventListener('touchmove', this.handlerScroll, false);
   }
 }
 

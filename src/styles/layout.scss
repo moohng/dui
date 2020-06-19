@@ -78,6 +78,11 @@
   &:nth-child(#{$index}n) {
     margin-right: 0;
   }
+  @for $idx from 1 through $index {
+    &:nth-child(#{$idx}) {
+      margin-top: $gapSpace;
+    }
+  }
 }
 @for $index from 1 through 5 {
   .col-#{$index} {

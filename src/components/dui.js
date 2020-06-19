@@ -3,11 +3,10 @@ import ActionSheet from './actionsheet';
 import Dialog from './dialog';
 import Toast from './toast';
 import Loading from './loading';
-// import Scroller from './scroller';
 
 import lazyloadPlugin from '../tools/lazyload';
-// import pullDownPlugin from '../tools/pulldown';
-// import pullUpPlugin from '../tools/pullup';
+import pullDownPlugin from '../tools/pulldown';
+import pullUpPlugin from '../tools/pullup';
 
 function install(Vue) {
   // 注册组件
@@ -15,12 +14,11 @@ function install(Vue) {
   Vue.use(Dialog);
   Vue.use(Toast);
   Vue.use(Loading);
-  // Vue.use(Scroller);
 
   // 其他插件
   Vue.use(lazyloadPlugin);
-  // Vue.use(pullDownPlugin);
-  // Vue.use(pullUpPlugin);
+  Vue.use(pullDownPlugin);
+  Vue.use(pullUpPlugin);
 }
 
 if (typeof window.Vue !== 'undefined') {
@@ -36,5 +34,4 @@ export {
   Dialog,
   Toast,
   Loading,
-  // Scroller,
 };

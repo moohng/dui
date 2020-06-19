@@ -1,4 +1,4 @@
-import { querySelector, pop, domReady } from './utils';
+import { querySelector, pop } from './utils';
 
 function ani(el, y, time, func) {
   el.style.transform = `translateY(${y}px) translateZ(0)`;
@@ -34,9 +34,7 @@ class PullDown {
     this.handlerMove = this.handlerMove.bind(this);
     this.handlerEnd = this.handlerEnd.bind(this);
 
-    domReady(() => {
-      this.init();
-    });
+    this.init();
   }
 
   init() {
@@ -79,7 +77,7 @@ class PullDown {
     if (this.moveY > this.threshold) {
       // 正在刷新
       this.isRefreshing = true;
-      ani(this.$scroller, this.stop, 300);
+      ani(this.$scroller, this.stop, 200);
       const res = this.onPullDownRefresh(); // 触发刷新
       if (res instanceof Promise) {
         res.finally(() => {
@@ -88,7 +86,7 @@ class PullDown {
       }
     } else {
       // 回到顶部
-      ani(this.$scroller, 0, 600, () => {
+      ani(this.$scroller, 0, 200, () => {
         this.isScrolling = false;
         this.isRefreshing = false;
       });
@@ -97,15 +95,16 @@ class PullDown {
 
   handlerMove(e) {
     const currentY = e.touches[0].pageY;
-    const moveY = currentY - this.startY;
+    let moveY = currentY - this.startY;
     // 下滑
     if (moveY > 0) {
       if (!this.isRefreshing && !this.isScrolling && this.$wrapper.scrollTop <= 0) {
-        // 触发下拉刷新的条件
         e.preventDefault();
+        // 触发下拉刷新的条件
         if (this.isFirst) {
           this.isFirst = false;
           this.startY = currentY;
+          moveY = 0;
         }
         this.canPullDown = true;
         this.moveY = moveY * 0.4;
@@ -126,7 +125,7 @@ class PullDown {
   finished() {
     setTimeout(() => {
       // 结束刷新
-      ani(this.$scroller, 0, 600, () => {
+      ani(this.$scroller, 0, 200, () => {
         this.isScrolling = false;
         this.isRefreshing = false;
       });
