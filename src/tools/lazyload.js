@@ -112,4 +112,8 @@ Lazyload.install = function install(Vue) {
   });
 };
 
+if (typeof window.Vue !== 'undefined') {
+  Lazyload.install(window.Vue);
+}
+
 export default Lazyload;

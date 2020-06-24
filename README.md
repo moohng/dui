@@ -102,3 +102,9 @@ export default {
 }
 </script>
 ```
+
+## 其他Vue插件
+
+- `v-pulldown`：下拉刷新
+- `v-pullup`：加载更多
+- `v-src`：懒加载

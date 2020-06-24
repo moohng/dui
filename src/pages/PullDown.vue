@@ -21,7 +21,6 @@ export default {
   methods: {
     getPulldownOptions() {
       return {
-        wrapper: () => this.$refs.wrapper,
         onPullDownRefresh: () => {
           this.pulldownText = '正在刷新...';
           return new Promise((resolve) => {
@@ -43,7 +42,6 @@ export default {
     getPullupOptions() {
       return {
         threshold: 0,
-        wrapper: () => this.$refs.wrapper,
         // onLoadMore: () => new Promise((resolve) => {
         //   this.pullupText = '正在加载...';
         //   setTimeout(() => {

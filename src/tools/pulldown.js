@@ -142,4 +142,8 @@ PullDown.install = function install(Vue) {
   });
 };
 
+if (typeof window.Vue !== 'undefined') {
+  PullDown.install(window.Vue);
+}
+
 export default PullDown;

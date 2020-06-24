@@ -58,4 +58,8 @@ PullUp.install = function install(Vue) {
   });
 };
 
+if (typeof window.Vue !== 'undefined') {
+  PullUp.install(window.Vue);
+}
+
 export default PullUp;

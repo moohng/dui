@@ -6,7 +6,11 @@ module.exports = function () {
   const entryPath = path.resolve('src/components')
   const entries = fs.readdirSync(entryPath)
 
-  const results = []
+  const results = [
+    { name: 'lazyload', input: path.join('../', 'src/tools/lazyload.js') },
+    { name: 'pulldown', input: path.join('../', 'src/tools/pulldown.js') },
+    { name: 'pullup', input: path.join('../', 'src/tools/pullup.js') },
+  ]
   for (const dir of entries) {
     const filePath = path.join(entryPath, dir)
     const stats = fs.statSync(filePath)
