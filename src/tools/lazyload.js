@@ -21,9 +21,9 @@ class Lazyload {
   constructor() {
     this.nodeList = [];
     this.imgList = []; // 已缓存图片
-    this.eventList = ['scroll', 'touchmove']; // scroll 事件有兼容性问题（移动端无效）
+    this.eventList = ['scroll']; // scroll 事件有兼容性问题（移动端无效）
     this.defaultUrl = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';
-    this.handlerLoad = throttle.call(this, this.myHandlerLoad, 200);
+    this.handlerLoad = throttle.call(this, this.myHandlerLoad, 24);
 
     this.initEvent();
   }
@@ -42,9 +42,9 @@ class Lazyload {
 
   loadImage(el) {
     const {
-      top, left, bottom, right,
+      top, bottom,
     } = el.getBoundingClientRect();
-    if ((top < window.innerHeight && bottom > 0) && (left < window.innerWidth && right > 0)) { // 屏幕中
+    if ((top < window.innerHeight && bottom > 0)/*  && (left < window.innerWidth && right > 0) */) { // 屏幕中
       const { tempSrc: src } = el;
       if (this.imgList.includes(src)) { // 如果图片已被缓存
         setImage(el, src); // 设置图片
