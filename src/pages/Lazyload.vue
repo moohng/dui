@@ -7,6 +7,11 @@
 </template>
 
 <script>
+import Vue from 'vue';
+import LazyLoad from '../tools/lazyload';
+
+Vue.use(LazyLoad);
+
 export default {
   data() {
     return {

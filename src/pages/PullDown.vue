@@ -11,6 +11,13 @@
 </template>
 
 <script>
+import Vue from 'vue';
+import PullDown from '../tools/pulldown';
+import PullUp from '../tools/pullup';
+
+Vue.use(PullDown);
+Vue.use(PullUp);
+
 export default {
   data() {
     return {
