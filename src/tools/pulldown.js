@@ -54,14 +54,14 @@ class PullDown {
 
     // 监听事件
     this.$wrapper.addEventListener('touchstart', this.handlerStart);
-    this.$wrapper.addEventListener('touchmove', this.handlerMove, { passive: false });
+    this.$wrapper.addEventListener('touchmove', this.handlerMove);
     this.$wrapper.addEventListener('touchend', this.handlerEnd);
     this.$wrapper.addEventListener('touchcancel', this.handlerEnd);
   }
 
   destroy() {
     this.$wrapper.removeEventListener('touchstart', this.handlerStart);
-    this.$wrapper.removeEventListener('touchmove', this.handlerMove, { passive: false });
+    this.$wrapper.removeEventListener('touchmove', this.handlerMove);
     this.$wrapper.removeEventListener('touchend', this.handlerEnd);
     this.$wrapper.removeEventListener('touchcancel', this.handlerEnd);
   }
