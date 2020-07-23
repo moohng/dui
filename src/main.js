@@ -1,10 +1,10 @@
 import Vue from 'vue'
-import Navigation from 'vue-navigation'
+import VuePageStack from 'vue-page-stack'
 import router from './router'
 import Dui from './components/dui'
 import App from './app.vue'
 
-Vue.use(Navigation, { router })
+Vue.use(VuePageStack, { router })
 Vue.use(Dui)
 
 Vue.config.productionTip = false

@@ -1,8 +1,8 @@
 <template>
   <transition :name="transitionName">
-    <navigation>
+    <vue-page-stack>
       <router-view></router-view>
-    </navigation>
+    </vue-page-stack>
   </transition>
 </template>
 
@@ -13,16 +13,14 @@ export default {
       transitionName: '',
     }
   },
-  created() {
-    this.$navigation.on('forward', () => {
-      this.transitionName = 'slide-left'
-    })
-    this.$navigation.on('replace', () => {
-      this.transitionName = 'slide-left'
-    })
-    this.$navigation.on('back', () => {
-      this.transitionName = 'slide-right'
-    })
+  watch: {
+    $route(to) {
+      if (to.params['stack-key-dir'] === 'forward') {
+        this.transitionName = 'slide-left';
+      } else {
+        this.transitionName = 'slide-right';
+      }
+    }
   },
 }
 </script>

@@ -1034,6 +1034,11 @@
   dependencies:
     "@types/node" "*"
 
+"@vant/icons@1.2.3":
+  version "1.2.3"
+  resolved "https://registry.npm.taobao.org/@vant/icons/download/@vant/icons-1.2.3.tgz?cache=0&sync_timestamp=1593673393304&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40vant%2Ficons%2Fdownload%2F%40vant%2Ficons-1.2.3.tgz#c46b7ddd32363f790944c3af974b73bda80df7a1"
+  integrity sha1-xGt93TI2P3kJRMOvl0tzvagN96E=
+
 "@vue/babel-helper-vue-jsx-merge-props@^1.0.0":
   version "1.0.0"
   resolved "https://registry.npm.taobao.org/@vue/babel-helper-vue-jsx-merge-props/download/@vue/babel-helper-vue-jsx-merge-props-1.0.0.tgz#048fe579958da408fb7a8b2a3ec050b50a661040"
@@ -9089,10 +9094,10 @@ vue-loader@^15.9.2:
     vue-hot-reload-api "^2.3.0"
     vue-style-loader "^4.1.0"
 
-vue-navigation@^1.1.4:
-  version "1.1.4"
-  resolved "https://registry.npm.taobao.org/vue-navigation/download/vue-navigation-1.1.4.tgz#be990190624647daa34b8cd525fad4fb6d472542"
-  integrity sha1-vpkBkGJGR9qjS4zVJfrU+21HJUI=
+vue-page-stack@^1.5.0:
+  version "1.5.0"
+  resolved "https://registry.npm.taobao.org/vue-page-stack/download/vue-page-stack-1.5.0.tgz#af92986fb8dc10039451a7d7af7d7073eb81fe92"
+  integrity sha1-r5KYb7jcEAOUUafXr31wc+uB/pI=
 
 vue-router@^3.1.6:
   version "3.3.4"
