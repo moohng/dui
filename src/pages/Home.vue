@@ -3,7 +3,7 @@
     <!-- <div class="status-bar bg-orange">
       <div class="status-bar--fixed"></div>
     </div> -->
-    <div class="dui-nav-bar with-status-bar bg-orange">
+    <div class="dui-nav-bar with-status-bar placeholder bg-orange">
       <div class="dui-nav-bar--fixed dui-nav-bar__content">
         <div class="dui-nav-bar__title">Hello Dui</div>
         <div>返回</div>
@@ -39,14 +39,14 @@ export default {
   name: 'Home',
   methods: {
     onToastClick() {
-      this.$toast('你好啊');
+      this.$toast('你好啊')
     },
     onActionSheetClick() {
       this.$actionsheet([
         { name: '选项一' },
         { name: '选项二' },
         { name: '选项三' },
-      ]);
+      ])
     },
     onDialogClick() {
       this.$dialog({
@@ -56,14 +56,17 @@ export default {
           { text: '取消', class: '' },
           { text: '确定', class: 'text-red' },
         ],
-      });
+      })
     },
     onLoadingClick() {
-      this.$loading();
-      setTimeout(this.$loading.hide, 2000);
+      this.$loading()
+      setTimeout(this.$loading.hide, 2000)
     },
   },
-};
+  created() {
+    console.log('created')
+  },
+}
 </script>
 
 <style lang="scss">

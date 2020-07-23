@@ -1,13 +1,10 @@
 @import './mixins.scss';
 
-$statusBarHeight: 20PX;
-$navBarHeight: 44PX;
+$statusBarHeight: 20px;
+$navBarHeight: 44px;
 
 .dui-status-bar {
   width: 100%;
-  height: $statusBarHeight;
-  @include ipx(height, constant(safe-area-inset-top));
-  @include ipx(height, env(safe-area-inset-top));
   background: #fff;
   &--fixed {
     position: fixed;
@@ -20,22 +17,23 @@ $navBarHeight: 44PX;
     background: inherit;
     z-index: 99;
   }
-  &.fixed {
-    height: 0;
+  &.placeholder {
+    height: $statusBarHeight;
+    @include ipx(height, constant(safe-area-inset-top));
+    @include ipx(height, env(safe-area-inset-top));
   }
 }
 
 .dui-nav-bar {
   position: relative;
   width: 100%;
-  height: $navBarHeight;
-  &.with-status-bar {
-    height: $statusBarHeight + $navBarHeight;
-    @include ipx(height, calc(#{$navBarHeight} + constant(safe-area-inset-top)));
-    @include ipx(height, calc(#{$navBarHeight} + env(safe-area-inset-top)));
-  }
-  &.fixed {
-    height: 0;
+  &.placeholder {
+    height: $navBarHeight;
+    &.with-status-bar {
+      height: $statusBarHeight + $navBarHeight;
+      @include ipx(height, calc(#{$navBarHeight} + constant(safe-area-inset-top)));
+      @include ipx(height, calc(#{$navBarHeight} + env(safe-area-inset-top)));
+    }
   }
   &--fixed {
     position: fixed;
@@ -47,7 +45,7 @@ $navBarHeight: 44PX;
     z-index: 99;
   }
   &__content {
-    padding: 0 10PX;
+    padding: 0 10px;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -58,7 +56,7 @@ $navBarHeight: 44PX;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    font-size: 16PX;
+    font-size: 16px;
   }
 }
 .dui-status-bar+.dui-nav-bar .dui-nav-bar--fixed {

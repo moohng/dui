@@ -13,12 +13,6 @@ export default {
       transitionName: '',
     }
   },
-  watch: {
-    $route() {
-      this.transitionName = this.$router.isBack ? 'slide-right' : 'slide-left'
-      this.$router.isBack = false
-    },
-  },
   created() {
     this.$navigation.on('forward', () => {
       this.transitionName = 'slide-left'
