@@ -1,8 +1,8 @@
-const path = require('path')
-const fs = require('fs')
+import path from 'path'
+import fs from 'fs'
 
 
-module.exports = function () {
+export default () => {
   const entryPath = path.resolve('src/components')
   const entries = fs.readdirSync(entryPath)
 

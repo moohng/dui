@@ -65,8 +65,9 @@ const router = new VueRouter({
   },
 });
 
-window.addEventListener('popstate', () => {
-  router.isBack = true;
-});
+router.beforeEach((to, from, next) => {
+  document.title = to.meta.title ?? ''
+  next()
+})
 
 export default router;

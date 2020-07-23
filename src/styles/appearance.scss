@@ -84,7 +84,7 @@
   .text-cut-#{$row} {
     display: -webkit-box;
     -webkit-box-orient: vertical;
-    line-clamp: $row;
+    -webkit-line-clamp: $row;
     overflow: hidden;
     text-overflow: ellipsis;
   }

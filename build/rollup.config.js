@@ -1,13 +1,14 @@
-const babel = require('rollup-plugin-babel')
-const resolve = require('rollup-plugin-node-resolve')
-const commonjs = require('rollup-plugin-commonjs')
-const { terser } = require('rollup-plugin-terser')
-const vue = require('rollup-plugin-vue')
-const postcss = require('rollup-plugin-postcss')
-const px2vw = require('@moohng/postcss-px2vw')
-const autoprefixer = require('autoprefixer')
-const del = require('del')
-const loadEntries = require('./loadEntries')
+import babel from '@rollup/plugin-babel'
+import resolve from '@rollup/plugin-node-resolve'
+import commonjs from '@rollup/plugin-commonjs'
+import { terser } from 'rollup-plugin-terser'
+import vue from 'rollup-plugin-vue'
+import postcss from 'rollup-plugin-postcss'
+import px2vw from '@moohng/postcss-px2vw'
+import autoprefixer from 'autoprefixer'
+import del from 'del'
+
+import loadEntries from './loadEntries'
 
 const entries = [
   ...loadEntries(),

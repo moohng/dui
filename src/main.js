@@ -1,13 +1,15 @@
-import Vue from 'vue';
-import router from './router';
-import Dui from './components/dui';
-import App from './app.vue';
+import Vue from 'vue'
+import Navigation from 'vue-navigation'
+import router from './router'
+import Dui from './components/dui'
+import App from './app.vue'
 
-Vue.use(Dui);
+Vue.use(Navigation, { router })
+Vue.use(Dui)
 
-Vue.config.productionTip = false;
+Vue.config.productionTip = false
 
 window.vm = new Vue({
   router,
   render: (h) => h(App),
-}).$mount('#app');
+}).$mount('#app')

@@ -1,6 +1,8 @@
 <template>
   <transition :name="transitionName">
-    <router-view></router-view>
+    <navigation>
+      <router-view></router-view>
+    </navigation>
   </transition>
 </template>
 
@@ -9,15 +11,26 @@ export default {
   data() {
     return {
       transitionName: '',
-    };
+    }
   },
   watch: {
     $route() {
-      this.transitionName = this.$router.isBack ? 'slide-right' : 'slide-left';
-      this.$router.isBack = false;
+      this.transitionName = this.$router.isBack ? 'slide-right' : 'slide-left'
+      this.$router.isBack = false
     },
   },
-};
+  created() {
+    this.$navigation.on('forward', () => {
+      this.transitionName = 'slide-left'
+    })
+    this.$navigation.on('replace', () => {
+      this.transitionName = 'slide-left'
+    })
+    this.$navigation.on('back', () => {
+      this.transitionName = 'slide-right'
+    })
+  },
+}
 </script>
 
 <style lang="scss" scoped>
