@@ -3,8 +3,10 @@
     <div class="dui-preview__wrap">
       <div class="dui-preview__slide bg-img" v-for="(item, index) in options" :key="index" v-src="item"></div>
     </div>
-    <!-- 索引 -->
-    <div class="dui-preview__index">{{current + 1}}/{{options.length}}</div>
+    <slot>
+      <!-- 索引 -->
+      <div class="dui-preview__index">{{current + 1}}/{{options.length}}</div>
+    </slot>
   </div>
 </template>
 

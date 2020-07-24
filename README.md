@@ -103,8 +103,16 @@ export default {
 </script>
 ```
 
+## 已完成组件
+
+- `this.$dialog(...)`：弹窗
+- `this.$actionsheet(...)`：底部弹出
+- `this.$loading(...)`：全屏loading
+- `this.$toast(...)`：轻提示
+- `this.$preview(...)`：图片预览
+
 ## 其他Vue插件
 
+- `v-src`：懒加载
 - `v-pulldown`：下拉刷新
 - `v-pullup`：加载更多
-- `v-src`：懒加载
