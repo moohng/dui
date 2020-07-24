@@ -16,3 +16,23 @@
     transform: rotate3d(0, 0, 1, 360deg);
   }
 }
+
+[class*="dui-icon"]::after {
+  content: '';
+  display: inline-block;
+  vertical-align: middle;
+  width: 12px;
+  height: 12px;
+  mask-position: 50% 50%;
+  mask-repeat: no-repeat;
+  mask-size: 100%;
+  background-color: currentColor;
+}
+
+.dui-icon__arrow::after {
+  mask-image: url(data:image/svg+xml,%3Csvg%20width%3D%2212%22%20height%3D%2224%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cpath%20d%3D%22M2.454%206.58l1.06-1.06%205.78%205.779a.996.996%200%20010%201.413l-5.78%205.779-1.06-1.061%205.425-5.425-5.425-5.424z%22%20fill%3D%22%23B2B2B2%22%20fill-rule%3D%22evenodd%22%2F%3E%3C%2Fsvg%3E);;
+}
+
+.dui-icon__back::after {
+  mask-image: url(data:image/svg+xml,%3Csvg%20width%3D%2212%22%20height%3D%2224%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cpath%20d%3D%22M3.343%2012l7.071%207.071L9%2020.485l-7.778-7.778a1%201%200%20010-1.414L9%203.515l1.414%201.414L3.344%2012z%22%20fill-rule%3D%22evenodd%22%2F%3E%3C%2Fsvg%3E);
+}

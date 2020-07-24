@@ -6,31 +6,47 @@
     <div class="dui-nav-bar with-status-bar placeholder bg-orange">
       <div class="dui-nav-bar--fixed dui-nav-bar__content">
         <div class="dui-nav-bar__title">Hello Dui</div>
-        <div>返回</div>
+        <div class="dui-icon__back"></div>
         <div>操作</div>
       </div>
     </div>
     <div class="padding-lr padding-tb-sm text-grey">基本布局（base）</div>
     <div class="dui-list indent">
-      <div class="dui-item line-red" @click="$router.push('layout')">Layout</div>
-      <div class="dui-item" @click="$router.push('button')">Button</div>
+      <div class="dui-item line-red" @click="$router.push('layout')">
+        <div class="flex-sub">Layout</div>
+        <div class="dui-icon__arrow"></div>
+      </div>
+      <div class="dui-item" @click="$router.push('button')">
+        <div class="flex-sub">Button</div>
+        <div class="dui-icon__arrow text-gray"></div>
+      </div>
+      <div class="dui-item">NavBar + StatusBar</div>
+      <div class="dui-item">List</div>
     </div>
-    <div class="padding-lr padding-tb-sm text-grey">组件列表</div>
+    <div class="padding-lr padding-tb-sm text-grey">组件</div>
     <div class="dui-list indent">
-      <div class="dui-item" @click="$router.push('dialog')">Dialog</div>
+      <div class="dui-item" @click="$router.push('dialog')">
+        <div class="flex-sub">Dialog</div>
+        <div class="dui-icon__arrow text-gray"></div>
+      </div>
       <div class="dui-item" @click="onToastClick">Toast</div>
       <div class="dui-item" @click="onActionSheetClick">Action Sheet</div>
       <div class="dui-item" @click="onLoadingClick">Loading</div>
-      <div class="dui-item" @click="$router.push('layout')">Preview</div>
+      <div class="dui-item" @click="$router.push('layout')">
+        <div class="flex-sub">Preview</div>
+        <div class="dui-icon__arrow text-gray"></div>
+      </div>
     </div>
-    <div class="padding-lr padding-tb-sm text-grey">其他工具</div>
+    <div class="padding-lr padding-tb-sm text-grey">插件</div>
     <div class="dui-list">
-      <div class="dui-item" @click="$router.push('pulldown')">下拉刷新</div>
-      <div class="dui-item" @click="$router.push('lazyload')">图片懒加载</div>
-      <div class="dui-item" @click="$router.push('lazyload')">图片懒加载</div>
-      <div class="dui-item" @click="$router.push('lazyload')">图片懒加载</div>
-      <div class="dui-item" @click="$router.push('lazyload')">图片懒加载</div>
-      <div class="dui-item" @click="$router.push('lazyload')">图片懒加载</div>
+      <div class="dui-item" @click="$router.push('pulldown')">
+        <div class="flex-sub">下拉刷新</div>
+        <div class="dui-icon__arrow text-gray"></div>
+      </div>
+      <div class="dui-item" @click="$router.push('lazyload')">
+        <div class="flex-sub">图片懒加载</div>
+        <div class="dui-icon__arrow text-gray"></div>
+      </div>
     </div>
   </div>
 </template>

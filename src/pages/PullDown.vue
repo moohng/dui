@@ -3,7 +3,7 @@
     <div class="padding-top bg-white">
       <div class="padding text-center" ref="pulldown" v-pulldown="getPulldownOptions()">{{ pulldownText }}</div>
       <ul>
-        <li v-for="n in 100" :key="n">页面内容{{ n }}</li>
+        <li v-for="n in 50" :key="n">页面内容{{ n }}</li>
       </ul>
       <div class="padding text-center" v-pullup="getPullupOptions()">{{ pullupText }}</div>
     </div>
