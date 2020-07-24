@@ -163,13 +163,16 @@
 
 .radius {
   border-radius: 9px;
+  overflow: hidden;
 }
 @each $key, $value in (xl: 20px, lg: 15px, md: 12px, df: 10px, sm: 8px, xs: 6px, xxs: 3px) {
   .radius.#{$key} {
     border-radius: $value;
+    overflow: hidden;
   }
   .radius-#{$key} {
     border-radius: $value;
+    overflow: hidden;
   }
 }
 
@@ -179,7 +182,6 @@
 
 .block {
   display: block;
-  width: 100%;
 }
 
 .bg-img {
