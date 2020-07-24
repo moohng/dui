@@ -5,38 +5,51 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>dui</title>
   <script src="//cdn.bootcdn.net/ajax/libs/vue/2.6.11/vue.min.js"></script>
-  <link rel="stylesheet" href="../dist/dui.min.css">
-  <link rel="stylesheet" href="../dist/pulldown.min.js">
-  <!-- <link rel="stylesheet" href="../dist/dui.base.min.css"> -->
-  <!-- <link rel="stylesheet" href="../dist/actionsheet.min.css"> -->
+  <!-- <link rel="stylesheet" href="../dist/dui.min.css"> -->
+  <link rel="stylesheet" href="../dist/dui.base.min.css">
+  <link rel="stylesheet" href="../dist/actionsheet.min.css">
+  <link rel="stylesheet" href="../dist/dialog.min.css">
+  <link rel="stylesheet" href="../dist/preview.min.css">
 </head>
 <body>
   <div class="dui-page" id="app">
     <div>
-      <div class="padding text-center" ref="pulldown" v-pulldown="getPulldownOptions()">{{ pulldownText }}</div>
-      <button @click="$refs.actionsheet.open()">open</button>
-      <button @click="$refs.dialog.open()">open dialog</button>
+      <div class="padding text-center" v-pulldown="getPulldownOptions()">{{ pulldownText }}</div>
+      <div class="padding-lr padding-tb-sm">图片预览</div>
+      <div class="grid bg-white padding-lr">
+        <div class="col-4 square xs bg-img cover radius" v-for="(img, index) in imgPaths" :key="index" v-src="img" @click="$preview(imgPaths, index)"></div>
+      </div>
       <!-- list -->
+      <div class="padding-lr padding-tb-sm">功能列表</div>
       <div class="dui-list">
-        <div class="dui-item" v-for="n in 20" :key="n">123</div>
+        <div class="dui-item" @click="$dialog({ title: '标题', content: '您好吗' })">dialog</div>
+        <div class="dui-item" @click="$actionsheet(['一', '二'], { title: '标题' })">actionsheet</div>
       </div>
     </div>
-    <dui-actionsheet ref="actionsheet">
-      <div>Hello World</div>
-    </dui-actionsheet>
-    <dui-dialog ref="dialog" @mask="$refs.dialog.close()">
-      <div>Hello World</div>
-    </dui-dialog>
   </div>
 
-  <script src="../dist/dui.min.js"></script>
-  <!-- <script src="../dist/actionsheet.min.js"></script> -->
+  <!-- <script src="../dist/dui.min.js"></script> -->
+  <script src="../dist/preview.min.js"></script>
+  <script src="../dist/actionsheet.min.js"></script>
+  <script src="../dist/dialog.min.js"></script>
+  <script src="../dist/pulldown.min.js"></script>
+  <script src="../dist/lazyload.min.js"></script>
   <script>
     var vm = new Vue({
       el: '#app',
       data: {
         content: 'Hello Dui',
         pulldownText: '下拉刷新',
+
+        imgPaths: [
+          'http://b-ssl.duitang.com/uploads/item/201410/09/20141009224754_AswrQ.jpeg',
+          'https://c-ssl.duitang.com/uploads/item/202003/08/20200308000020_ECSFH.thumb.1000_0.jpeg',
+          'https://c-ssl.duitang.com/uploads/item/202007/17/20200717131129_tTkGB.thumb.1000_0.jpeg',
+          'https://c-ssl.duitang.com/uploads/item/201808/13/20180813200538_vqnje.thumb.700_0.jpeg',
+          'https://c-ssl.duitang.com/uploads/item/202005/26/20200526000816_sLrLa.thumb.700_0.jpeg',
+          'https://c-ssl.duitang.com/uploads/item/202001/03/20200103105513_yzcxj.thumb.700_0.jpeg',
+          'https://c-ssl.duitang.com/uploads/item/202004/20/20200420210204_vxdjh.thumb.700_0.png',
+        ],
       },
       methods: {
         getPulldownOptions() {

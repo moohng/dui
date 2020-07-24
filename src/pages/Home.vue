@@ -21,10 +21,11 @@
       <div class="dui-item" @click="onToastClick">Toast</div>
       <div class="dui-item" @click="onActionSheetClick">Action Sheet</div>
       <div class="dui-item" @click="onLoadingClick">Loading</div>
-      <div class="dui-item" @click="$router.push('pulldown')">下拉刷新</div>
+      <div class="dui-item" @click="$router.push('layout')">Preview</div>
     </div>
     <div class="padding-lr padding-tb-sm text-grey">其他工具</div>
     <div class="dui-list">
+      <div class="dui-item" @click="$router.push('pulldown')">下拉刷新</div>
       <div class="dui-item" @click="$router.push('lazyload')">图片懒加载</div>
       <div class="dui-item" @click="$router.push('lazyload')">图片懒加载</div>
       <div class="dui-item" @click="$router.push('lazyload')">图片懒加载</div>

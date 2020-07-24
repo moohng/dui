@@ -3,6 +3,7 @@ import ActionSheet from './actionsheet';
 import Dialog from './dialog';
 import Toast from './toast';
 import Loading from './loading';
+import Preivew from './preview';
 
 function install(Vue) {
   // 注册组件
@@ -10,6 +11,7 @@ function install(Vue) {
   Vue.use(Dialog);
   Vue.use(Toast);
   Vue.use(Loading);
+  Vue.use(Preivew);
 }
 
 if (typeof window.Vue !== 'undefined') {
@@ -25,4 +27,5 @@ export {
   Dialog,
   Toast,
   Loading,
+  Preivew,
 };

@@ -1,10 +1,14 @@
 <template>
   <div class="dui-page">
-    <div class="dui-nav-bar bg-red">
+    <div class="dui-nav-bar placeholder bg-red">
       <div class="dui-nav-bar--fixed dui-nav-bar__content">
         <div class="dui-nav-bar__title">Layout</div>
         <div @click="$router.back()">返回</div>
       </div>
+    </div>
+    <div class="padding-lr padding-tb-sm">图片预览</div>
+    <div class="grid bg-white padding-lr">
+      <div class="col-3 square xs bg-img cover radius" v-for="(img, index) in imgPaths" :key="index" v-src="img" @click="$preview(imgPaths, index)"></div>
     </div>
     <div class="padding-lr padding-tb-sm">九宫格</div>
     <div class="grid bg-white text-center lines">
@@ -14,9 +18,24 @@
         </div>
       </div>
     </div>
-    <div class="padding-lr padding-tb-sm">图片宫格</div>
-    <div class="grid bg-white padding-lr">
-      <div class="col-4 square xs bg-img cover radius" v-for="n in 7" :key="n" v-src="'http://b-ssl.duitang.com/uploads/item/201410/09/20141009224754_AswrQ.jpeg'"></div>
-    </div>
   </div>
 </template>
+
+<script>
+export default {
+  data() {
+    return {
+      index: 2,
+      imgPaths: [
+        'http://b-ssl.duitang.com/uploads/item/201410/09/20141009224754_AswrQ.jpeg',
+        'https://c-ssl.duitang.com/uploads/item/202003/08/20200308000020_ECSFH.thumb.1000_0.jpeg',
+        'https://c-ssl.duitang.com/uploads/item/202007/17/20200717131129_tTkGB.thumb.1000_0.jpeg',
+        'https://c-ssl.duitang.com/uploads/item/201808/13/20180813200538_vqnje.thumb.700_0.jpeg',
+        'https://c-ssl.duitang.com/uploads/item/202005/26/20200526000816_sLrLa.thumb.700_0.jpeg',
+        'https://c-ssl.duitang.com/uploads/item/202001/03/20200103105513_yzcxj.thumb.700_0.jpeg',
+        'https://c-ssl.duitang.com/uploads/item/202004/20/20200420210204_vxdjh.thumb.700_0.png',
+      ],
+    }
+  },
+}
+</script>
