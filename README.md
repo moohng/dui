@@ -37,7 +37,7 @@ dui 包括一套样式布局方案和一套组件库，样式分为基础样式�
 <script src="//cdn.jsdelivr.net/npm/@moohng/dui/dist/dialog.min.js"></script>
 ```
 
-`dui.base.min.css` 是 dui 的一套基本布局解决方案，你可以不使用任何 Vue 组件，使用 dui 布局方案快速进行页面布局。使用方法请参考 [examples](examples/)。
+`dui.base.min.css` 是 dui 的最基本布局，其类名没有 `dui-` 前缀（参考 `Color UI` 命名方案），你可以不使用任何 Vue 组件，使用 dui 布局方案快速进行页面布局。
 
 ### ES Module 导入
 
@@ -69,7 +69,7 @@ Vue.use(Dialog);
 
 ## 使用
 
-在模板中使用（可自由定义弹窗主题内容），如果是通过`script`标签导入，组件会自动注册，直接使用
+在模板中使用（可自由定义弹窗主题内容），如果是通过`script`标签导入，组件会自动注册，直接使用：
 
 ```html
 <template>
@@ -103,15 +103,26 @@ export default {
 </script>
 ```
 
-## 已完成组件
+具体使用方法请参考该项目源码
 
-- `this.$dialog(...)`：弹窗
-- `this.$actionsheet(...)`：底部弹出
-- `this.$loading(...)`：全屏loading
-- `this.$toast(...)`：轻提示
-- `this.$preview(...)`：图片预览
+## 样式组件
+
+- [x] `Button`：按钮
+- [x] `NacBar`：顶部导航
+- [x] `List`：列表
+- [x] `Icon`：常用图标
+
+## Vue组件
+
+- [x] `this.$dialog(...)`：弹窗
+- [x] `this.$actionsheet(...)`：底部弹出
+- [x] `this.$loading(...)`：全屏loading
+- [x] `this.$toast(...)`：轻提示
+- [x] `this.$preview(...)`：图片预览
 
 ## 其他Vue插件
+
+Vue 插件从 DUI 中独立了出来，需要单独引入再使用
 
 - `v-src`：懒加载
 - `v-pulldown`：下拉刷新
