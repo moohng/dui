@@ -880,6 +880,11 @@
     cssnano-preset-default "^4.0.0"
     postcss "^7.0.0"
 
+"@moohng/dan@^1.5.2":
+  version "1.5.2"
+  resolved "https://registry.npm.taobao.org/@moohng/dan/download/@moohng/dan-1.5.2.tgz#c01ae57832651440652d1147dc521a2aee1e16d1"
+  integrity sha1-wBrleDJlFEBlLRFH3FIaKu4eFtE=
+
 "@moohng/postcss-px2vw@^1.0.2":
   version "1.0.2"
   resolved "https://registry.npm.taobao.org/@moohng/postcss-px2vw/download/@moohng/postcss-px2vw-1.0.2.tgz#84e7b341e760efd0869e1517408cd080f333aed9"

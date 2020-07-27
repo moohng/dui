@@ -9,7 +9,7 @@ Vue.use(Dui)
 
 Vue.config.productionTip = false
 
-window.vm = new Vue({
+new Vue({
   router,
   render: (h) => h(App),
 }).$mount('#app')

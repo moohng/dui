@@ -3,13 +3,17 @@
     <!-- <div class="status-bar bg-orange">
       <div class="status-bar--fixed"></div>
     </div> -->
-    <div class="dui-nav-bar with-status-bar placeholder bg-orange">
+    <!-- <div class="dui-nav-bar placeholder bg-orange">
       <div class="dui-nav-bar--fixed dui-nav-bar__content">
         <div class="dui-nav-bar__title">Hello Dui</div>
-        <div class="dui-icon__back"></div>
-        <div>操作</div>
       </div>
-    </div>
+    </div> -->
+    <header class="padding">
+      <div class="center margin-top-xl">
+        <div class="avatar lg">DUI</div>
+      </div>
+      <p class="text-center text-gray">移动端快速布局、高度可自定义Vue 2 UI组件库，以实用为主，避免重复造轮子。作者：Kevin，项目地址：<a href="https://github.com/moohng/dui">https://github.com/moohng/dui</a></p>
+    </header>
     <div class="padding-lr padding-tb-sm text-grey">基本布局（base）</div>
     <div class="dui-list indent">
       <div class="dui-item line-red" @click="$router.push('layout')">
@@ -25,6 +29,10 @@
     </div>
     <div class="padding-lr padding-tb-sm text-grey">组件</div>
     <div class="dui-list indent">
+      <div class="dui-item" @click="$router.push('icon')">
+        <div class="flex-sub">Icon</div>
+        <div class="dui-icon__arrow text-gray"></div>
+      </div>
       <div class="dui-item" @click="$router.push('dialog')">
         <div class="flex-sub">Dialog</div>
         <div class="dui-icon__arrow text-gray"></div>
@@ -85,9 +93,3 @@ export default {
   },
 }
 </script>
-
-<style lang="scss">
-body {
-  background-color: $colorDefault;
-}
-</style>

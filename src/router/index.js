@@ -1,15 +1,16 @@
-import Vue from 'vue';
-import VueRouter from 'vue-router';
-import Home from '../pages/Home.vue';
-import Layout from '../pages/Layout.vue';
-import Button from '../pages/Button.vue';
+import Vue from 'vue'
+import VueRouter from 'vue-router'
+import Home from '../pages/Home.vue'
+import Layout from '../pages/Layout.vue'
+import Button from '../pages/Button.vue'
+import Icon from '../pages/Icon.vue'
 
-import Dialog from '../pages/Dialog.vue';
-import PullDown from '../pages/PullDown.vue';
+import Dialog from '../pages/Dialog.vue'
+import PullDown from '../pages/PullDown.vue'
 
-import Lazyload from '../pages/Lazyload.vue';
+import Lazyload from '../pages/Lazyload.vue'
 
-Vue.use(VueRouter);
+Vue.use(VueRouter)
 
 const routes = [
   {
@@ -21,6 +22,11 @@ const routes = [
     path: '/layout',
     name: 'Layout',
     component: Layout,
+  },
+  {
+    path: '/icon',
+    name: 'Icon',
+    component: Icon,
   },
   {
     path: '/dialog',
@@ -50,24 +56,24 @@ const routes = [
   //   // which is lazy-loaded when the route is visited.
   //   component: () => import(/* webpackChunkName: "about" */ '../views/About.vue'),
   // },
-];
+]
 
 const router = new VueRouter({
   routes,
   scrollBehavior(to, from, savedPosition) {
     if (savedPosition) {
-      return savedPosition;
+      return savedPosition
     }
     return {
       x: 0,
       y: 0,
-    };
+    }
   },
-});
+})
 
 router.beforeEach((to, from, next) => {
   document.title = to.meta.title ?? process.env.VUE_APP_TITLE
   next()
 })
 
-export default router;
+export default router

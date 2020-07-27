@@ -3,7 +3,7 @@
     <div class="dui-nav-bar placeholder bg-red">
       <div class="dui-nav-bar--fixed dui-nav-bar__content">
         <div class="dui-nav-bar__title">Layout</div>
-        <div @click="$router.back()">返回</div>
+        <div class="dui-icon__back" @click="$router.back()"></div>
       </div>
     </div>
     <div class="padding-lr padding-tb-sm">图片预览</div>

@@ -1,5 +1,11 @@
 <template>
   <div class="dui-page">
+    <div class="dui-nav-bar placeholder bg-red">
+      <div class="dui-nav-bar--fixed dui-nav-bar__content">
+        <div class="dui-nav-bar__title">Button</div>
+        <div class="dui-icon__back" @click="$router.back()"></div>
+      </div>
+    </div>
     <div class="padding margin-top bg-white grid">
       <div class="col-2 padding-xs">
         <button class="dui-button lg bg-red">large</button>

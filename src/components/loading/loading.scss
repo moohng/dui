@@ -10,7 +10,7 @@
     border-radius: 12px;
     z-index: 10000;
     opacity: 0;
-    .dui-icon__loading {
+    .dui-icon__loading::after {
       width: 38px;
       height: 38px;
     }
