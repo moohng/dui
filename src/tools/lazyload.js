@@ -1,119 +1,122 @@
-import { throttle } from './utils';
+import { throttle } from './utils'
 
 function setImage(el, src) {
   if (el instanceof Image) {
-    el.src = src;
+    el.referrerPolicy = 'no-referrer'
+    el.src = src
   } else {
-    el.style.backgroundImage = `url(${src})`;
+    el.style.backgroundImage = `url(${src})`
   }
 }
 
-let instance = null;
+let instance = null
 
 class Lazyload {
   static init(...args) {
     if (!instance) {
-      instance = new this(...args);
+      instance = new this(...args)
     }
-    return instance;
+    return instance
   }
 
   constructor() {
-    this.nodeList = [];
-    this.imgList = []; // 已缓存图片
-    this.eventList = ['scroll']; // scroll 事件有兼容性问题（移动端无效）
-    this.defaultUrl = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';
-    this.handlerLoad = throttle.call(this, this.myHandlerLoad, 24);
+    this.nodeList = []
+    this.imgList = [] // 已缓存图片
+    this.eventList = ['scroll'] // scroll 事件有兼容性问题（移动端无效）
+    this.defaultUrl = 'data:image/gifbase64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7'
+    this.handlerLoad = throttle.call(this, this.myHandlerLoad, 24)
 
-    this.initEvent();
+    this.initEvent()
   }
 
   initEvent() {
     this.eventList.forEach((event) => {
-      window.addEventListener(event, this.handlerLoad, false);
-    });
+      window.addEventListener(event, this.handlerLoad, false)
+    })
   }
 
   myHandlerLoad() {
     this.nodeList.forEach((el) => {
-      this.loadImage(el);
-    });
+      this.loadImage(el)
+    })
   }
 
   loadImage(el) {
     const {
       top, bottom,
-    } = el.getBoundingClientRect();
+    } = el.getBoundingClientRect()
     if ((top < window.innerHeight && bottom > 0)/*  && (left < window.innerWidth && right > 0) */) { // 屏幕中
-      const { tempSrc: src } = el;
+      const { tempSrc: src } = el
       if (this.imgList.includes(src)) { // 如果图片已被缓存
-        setImage(el, src); // 设置图片
-        this.remove(el); // 移除节点
+        setImage(el, src) // 设置图片
+        this.remove(el) // 移除节点
       } else {
         // 开始加载
-        const img = new Image();
+        const img = new Image()
         img.onload = () => {
-          setImage(el, src); // 设置图片
-          this.imgList.push(src); // 添加缓存
-          this.remove(el); // 移除节点
-        };
+          setImage(el, src) // 设置图片
+          this.imgList.push(src) // 添加缓存
+          this.remove(el) // 移除节点
+        }
         img.onerror = () => {
-          this.remove(el);
-        };
-        img.src = src;
+          this.remove(el)
+        }
+        img.crossOrigin = 'anonymous'
+        img.referrerPolicy = 'no-referrer'
+        img.src = src
       }
     }
   }
 
   add(el, src = el.dataset.src) {
     if (!src) {
-      return;
+      return
     }
-    el.tempSrc = src;
+    el.tempSrc = src
     if (!this.nodeList.includes(el)) {
-      this.nodeList.push(el);
+      this.nodeList.push(el)
     }
     // 设置占位图
-    setImage(el, this.defaultUrl);
-    setTimeout(() => this.loadImage(el));
+    setImage(el, this.defaultUrl)
+    setTimeout(() => this.loadImage(el))
   }
 
   remove(el) {
-    const index = this.nodeList.findIndex((item) => item === el);
+    const index = this.nodeList.findIndex((item) => item === el)
     if (index >= 0) {
-      this.nodeList.splice(index, 1);
+      this.nodeList.splice(index, 1)
     }
   }
 }
 
 Lazyload.install = function install(Vue) {
-  const lz = Lazyload.init();
+  const lz = Lazyload.init()
   // v-src 自定义指令
   Vue.directive('src', {
     inserted: (el, { value, modifiers }) => {
       if (modifiers.lazy) {
-        lz.add(el, value);
+        lz.add(el, value)
       } else {
-        setImage(el, value);
+        setImage(el, value)
       }
     },
     update: (el, { value, oldValue, modifiers }) => {
       if (value !== oldValue) {
         if (modifiers.lazy) {
-          lz.add(el, value);
+          lz.add(el, value)
         } else {
-          setImage(el, value);
+          setImage(el, value)
         }
       }
     },
     unbind: (el) => {
-      lz.remove(el);
+      lz.remove(el)
     },
-  });
-};
-
-if (typeof window.Vue !== 'undefined') {
-  Lazyload.install(window.Vue);
+  })
 }
 
-export default Lazyload;
+if (typeof window.Vue !== 'undefined') {
+  Lazyload.install(window.Vue)
+}
+
+export default Lazyload
