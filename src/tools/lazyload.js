@@ -61,7 +61,7 @@ class Lazyload {
         img.onerror = () => {
           this.remove(el)
         }
-        img.crossOrigin = 'anonymous'
+        // img.crossOrigin = 'anonymous'
         img.referrerPolicy = 'no-referrer'
         img.src = src
       }
