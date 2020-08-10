@@ -17,7 +17,7 @@
       <div class="padding text-center" v-pulldown="getPulldownOptions()">{{ pulldownText }}</div>
       <div class="padding-lr padding-tb-sm">图片预览</div>
       <div class="grid bg-white padding-lr">
-        <div class="col-4 square xs bg-img cover radius" v-for="(img, index) in imgPaths" :key="index" v-src="img" @click="$preview(imgPaths, index)"></div>
+        <div class="col-4 square xs bg-img cover radius" v-for="(img, index) in imgPaths" :key="index" :data-lazy="img" @click="$preview(imgPaths, index)"></div>
       </div>
       <!-- list -->
       <div class="padding-lr padding-tb-sm">功能列表</div>

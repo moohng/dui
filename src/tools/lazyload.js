@@ -1,6 +1,9 @@
-import { throttle } from './utils'
+import { domReady } from './utils'
 
 function setImage(el, src) {
+  if (!src) {
+    src = el.dataset.src || el.dataset.lazy
+  }
   if (el instanceof Image) {
     el.referrerPolicy = 'no-referrer'
     el.src = src
@@ -9,108 +12,49 @@ function setImage(el, src) {
   }
 }
 
-let instance = null
-
 class Lazyload {
   static init(...args) {
-    if (!instance) {
-      instance = new this(...args)
-    }
-    return instance
+    return new this(...args)
   }
 
   constructor() {
-    this.nodeList = []
-    this.imgList = [] // 已缓存图片
-    this.eventList = ['scroll'] // scroll 事件有兼容性问题（移动端无效）
-    this.defaultUrl = 'data:image/gifbase64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7'
-    this.handlerLoad = throttle.call(this, this.myHandlerLoad, 24)
+    this.ob = new IntersectionObserver(entries => {
+      entries.forEach(item => {
+        if (item.intersectionRatio > 0) {
+          setImage(item.target)
+        }
+      })
+    }, {})
 
-    this.initEvent()
-  }
-
-  initEvent() {
-    this.eventList.forEach((event) => {
-      window.addEventListener(event, this.handlerLoad, false)
+    domReady(() => {
+      document.querySelectorAll('[data-src], [data-lazy]').forEach(item => {
+        this.ob.observe(item)
+      })
     })
   }
 
-  myHandlerLoad() {
-    this.nodeList.forEach((el) => {
-      this.loadImage(el)
-    })
-  }
-
-  loadImage(el) {
-    const {
-      top, bottom,
-    } = el.getBoundingClientRect()
-    if ((top < window.innerHeight && bottom > 0)/*  && (left < window.innerWidth && right > 0) */) { // 屏幕中
-      const { tempSrc: src } = el
-      if (this.imgList.includes(src)) { // 如果图片已被缓存
-        setImage(el, src) // 设置图片
-        this.remove(el) // 移除节点
-      } else {
-        // 开始加载
-        const img = new Image()
-        img.onload = () => {
-          setImage(el, src) // 设置图片
-          this.imgList.push(src) // 添加缓存
-          this.remove(el) // 移除节点
-        }
-        img.onerror = () => {
-          this.remove(el)
-        }
-        // img.crossOrigin = 'anonymous'
-        img.referrerPolicy = 'no-referrer'
-        img.src = src
-      }
+  add(el, src) {
+    if (src) {
+      el.dataset.src = src
     }
-  }
-
-  add(el, src = el.dataset.src) {
-    if (!src) {
-      return
-    }
-    el.tempSrc = src
-    if (!this.nodeList.includes(el)) {
-      this.nodeList.push(el)
-    }
-    // 设置占位图
-    setImage(el, this.defaultUrl)
-    setTimeout(() => this.loadImage(el))
+    this.ob.observe(el)
   }
 
   remove(el) {
-    const index = this.nodeList.findIndex((item) => item === el)
-    if (index >= 0) {
-      this.nodeList.splice(index, 1)
-    }
+    this.ob.unobserve(el)
   }
 }
 
+const instance = Lazyload.init()
+
 Lazyload.install = function install(Vue) {
-  const lz = Lazyload.init()
   // v-src 自定义指令
   Vue.directive('src', {
-    inserted: (el, { value, modifiers }) => {
-      if (modifiers.lazy) {
-        lz.add(el, value)
-      } else {
-        setImage(el, value)
-      }
-    },
-    update: (el, { value, oldValue, modifiers }) => {
-      if (value !== oldValue) {
-        if (modifiers.lazy) {
-          lz.add(el, value)
-        } else {
-          setImage(el, value)
-        }
-      }
+    inserted: (el, { value }) => {
+      instance.add(el, value)
     },
     unbind: (el) => {
-      lz.remove(el)
+      instance.remove(el)
     },
   })
 }

@@ -8,7 +8,7 @@
     </div>
     <div class="dui-list">
       <div class="dui-item" v-for="(img, index) in imgList" :key="index">
-        <div class="avatar margin-right" v-src.lazy="img"></div>
+        <div class="avatar margin-right" v-src="img"></div>
         <div>用户昵称</div>
       </div>
     </div>
