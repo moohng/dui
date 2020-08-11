@@ -1,16 +1,8 @@
 <template>
   <div class="dui-page">
-    <!-- <div class="status-bar bg-orange">
-      <div class="status-bar--fixed"></div>
-    </div> -->
-    <!-- <div class="dui-nav-bar placeholder bg-orange">
-      <div class="dui-nav-bar--fixed dui-nav-bar__content">
-        <div class="dui-nav-bar__title">Hello Dui</div>
-      </div>
-    </div> -->
     <header class="padding">
       <div class="center margin-top-xl">
-        <div class="avatar lg">DUI</div>
+        <div class="avatar lg" @click="onAvatarClick">DUI</div>
       </div>
       <p class="text-center text-gray">移动端快速布局、高度可自定义Vue 2 UI组件库，以实用为主，避免重复造轮子。作者：Kevin，项目地址：<a href="https://github.com/moohng/dui">https://github.com/moohng/dui</a></p>
     </header>
@@ -62,6 +54,11 @@
 <script>
 export default {
   name: 'Home',
+  data() {
+    return {
+      clickTimes: 0,
+    }
+  },
   methods: {
     onToastClick() {
       this.$toast('你好啊')
@@ -86,6 +83,16 @@ export default {
     onLoadingClick() {
       this.$loading()
       setTimeout(this.$loading.hide, 2000)
+    },
+    onAvatarClick() {
+      this.timer && clearTimeout(this.timer)
+      this.clickTimes += 1
+      if (this.clickTimes >= 5) {
+        this.$router.push({ name: 'Upload' })
+      }
+      this.timer = setTimeout(() => {
+        this.clickTimes = 0
+      }, 400)
     },
   },
   created() {

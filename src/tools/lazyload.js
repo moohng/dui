@@ -8,7 +8,7 @@ function setImage(el, src) {
     el.referrerPolicy = 'no-referrer'
     el.src = src
   } else {
-    el.style.backgroundImage = `url(${src})`
+    el.style.backgroundImage = `url("${src}")` // 防止链接中有 () 字符
   }
 }
 
@@ -51,6 +51,9 @@ Lazyload.install = function install(Vue) {
   // v-src 自定义指令
   Vue.directive('src', {
     inserted: (el, { value }) => {
+      instance.add(el, value)
+    },
+    updated: (el, { value }) => {
       instance.add(el, value)
     },
     unbind: (el) => {

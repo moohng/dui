@@ -6,6 +6,7 @@ import Button from '../pages/Button.vue'
 import Icon from '../pages/Icon.vue'
 
 import Dialog from '../pages/Dialog.vue'
+import Upload from '../pages/Upload.vue'
 import PullDown from '../pages/PullDown.vue'
 
 import Lazyload from '../pages/Lazyload.vue'
@@ -47,6 +48,11 @@ const routes = [
     path: '/pulldown',
     name: 'PullDown',
     component: PullDown,
+  },
+  {
+    path: '/upload',
+    name: 'Upload',
+    component: Upload,
   },
   // {
   //   path: '/about',
