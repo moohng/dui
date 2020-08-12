@@ -8,9 +8,12 @@ Preview.install = function install(Vue) {
   install.installed = true
 
   let point = null
-  document.body.addEventListener('click', ({ pageX, pageY }) => {
+  document.body.addEventListener('click', ({ clientX, clientY }) => {
     if (!Vue.duiPreview || !Vue.duiPreview.show) {
-      point = { pageX, pageY }
+      point = {
+        pageX: clientX,
+        pageY: clientY,
+      }
     }
   }, { capture: true })
 
