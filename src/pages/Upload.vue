@@ -8,7 +8,10 @@
     </div>
     <div>
       <div class="padding text-center" ref="pulldown" v-pulldown="getPulldownOptions()">{{ pulldownText }}</div>
-      <div class="padding-lr-sm padding-tb-xs bg-yellow">访问失败请下拉刷新页面</div>
+      <div v-show="showTip" class="padding-lr-sm padding-tb-xs bg-yellow flex align-center">
+        <span class="flex-sub">访问失败请下拉刷新页面</span>
+        <i class="dui-icon__close" @click="showTip = false"></i>
+      </div>
       <div class="grid bg-white padding-lr-sm">
         <div class="col-4 square xs bg-img cover radius" v-for="(img, index) in imgPaths" :key="index" v-src="img" @click="onPreview(imgPaths, index)"></div>
         <div class="col-4 square xs radius upload-icon">
@@ -28,12 +31,14 @@ export default {
   name: 'Upload',
   data() {
     return {
+      showTip: false,
       pulldownText: '下拉刷新',
       imgPaths: [],
     }
   },
   mounted() {
-    this.init()
+    this.$loading('加载中...')
+    this.init().finally(this.$loading.hide)
   },
   methods: {
     getPulldownOptions() {
@@ -81,7 +86,7 @@ export default {
         this.imgPaths.push(url)
         copy(url)
       } catch (e) {
-        this.$toast('上传失败')
+        this.showTip = true
       }
     },
     async getList() {
@@ -92,7 +97,7 @@ export default {
         })
         this.imgPaths = objects.map(({ url }) => url)
       } catch (e) {
-        //
+        this.showTip = true
       }
     },
   },
@@ -124,5 +129,9 @@ input[type="file"] {
   width: 100%;
   height: 100%;
   opacity: 0;
+}
+.dui-icon__close::after {
+  width: 16px;
+  height: 16px;
 }
 </style>

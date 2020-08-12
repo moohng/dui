@@ -1,7 +1,7 @@
 <template>
   <div class="dui-preview" :class="{toggle: show}" ref="slider" @click="onClose">
     <div class="dui-preview__wrap">
-      <div class="dui-preview__slide bg-img" v-for="(item, index) in options" :key="index" v-src="item"></div>
+      <div class="dui-preview__slide bg-img" v-for="(item, index) in options" :key="index" :style="{backgroundImage: `url(${item})`}"></div>
     </div>
     <slot>
       <!-- 索引 -->
