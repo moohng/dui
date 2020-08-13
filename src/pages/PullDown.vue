@@ -1,8 +1,8 @@
 <template>
   <div class="dui-page" ref="wrapper">
-    <div class="dui-nav-bar placeholder bg-red">
+    <div v-if="hasNavbar" class="dui-nav-bar placeholder bg-red">
       <div class="dui-nav-bar--fixed dui-nav-bar__content">
-        <div class="dui-nav-bar__title">下拉刷新</div>
+        <div class="dui-nav-bar__title">{{$route.meta.title}}</div>
         <div class="dui-icon__back" @click="$router.back()"></div>
       </div>
     </div>
@@ -11,19 +11,12 @@
       <ul class="dui-list">
         <li class="dui-item" v-for="n in listCount" :key="n">页面内容{{ n }}</li>
       </ul>
-      <div class="padding text-center" v-pullup="getPullupOptions()">{{ pullupText }}</div>
+      <div class="padding text-center" v-pullup="onLoadMore">{{ pullupText }}</div>
     </div>
   </div>
 </template>
 
 <script>
-import Vue from 'vue'
-import PullDown from '../tools/pulldown'
-import PullUp from '../tools/pullup'
-
-Vue.use(PullDown)
-Vue.use(PullUp)
-
 export default {
   data() {
     return {
@@ -66,31 +59,17 @@ export default {
         },
       }
     },
-    getPullupOptions() {
-      return {
-        threshold: 0,
-        // onLoadMore: () => new Promise((resolve) => {
-        //   this.nextStatus = 'loading'
-        //   setTimeout(() => {
-        //     resolve(true)
-        //     this.nextStatus = 'noMore'
-        //   }, 2000)
-        // }),
-        onLoadMore: (finished) => {
-          if (this.nextStatus === 'more') {
-            this.nextStatus = 'loading'
-            setTimeout(() => {
-              this.listCount += 20
-              if (this.listCount > 50) {
-                finished(true)
-                this.nextStatus = 'noMore'
-              } else {
-                finished()
-                this.nextStatus = 'more'
-              }
-            }, 2000)
+    onLoadMore() {
+      if (this.nextStatus === 'more') {
+        this.nextStatus = 'loading'
+        setTimeout(() => {
+          this.listCount += 20
+          if (this.listCount > 50) {
+            this.nextStatus = 'noMore'
+          } else {
+            this.nextStatus = 'more'
           }
-        },
+        }, 2000)
       }
     },
   },

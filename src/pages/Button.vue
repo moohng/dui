@@ -1,8 +1,8 @@
 <template>
   <div class="dui-page">
-    <div class="dui-nav-bar placeholder bg-red">
+    <div v-if="hasNavbar" class="dui-nav-bar placeholder bg-red">
       <div class="dui-nav-bar--fixed dui-nav-bar__content">
-        <div class="dui-nav-bar__title">Button</div>
+        <div class="dui-nav-bar__title">{{$route.meta.title}}</div>
         <div class="dui-icon__back" @click="$router.back()"></div>
       </div>
     </div>

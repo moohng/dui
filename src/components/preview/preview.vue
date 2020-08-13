@@ -13,7 +13,7 @@
 <script>
 import BScroll from '@better-scroll/core'
 import SlidePlugin from '@better-scroll/slide'
-import modalHelper from '../../tools/modalHelper';
+import modalHelper from '../../tools/modalHelper'
 
 BScroll.use(SlidePlugin)
 

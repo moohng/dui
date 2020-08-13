@@ -17,41 +17,65 @@ const routes = [
   {
     path: '/',
     name: 'Home',
+    meta: {
+      title: 'DUI 框架',
+    },
     component: Home,
   },
   {
     path: '/layout',
     name: 'Layout',
+    meta: {
+      title: '布局',
+    },
     component: Layout,
   },
   {
     path: '/icon',
     name: 'Icon',
+    meta: {
+      title: 'Icon',
+    },
     component: Icon,
   },
   {
     path: '/dialog',
     name: 'Dialog',
+    meta: {
+      title: 'Dialog',
+    },
     component: Dialog,
   },
   {
     path: '/lazyload',
     name: 'Lazyload',
+    meta: {
+      title: '懒加载',
+    },
     component: Lazyload,
   },
   {
     path: '/button',
     name: 'Button',
+    meta: {
+      title: 'Button',
+    },
     component: Button,
   },
   {
     path: '/pulldown',
     name: 'PullDown',
+    meta: {
+      title: '下拉刷新',
+    },
     component: PullDown,
   },
   {
     path: '/upload',
     name: 'Upload',
+    meta: {
+      title: '图片上传',
+    },
     component: Upload,
   },
   // {
