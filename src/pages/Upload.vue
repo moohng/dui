@@ -122,7 +122,7 @@ export default {
         name = this.prefixText + md5(name + '?' + Date.now())
         const filePath = ext ? (name + '.' + ext) : name
         const { url } = await this.ossClient.put(filePath, file)
-        this.imgPaths.push(url + '!blur')
+        this.imgPaths.push(url)
         copy(url)
       } catch (e) {
         this.showTip = true
@@ -141,9 +141,9 @@ export default {
         })
         const { nextMarker = '', objects } = result
         if (isRefresh || !this.nextMarker) {
-          this.imgPaths = objects?.map(({ url }) => url + '!blur') ?? []
+          this.imgPaths = objects?.map(({ url }) => url) ?? []
         } else {
-          this.imgPaths = this.imgPaths.concat(objects?.map(({ url }) => url + '!blur') ?? [])
+          this.imgPaths = this.imgPaths.concat(objects?.map(({ url }) => url) ?? [])
         }
         this.nextMarker = nextMarker
         this.nextStatus = nextMarker ? 'more' : 'noMore'

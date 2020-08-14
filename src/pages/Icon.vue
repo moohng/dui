@@ -9,8 +9,8 @@
     <div class="grid text-center">
       <div class="col-3 bg-white" v-for="(icon, index) in iconList" :key="index">
         <div class="square" @click="onCopy(icon)">
-          <div class="padding-sm">
-            <div class="padding-tb-sm" :class="icon"></div>
+          <div class="padding-sm flex flex-direction align-center">
+            <div class="margin-tb-sm" :class="icon"></div>
             <div>{{ icon }}</div>
           </div>
         </div>
@@ -68,7 +68,7 @@ export default {
 [class^="col-"]:active {
   background-color: #fcfcfc;
 }
-.grid [class*="dui-icon"]::after {
+.grid [class*="dui-icon"] {
   width: 24px;
   height: 24px;
 }

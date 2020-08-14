@@ -15,18 +15,6 @@
 .align-stretch {
 	align-items: stretch;
 }
-.self-start {
-	align-self: flex-start;
-}
-.self-center {
-	align-self: flex-center;
-}
-.self-end {
-	align-self: flex-end;
-}
-.self-stretch {
-	align-self: stretch;
-}
 .justify-start {
 	justify-content: flex-start;
 }
@@ -57,15 +45,18 @@
 .flex-wrap {
 	flex-wrap: wrap;
 }
-.flex-center {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
+.flex-center,
 .center {
   @extend .flex;
   @extend .justify-center;
   @extend .align-center;
+}
+
+.self-center {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%, 0);
 }
 
 .abs {

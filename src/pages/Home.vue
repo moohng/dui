@@ -93,8 +93,5 @@ export default {
       }, 400)
     },
   },
-  created() {
-    console.log('created')
-  },
 }
 </script>

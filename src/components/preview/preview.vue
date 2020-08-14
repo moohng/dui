@@ -1,7 +1,9 @@
 <template>
   <div class="dui-preview" :class="{toggle: show}" ref="slider" @click="onClose">
     <div class="dui-preview__wrap">
-      <div class="dui-preview__slide bg-img" v-for="(item, index) in options" :key="index" :style="{backgroundImage: `url(${item})`}"></div>
+      <div class="dui-preview__slide bg-img" v-for="(item, index) in options" :key="index" :style="{backgroundImage: `url(${loadedList[index]})`}">
+        <svg class="icon-loading" v-show="!loadedList[index]" viewBox="0 0 1024 1024"><path d="M1023.85 529.032c-1.317-71.287-16.305-142.391-43.943-207.39-27.564-65.036-67.558-123.967-116.655-172.662-49.06-48.73-107.26-87.263-170.248-112.67C630.052 10.793 562.348-1.38 495.484.082 428.62 1.47 362.012 16.496 301.144 44.206c-60.941 27.601-116.143 67.668-161.767 116.838-45.624 49.134-81.67 107.406-105.432 170.431C10.073 394.464-1.296 462.132.166 529.032c1.316 66.937 15.427 133.472 41.383 194.34 25.92 60.868 63.464 116.033 109.527 161.584 46.025 45.624 100.57 81.596 159.537 105.286 58.93 23.799 122.248 35.095 184.87 33.633 62.66-1.39 124.808-15.537 181.692-41.493 56.92-25.92 108.502-63.427 151.055-109.49 42.59-45.99 76.186-100.497 98.303-159.354 13.454-35.68 22.556-72.932 27.382-110.696 1.28.11 2.596.146 3.875.146 36.485 0 66.06-30.562 66.06-68.253 0-1.9-.11-3.802-.256-5.703h.256zM918.893 710.284c-24.201 56.738-59.296 108.137-102.325 150.544-43.028 42.48-93.916 75.93-148.862 97.901-54.946 22.044-113.803 32.463-172.222 31-58.419-1.352-116.18-14.622-169.042-38.896-52.899-24.165-100.826-59.15-140.344-102.069-39.556-42.845-70.74-93.587-91.138-148.277-20.509-54.69-30.16-113.292-28.771-171.455 1.353-58.163 13.746-115.595 36.375-168.164 22.556-52.57 55.202-100.205 95.195-139.504 39.958-39.3 87.227-70.227 138.151-90.48 50.925-20.326 105.396-29.867 159.574-28.405 54.178 1.39 107.552 13.782 156.393 36.302 48.877 22.446 93.148 54.91 129.633 94.647 36.557 39.738 65.255 86.715 84.009 137.237 18.827 50.559 27.637 104.591 26.248 158.367h.22a73.622 73.622 0 00-.22 5.703c0 35.205 25.773 64.159 58.894 67.85-6.434 37.143-17.072 73.372-31.768 107.7z"/></svg>
+      </div>
     </div>
     <slot>
       <!-- 索引 -->
@@ -41,6 +43,7 @@ export default {
     return {
       current: this.index,
       show: false,
+      loadedList: [],
     }
   },
   watch: {
@@ -54,7 +57,6 @@ export default {
   methods: {
     open() {
       this.bs && this.bs.destroy()
-      this.current = this.index
       this.bs = new BScroll(this.$refs.slider, {
         probeType: 2,
         scrollX: true,
@@ -69,10 +71,14 @@ export default {
         stopPropagation: true,
         click: true,
       })
-      this.bs.goToPage(this.current, 0, 0)
       this.bs.on('slideWillChange', ({ pageX }) => {
         this.current = pageX
+        this.loadImage(this.options[pageX], src => {
+          this.$set(this.loadedList, pageX, src)
+        })
       })
+      // 初始化
+      this.bs.goToPage(this.index, 0, 0)
       // 开启过渡动画
       this.$refs.slider.style.transitionDuration = null
       this.show = true
@@ -89,6 +95,11 @@ export default {
         this.$emit('close')
         this.close()
       }
+    },
+    loadImage(src, onload) {
+      const image = new Image()
+      image.onload = () => onload(src)
+      image.src = src
     },
   },
   destroyed() {
