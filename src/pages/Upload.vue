@@ -13,24 +13,20 @@
         <button class="dui-button round bg-red sm" @click="onSearch">搜索</button>
       </div>
     </div>
-    <div>
-      <div class="padding text-center" ref="pulldown" v-pulldown="getPulldownOptions()">{{ pulldownText }}</div>
+    <refresh @refresh="onRefresh">
       <!-- 顶部提示 -->
       <div v-show="showTip" class="padding-lr-sm padding-tb-xs bg-yellow flex align-center">
         <span class="flex-sub">访问失败请重新加载页面</span>
         <i class="dui-icon__close" @click="showTip = false"></i>
       </div>
       <!-- 文件列表 -->
-      <div v-if="imgPaths.length > 0" class="grid padding-lr-xs">
-        <div class="col-4 square xxs bg-img cover" v-for="(img, index) in imgPaths" :key="img" v-src="img" @click="onPreview(imgPaths, index)">
+      <div v-if="imgPaths.length > 0" class="grid">
+        <div class="col-3 square xxs bg-img cover" v-for="(img, index) in imgPaths" :key="img" v-src="img" @click="onPreview(imgPaths, index)">
           <div class="img-text text-xs">{{img.split('.com/')[1]}}</div>
         </div>
       </div>
-      <div class="padding text-center text-gray" v-pullup="onLoadMore()">
-        <i v-show="nextStatus === 'loading'" class="dui-icon__loading"></i>
-        <!-- <span v-show="nextStatus === 'noMore'">没有更多数据了~</span> -->
-      </div>
-    </div>
+      <load-more ref="loadMore" @load-more="onLoadMore"></load-more>
+    </refresh>
     <!-- 上传按钮 -->
     <div class="flat-button round bg-red upload-icon">
       <input type="file" name="file" @change="onUpload">
@@ -58,33 +54,20 @@ export default {
   },
   mounted() {
     this.auth().then(() => {
-      this.getList()
+      this.getList('')
     })
   },
   methods: {
-    getPulldownOptions() {
-      return {
-        onPullDownRefresh: () => {
-          this.pulldownText = '正在刷新...'
-          return this.getList(true).then(() => {
-            this.pulldownText = '刷新成功'
-          }).catch(() => {
-            this.pulldownText = '刷新失败'
-          })
-        },
-        onPullDown: (y, flag) => {
-          if (flag) {
-            this.pulldownText = '松开刷新'
-          } else {
-            this.pulldownText = '下拉刷新'
-          }
-        },
-      }
+    onRefresh(finished) {
+      this.getList('').then(() => {
+        finished(true)
+        this.$refs.loadMore.refresh()
+      }).catch(() => {
+        finished(false)
+      })
     },
     onLoadMore() {
-      if (this.nextStatus === 'more') {
-        this.getList()
-      }
+      this.getList()
     },
     onPreview(imgPaths, index) {
       if (typeof window.WeixinJSBridge !== 'undefined') {
@@ -128,32 +111,28 @@ export default {
         this.showTip = true
       }
     },
-    async getList(isRefresh = false) {
-      if (this.nextStatus === 'loading') return
-      if (!isRefresh) {
-        this.nextStatus = 'loading'
-      }
+    async getList(marker = this.nextMarker) {
       try {
         const result = await this.ossClient.list({
-          marker: this.nextMarker,
+          marker,
           prefix: this.prefixText,
-          'max-keys': 40,
+          'max-keys': 30,
         })
         const { nextMarker = '', objects } = result
-        if (isRefresh || !this.nextMarker) {
+        if (!marker) {
           this.imgPaths = objects?.map(({ url }) => url) ?? []
         } else {
           this.imgPaths = this.imgPaths.concat(objects?.map(({ url }) => url) ?? [])
         }
         this.nextMarker = nextMarker
-        this.nextStatus = nextMarker ? 'more' : 'noMore'
+        this.$refs.loadMore.finished(objects.length < 30)
       } catch (e) {
-        console.log(e)
         this.showTip = true
       }
     },
     onSearch() {
-      this.getList(true)
+      this.imgPaths = []
+      this.getList('')
     },
   },
 }
@@ -206,13 +185,9 @@ input[type="file"] {
   height: 100%;
   opacity: 0;
 }
-.dui-icon__close::after {
+.dui-icon__close {
   width: 16px;
   height: 16px;
-}
-.dui-icon__loading::after {
-  width: 24px;
-  height: 24px;
 }
 .search-bar {
   height: 48px;

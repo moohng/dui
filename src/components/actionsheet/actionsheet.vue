@@ -1,5 +1,5 @@
 <template>
-  <div class="dui-actionsheet" :class="{ toggle: show }">
+  <div v-show="show" class="dui-actionsheet" :class="{ toggle }">
     <div class="mask" @click="close()"></div>
     <div class="dui-actionsheet__body" :class="{'dui-actionsheet__body--default': !$slots.default}">
       <slot>
@@ -29,7 +29,7 @@
 </template>
 
 <script>
-import modalHelper from '../../tools/modalHelper';
+import modalHelper from '../../tools/modalHelper'
 
 export default {
   name: 'dui-actionsheet',
@@ -54,29 +54,36 @@ export default {
   data() {
     return {
       show: false,
-    };
+      toggle: false,
+    }
   },
   methods: {
     open() {
-      this.show = true;
-      modalHelper.afterOpen();
+      this.show = true
+      setTimeout(() => {
+        this.toggle = true
+      }, 20)
+      modalHelper.afterOpen()
     },
     close() {
-      modalHelper.beforeClose();
-      this.$emit('close');
-      this.show = false;
+      modalHelper.beforeClose()
+      this.$emit('close')
+      this.toggle = false
+      setTimeout(() => {
+        this.show = false;
+      }, 300)
     },
     async onClick(index, menu, e) {
       if (typeof menu.onClick === 'function') {
-        await menu.onClick(e);
-        this.close();
+        await menu.onClick(e)
+        this.close()
       } else if (typeof this.click === 'function') {
-        await this.click(index, menu, e);
-        this.close();
+        await this.click(index, menu, e)
+        this.close()
       } else {
-        this.close();
+        this.close()
       }
     },
   },
-};
+}
 </script>

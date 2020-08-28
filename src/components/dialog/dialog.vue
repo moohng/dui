@@ -1,5 +1,5 @@
 <template>
-  <div class="dui-dialog" :class="{ toggle: show }">
+  <div v-show="show" class="dui-dialog" :class="{ toggle }">
     <div class="mask" @click="onMask"></div>
     <div class="dui-dialog__body" :class="{'dui-dialog__body--default': !$slots.default}">
       <slot>
@@ -25,7 +25,7 @@
 </template>
 
 <script>
-import modalHelper from '../../tools/modalHelper';
+import modalHelper from '../../tools/modalHelper'
 
 export default {
   name: 'dui-dialog',
@@ -55,36 +55,43 @@ export default {
   data() {
     return {
       show: false,
-    };
+      toggle: false,
+    }
   },
   methods: {
     open() {
-      this.show = true;
-      modalHelper.afterOpen();
+      this.show = true
+      setTimeout(() => {
+        this.toggle = true
+      }, 20)
+      modalHelper.afterOpen()
     },
     close() {
-      modalHelper.beforeClose();
-      this.$emit('close');
-      this.show = false;
+      modalHelper.beforeClose()
+      this.$emit('close')
+      this.toggle = false
+      setTimeout(() => {
+        this.show = false
+      }, 300)
     },
     async onClick(button, index, e) {
       if (typeof button.onClick === 'function') {
-        await button.onClick(e);
-        this.close();
+        await button.onClick(e)
+        this.close()
       } else if (typeof this.click === 'function') {
-        await this.click(index, e);
-        this.close();
+        await this.click(index, e)
+        this.close()
       } else {
-        this.close();
+        this.close()
       }
     },
     async onMask(e) {
       if (typeof this.click === 'function') {
-        this.click('mask', e);
+        this.click('mask', e)
       } else {
-        this.$emit('mask');
+        this.$emit('mask')
       }
     },
   },
-};
+}
 </script>

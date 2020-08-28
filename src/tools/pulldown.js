@@ -1,149 +1,155 @@
-import { querySelector, pop } from './utils';
-
-function ani(el, y, time, func) {
-  el.style.transform = `translateY(${y}px) translateZ(0)`;
-  if (time) {
-    el.style.transition = `transform ${time}ms ease`;
-    setTimeout(() => {
-      el.style.transition = null;
-      if (typeof func === 'function') {
-        func();
-      }
-    }, time);
-  }
-}
+import { querySelector, pop } from './utils'
 
 class PullDown {
   constructor(el, {
+    scroller = document.scrollingElement,
     threshold,
     stopTime = 400,
+    bounceTime = 200,
     onPullDownRefresh = pop,
     onPullDown = pop,
   } = {}) {
-    this.el = el;
-    this.threshold = threshold;
-    this.stopTime = stopTime;
-    this.onPullDownRefresh = onPullDownRefresh;
-    this.onPullDown = onPullDown;
-    this.startY = null;
-    this.isFirst = true;
+    this.el = el                 // 下拉刷新节点
+    this.$scroller = querySelector(scroller)    // 滚动容器 默认是 window
+    this.threshold = threshold   // 触发下拉刷新的距离
+    this.stopTime = stopTime     // 刷新完成停留的时间
+    this.bounceTime = bounceTime // 回到指定位置动画持续时间
+    this.onPullDownRefresh = onPullDownRefresh
+    this.onPullDown = onPullDown
 
-    this.handlerStart = this.handlerStart.bind(this);
-    this.handlerMove = this.handlerMove.bind(this);
-    this.handlerEnd = this.handlerEnd.bind(this);
+    this.startY = 0            // 记录手指按下时的最初位置
+    this.pageMoveY = 0             // 页面被拉动的距离
+    this.isFirst = true
+    this.canPullDown = false
 
-    this.init();
+    this.handlerStart = this.handlerStart.bind(this)
+    this.handlerMove = this.handlerMove.bind(this)
+    this.handlerEnd = this.handlerEnd.bind(this)
+
+    this.init()
   }
 
   init() {
-    this.$el = querySelector(this.el);
-    this.$wrapper = document.scrollingElement;
-    this.$scroller = this.$el.parentElement;
-    this.stop = this.$el.offsetHeight;
-    this.threshold = this.threshold || this.stop * 1.12;
+    this.$el = querySelector(this.el)
+    this.$container = this.$el.parentElement // 刷新容器是下拉刷新节点的父节点
+    this.stopY = this.$el.offsetHeight      // 刷新时停住的位置
+    this.threshold = this.threshold || this.stopY * 1.12
 
     // 设置下拉组件的样式
-    const { style } = this.$el;
-    style.position = 'absolute';
-    style.top = '0';
-    style.left = '0';
-    style.width = '100%';
-    style.transform = 'translateY(-100%)';
+    const { style } = this.$el
+    style.position = 'absolute'
+    style.top = '0'
+    style.left = '0'
+    style.width = '100%'
+    style.transform = 'translateY(-100%) translateZ(0)'
 
-    this.$scroller.style.position = 'relative';
+    this.$container.style.position = 'relative'
 
     // 监听事件
-    this.$wrapper.addEventListener('touchstart', this.handlerStart);
-    this.$wrapper.addEventListener('touchmove', this.handlerMove, { passive: false });
-    this.$wrapper.addEventListener('touchend', this.handlerEnd);
-    this.$wrapper.addEventListener('touchcancel', this.handlerEnd);
+    this.$container.addEventListener('touchstart', this.handlerStart)
+    this.$container.addEventListener('touchmove', this.handlerMove, { passive: false })
+    this.$container.addEventListener('touchend', this.handlerEnd)
+    this.$container.addEventListener('touchcancel', this.handlerEnd)
   }
 
   destroy() {
-    this.$wrapper.removeEventListener('touchstart', this.handlerStart);
-    this.$wrapper.removeEventListener('touchmove', this.handlerMove, { passive: false });
-    this.$wrapper.removeEventListener('touchend', this.handlerEnd);
-    this.$wrapper.removeEventListener('touchcancel', this.handlerEnd);
+    this.$container.removeEventListener('touchstart', this.handlerStart)
+    this.$container.removeEventListener('touchmove', this.handlerMove, { passive: false })
+    this.$container.removeEventListener('touchend', this.handlerEnd)
+    this.$container.removeEventListener('touchcancel', this.handlerEnd)
   }
 
   handlerEnd() {
     if (!this.canPullDown) {
-      return;
+      return
     }
-    this.canPullDown = false;
-    this.isScrolling = true;
-    if (this.moveY > this.threshold) {
+    this.canPullDown = false
+    // 页面下拉的距离大于设置的阈值 触发下拉刷新
+    if (this.pageMoveY > this.threshold) {
       // 正在刷新
-      this.isRefreshing = true;
-      ani(this.$scroller, this.stop, 200);
-      const res = this.onPullDownRefresh(); // 触发刷新
+      this.isRefreshing = true
+      this.ani(this.$container, this.stopY, this.bounceTime)          // 回到指定的停留位置
+      const res = this.onPullDownRefresh(this.finished.bind(this))    // 执行刷新回调
       if (res instanceof Promise) {
         res.finally(() => {
-          this.finished();
-        });
+          this.finished()
+        })
       }
     } else {
       // 回到顶部
-      ani(this.$scroller, 0, 200, () => {
-        this.isScrolling = false;
-        this.isRefreshing = false;
-      });
+      this.ani(this.$container, 0, this.bounceTime)
     }
   }
 
   handlerMove(e) {
-    const currentY = e.touches[0].pageY;
-    let moveY = currentY - this.startY;
-    // 下滑
-    if (moveY > 0) {
-      if (!this.isRefreshing && !this.isScrolling && this.$wrapper.scrollTop <= 0) {
-        e.preventDefault();
-        // 触发下拉刷新的条件
-        if (this.isFirst) {
-          this.isFirst = false;
-          this.startY = currentY;
-          moveY = 0;
-          this.canPullDown = true;
-        }
-        this.moveY = moveY * 0.4;
-        ani(this.$scroller, this.moveY);
-        this.onPullDown(this.moveY, this.moveY > this.threshold);
+    const currentY = e.touches[0].pageY
+    let moveY = currentY - this.startY         // 手指滑动的距离
+    /**
+     * 触发下拉的条件：
+     * 1. 手指往下滑动
+     * 2. 当前不是刷新状态
+     * 3. 当前不是执行动画滚动状态
+     * 4. 页面已滚动到最顶部
+     */
+    if (moveY > 0 && !this.isRefreshing && !this.isScrolling && this.$scroller.scrollTop <= 0) {
+      e.preventDefault()
+      // 触发下拉刷新的条件
+      if (this.isFirst) { // 只执行一次，设置一些初始值
+        this.isFirst = false
+        this.startY = currentY
+        moveY = 0
+        this.canPullDown = true
       }
-    } else {
-      this.canPullDown = false;
-      ani(this.$scroller, 0);
+      this.pageMoveY = moveY * 0.4               // 页面滚动的距离
+      this.ani(this.$container, this.pageMoveY)  // 页面跟随手指滚动
+      this.onPullDown(this.pageMoveY, this.pageMoveY > this.threshold) // 执行页面滚动回调
     }
   }
 
   handlerStart(e) {
-    this.isFirst = true;
-    this.startY = e.touches[0].pageY;
+    this.startY = e.touches[0].pageY
+  }
+
+  // 滚动到指定位置
+  ani(el, y, time, func) {
+    el.style.transform = `translateY(${y}px) translateZ(0)`
+    if (time) {
+      this.isScrolling = true
+      el.style.transition = `transform ${time}ms ease`
+      setTimeout(() => {
+        el.style.transition = null
+        this.isScrolling = false
+        this.isFirst = true
+        if (typeof func === 'function') {
+          func()
+        }
+      }, time)
+    }
   }
 
   finished() {
     setTimeout(() => {
       // 结束刷新
-      ani(this.$scroller, 0, 200, () => {
-        this.isScrolling = false;
-        this.isRefreshing = false;
-      });
-    }, this.stopTime);
+      this.ani(this.$container, 0, this.bounceTime, () => {
+        this.isRefreshing = false
+      })
+    }, this.stopTime)
   }
 }
 
 PullDown.install = function install(Vue) {
   Vue.directive('pulldown', {
     inserted(el, { value }) {
-      el.pulldown = new PullDown(el, value);
+      el.pulldown = new PullDown(el, value)
     },
     unbind(el) {
-      el.pulldown.destroy();
+      el.pulldown.destroy()
     },
-  });
-};
-
-if (typeof window.Vue !== 'undefined') {
-  PullDown.install(window.Vue);
+  })
 }
 
-export default PullDown;
+if (typeof window.Vue !== 'undefined') {
+  PullDown.install(window.Vue)
+}
+
+export default PullDown

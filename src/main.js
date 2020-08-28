@@ -3,8 +3,6 @@ import VuePageStack from 'vue-page-stack'
 import router from './router'
 import Dui from './components/dui'
 import LazyLoad from './tools/lazyload'
-import PullDown from './tools/pulldown'
-import PullUp from './tools/pullup'
 import App from './app.vue'
 import axios from './api/http'
 
@@ -16,8 +14,6 @@ if (process.env.NODE_ENV !== 'production') {
 Vue.use(VuePageStack, { router })
 Vue.use(Dui)
 Vue.use(LazyLoad)
-Vue.use(PullDown)
-Vue.use(PullUp)
 
 Vue.prototype.$http = axios
 Vue.prototype.$get = axios.get

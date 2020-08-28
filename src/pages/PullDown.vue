@@ -6,13 +6,12 @@
         <div class="dui-icon__back" @click="$router.back()"></div>
       </div>
     </div>
-    <div class="bg-white">
-      <div class="padding text-center" ref="pulldown" v-pulldown="getPulldownOptions()">{{ pulldownText }}</div>
+    <refresh @refresh="onRefresh">
       <ul class="dui-list">
         <li class="dui-item" v-for="n in listCount" :key="n">页面内容{{ n }}</li>
       </ul>
-      <div class="padding text-center" v-pullup="onLoadMore">{{ pullupText }}</div>
-    </div>
+      <load-more ref="loadMore" @load-more="onLoadMore"></load-more>
+    </refresh>
   </div>
 </template>
 
@@ -20,57 +19,22 @@
 export default {
   data() {
     return {
-      pulldownText: '下拉刷新',
-      nextStatus: 'more',
-
       listCount: 20,
     }
   },
-  computed: {
-    pullupText() {
-      const map = {
-        more: '上拉加载更多',
-        loading: '正在加载...',
-        noMore: '没有更多数据了~',
-      }
-      return map[this.nextStatus]
-    },
-  },
   methods: {
-    getPulldownOptions() {
-      return {
-        onPullDownRefresh: () => {
-          this.pulldownText = '正在刷新...'
-          return new Promise((resolve) => {
-            setTimeout(() => {
-              this.listCount = 20
-              this.nextStatus = 'more'
-              this.pulldownText = '刷新完成'
-              resolve()
-            }, 2000)
-          })
-        },
-        onPullDown: (y, flag) => {
-          if (flag) {
-            this.pulldownText = '松开刷新'
-          } else {
-            this.pulldownText = '下拉刷新'
-          }
-        },
-      }
+    onRefresh(finished) {
+      setTimeout(() => {
+        this.listCount = 20
+        finished(true)
+        this.$refs.loadMore.refresh()
+      }, 2000)
     },
-    onLoadMore() {
-      if (this.nextStatus === 'more') {
-        this.nextStatus = 'loading'
-        setTimeout(() => {
-          this.listCount += 20
-          if (this.listCount > 50) {
-            this.nextStatus = 'noMore'
-          } else {
-            this.nextStatus = 'more'
-          }
-        }, 2000)
-      }
+    onLoadMore(finished) {
+      setTimeout(() => {
+        this.listCount += 20
+        finished(this.listCount > 50)
+      }, 2000)
     },
   },
 }
