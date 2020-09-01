@@ -10,11 +10,11 @@
   <link rel="stylesheet" href="../dist/actionsheet.min.css">
   <link rel="stylesheet" href="../dist/dialog.min.css">
   <link rel="stylesheet" href="../dist/preview.min.css">
+  <link rel="stylesheet" href="../dist/refresh.min.css">
 </head>
 <body>
   <div class="dui-page" id="app">
-    <div>
-      <div class="padding text-center" v-pulldown="getPulldownOptions()">{{ pulldownText }}</div>
+    <refresh @refresh="onRefresh">
       <div class="padding-lr padding-tb-sm">图片预览</div>
       <div class="grid bg-white padding-lr">
         <div class="col-4 square xs bg-img cover radius" v-for="(img, index) in imgPaths" :key="index" :data-lazy="img" @click="$preview(imgPaths, index)"></div>
@@ -25,21 +25,20 @@
         <div class="dui-item" @click="$dialog({ title: '标题', content: '您好吗' })">dialog</div>
         <div class="dui-item" @click="$actionsheet(['一', '二'], { title: '标题' })">actionsheet</div>
       </div>
-    </div>
+    </refresh>
   </div>
 
   <!-- <script src="../dist/dui.min.js"></script> -->
   <script src="../dist/preview.min.js"></script>
   <script src="../dist/actionsheet.min.js"></script>
   <script src="../dist/dialog.min.js"></script>
-  <script src="../dist/pulldown.min.js"></script>
+  <script src="../dist/refresh.min.js"></script>
   <script src="../dist/lazyload.min.js"></script>
   <script>
     var vm = new Vue({
       el: '#app',
       data: {
         content: 'Hello Dui',
-        pulldownText: '下拉刷新',
 
         imgPaths: [
           'http://b-ssl.duitang.com/uploads/item/201410/09/20141009224754_AswrQ.jpeg',
@@ -52,25 +51,12 @@
         ],
       },
       methods: {
-        getPulldownOptions() {
-          return {
-            onPullDownRefresh: () => {
-              this.pulldownText = '正在刷新...';
-              return new Promise((resolve) => {
-                setTimeout(() => {
-                  this.pulldownText = '刷新完成';
-                  resolve();
-                }, 2000);
-              });
-            },
-            onPullDown: (y, flag) => {
-              if (flag) {
-                this.pulldownText = '松开刷新';
-              } else {
-                this.pulldownText = '下拉刷新';
-              }
-            },
-          };
+        onRefresh(finished) {
+          return new Promise((resolve) => {
+            setTimeout(() => {
+              finished(true)
+            }, 2000)
+          })
         },
       },
     })

@@ -9,11 +9,8 @@
 </template>
 
 <script>
-import Vue from 'vue'
-import Pulldown from '../../tools/pulldown'
 import IconLoading from '../icon-loading'
 
-Vue.use(Pulldown)
 
 const mapPullDownText = {
   init: '下拉刷新',

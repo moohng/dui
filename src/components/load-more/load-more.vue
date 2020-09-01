@@ -6,11 +6,8 @@
 </template>
 
 <script>
-import Vue from 'vue'
-import Pullup from '../../tools/pullup'
 import IconLoading from '../icon-loading'
 
-Vue.use(Pullup)
 
 const mapPullUpText = {
   loading: '正在加载...',
