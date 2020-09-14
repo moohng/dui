@@ -1,10 +1,11 @@
 .dui-button {
   display: inline-block;
-  padding: 10px 24px;
+  padding: 0 16px;
+  height: 36px;
   font-size: 14px;
   text-align: center;
   text-decoration: none;
-  line-height: 1.2;
+  line-height: 1;
   outline: 0;
   border: 0;
   border-radius: 6px;
@@ -27,16 +28,23 @@
   &.round {
     @extend .round;
   }
+  span {
+    vertical-align: middle;
+  }
+}
+.dui-button.md {
+  height: 40px;
+  font-size: 16px;
 }
 .dui-button.lg {
-  padding: 12px 28px;
+  height: 44px;
   font-size: 16px;
 }
 .dui-button.sm {
-  padding: 8px 20px;
+  height: 32px;
   font-size: 12px;
 }
 .dui-button.xs {
-  padding: 6px 14px;
+  height: 28px;
   font-size: 12px;
 }

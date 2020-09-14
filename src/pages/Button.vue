@@ -6,25 +6,46 @@
         <div class="dui-icon__back" @click="$router.back()"></div>
       </div>
     </div>
-    <div class="padding margin-top bg-white grid">
-      <div class="col-2 padding-xs">
-        <button class="dui-button lg bg-red">large</button>
+    <div class="padding-lr padding-tb-sm">行内</div>
+    <div class="padding bg-white flex flex-wrap">
+      <div class="margin-xxs">
+        <button class="dui-button lg bg-red">lg</button>
       </div>
-      <div class="col-3 padding-xs">
+      <div class="margin-xxs">
+        <button class="dui-button md bg-red">md</button>
+      </div>
+      <div class="margin-xxs">
         <button class="dui-button bg-red">default</button>
       </div>
-      <div class="col-3 padding-xs">
-        <button class="dui-button sm line-red round">small</button>
+      <div class="margin-xxs">
+        <button class="dui-button sm line-red round">sm</button>
       </div>
-      <div class="col-3 padding-xs">
-        <button class="dui-button xs bg-df">xsmall</button>
+      <div class="margin-xxs">
+        <button class="dui-button xs bg-df">xs</button>
       </div>
     </div>
-    <div class="padding margin-top bg-white">
-      <button class="dui-button block lg bg-red">large</button>
+    <div class="padding-lr padding-tb-sm">块级 + 图标</div>
+    <div class="padding bg-white">
+      <button class="dui-button block lg bg-red">
+        <i class="dui-icon__search margin-right-xs"></i>
+        <span>大按钮</span>
+      </button>
+      <button class="dui-button block md bg-red margin-top">
+        <i class="dui-icon__info margin-right-xs"></i>
+        <span>中等按钮</span>
+      </button>
       <button class="dui-button block bg-red margin-top">default</button>
       <button class="dui-button block sm line-red round margin-top">small</button>
       <button class="dui-button block xs line-orange margin-top">xsmall</button>
     </div>
   </div>
 </template>
+
+<style lang="scss" scoped>
+.dui-button {
+  [class*="dui-icon"] {
+    width: 24px;
+    height: 24px;
+  }
+}
+</style>
