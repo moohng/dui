@@ -1,17 +1,19 @@
 <template>
-  <div class="dui-page" ref="wrapper">
+  <div class="dui-page">
     <div v-if="hasNavbar" class="dui-nav-bar placeholder bg-red">
       <div class="dui-nav-bar--fixed dui-nav-bar__content">
         <div class="dui-nav-bar__title">{{$route.meta.title}}</div>
         <div class="dui-icon__back" @click="$router.back()"></div>
       </div>
     </div>
-    <refresh @refresh="onRefresh">
-      <ul class="dui-list">
-        <li class="dui-item" v-for="n in listCount" :key="n">页面内容{{ n }}</li>
-      </ul>
-      <load-more ref="loadMore" @load-more="onLoadMore"></load-more>
-    </refresh>
+    <div class="container">
+      <refresh scroller=".container" @refresh="onRefresh">
+        <ul class="dui-list">
+          <li class="dui-item" v-for="n in listCount" :key="n">页面内容{{ n }}</li>
+        </ul>
+        <load ref="loadMore" @load="onLoadMore"></load>
+      </refresh>
+    </div>
   </div>
 </template>
 
@@ -21,6 +23,9 @@ export default {
     return {
       listCount: 20,
     }
+  },
+  mounted () {
+    this.$refs.loadMore.finished()
   },
   methods: {
     onRefresh(finished) {
@@ -39,3 +44,12 @@ export default {
   },
 }
 </script>
+
+<style lang="scss" scoped>
+.container {
+  margin-top: 60px;
+  height: 60vh;
+  background: #ccc;
+  overflow: auto;
+}
+</style>
