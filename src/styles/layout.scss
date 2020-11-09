@@ -15,6 +15,18 @@
 .align-stretch {
 	align-items: stretch;
 }
+.self-start {
+	align-self: flex-start;
+}
+.self-center {
+	align-self: center;
+}
+.self-end {
+	align-self: flex-end;
+}
+.self-stretch {
+	align-self: stretch;
+}
 .justify-start {
 	justify-content: flex-start;
 }
@@ -22,7 +34,7 @@
 	justify-content: flex-end;
 }
 .justify-center {
-	justify-content: center;
+  justify-content: center;
 }
 .justify-between {
 	justify-content: space-between;
@@ -33,26 +45,19 @@
 .flex-sub {
   flex: 1;
 }
-.flex-twice {
-  flex: 2;
-}
-.flex-treble {
-  flex: 3;
-}
-.flex-direction {
+.flex-column {
 	flex-direction: column;
 }
 .flex-wrap {
 	flex-wrap: wrap;
 }
-.flex-center,
-.center {
+.flex-center {
   @extend .flex;
   @extend .justify-center;
   @extend .align-center;
 }
 
-.self-center {
+.center {
   position: absolute;
   left: 50%;
   top: 50%;

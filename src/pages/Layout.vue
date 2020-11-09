@@ -6,15 +6,15 @@
         <div class="dui-icon__back" @click="$router.back()"></div>
       </div>
     </div>
-    <div class="padding-lr padding-tb-sm">图片预览</div>
-    <div class="grid bg-white padding-lr">
+    <div class="plr ptb-sm">图片预览</div>
+    <div class="grid bg-white plr">
       <div class="col-3 square xs bg-img cover radius" v-for="(img, index) in imgPaths" :key="index" v-src="img" @click="$preview(imgPaths, index)"></div>
     </div>
-    <div class="padding-lr padding-tb-sm">九宫格</div>
+    <div class="plr ptb-sm">九宫格</div>
     <div class="grid bg-white text-center lines">
       <div class="col-3" :class="{'solid-right': n % 3, 'solid-bottom': Math.ceil(8 / 3) * 3 - n >= 3}" v-for="n in 8" :key="n">
         <div class="square">
-          <div class="abs center">{{ n }}</div>
+          <div class="abs flex-center">{{ n }}</div>
         </div>
       </div>
     </div>

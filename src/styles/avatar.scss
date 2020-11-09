@@ -5,16 +5,16 @@
   @extend .text-white;
   @extend .bg-img;
   @extend .round;
-  @extend .center;
-  &.lg {
-    width: 72px;
-    height: 72px;
-    font-size: 28px;
-  }
+  @extend .flex-center;
   &.xl {
     width: 80px;
     height: 80px;
     font-size: 30px;
+  }
+  &.lg {
+    width: 72px;
+    height: 72px;
+    font-size: 28px;
   }
   &.sm {
     width: 56px;

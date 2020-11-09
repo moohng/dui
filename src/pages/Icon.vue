@@ -9,8 +9,8 @@
     <div class="grid text-center">
       <div class="col-3 bg-white" v-for="(icon, index) in iconList" :key="index">
         <div class="square" @click="onCopy(icon)">
-          <div class="padding-sm flex flex-direction align-center">
-            <div class="margin-tb-sm" :class="icon"></div>
+          <div class="pd-sm flex flex-column align-center">
+            <div class="mtb-sm" :class="icon"></div>
             <div>{{ icon }}</div>
           </div>
         </div>

@@ -8,14 +8,14 @@
     </div>
     <!-- 文件路径 -->
     <div class="search-bar" :class="{'has-navbar': hasNavbar}">
-      <div class="search-bar__inner flex align-center fixed padding-lr bg-white">
-        <input class="round padding-lr-sm flex-sub margin-right" v-model="prefixText" type="text" placeholder="请输入文件路径">
+      <div class="search-bar__inner flex align-center fixed plr bg-white">
+        <input class="round plr-sm flex-sub margin-right" v-model="prefixText" type="text" placeholder="请输入文件路径">
         <button class="dui-button round bg-red sm" @click="onSearch">搜索</button>
       </div>
     </div>
     <refresh @refresh="onRefresh">
       <!-- 顶部提示 -->
-      <div v-show="showTip" class="padding-lr-sm padding-tb-xs bg-yellow flex align-center">
+      <div v-show="showTip" class="plr-sm ptb-xs bg-yellow flex align-center">
         <span class="flex-sub">访问失败请重新加载页面</span>
         <i class="dui-icon__close" @click="showTip = false"></i>
       </div>

@@ -1,5 +1,5 @@
 <template>
-  <div class="padding text-center">
+  <div class="pd text-center">
     <div v-if="nextStatus === 'more'" v-load="onLoadMore"></div>
     <template v-else-if="nextStatus === 'loading' || (nextStatus === 'noMore' && !invisible)">
       <icon-loading v-show="nextStatus === 'loading'" rotation></icon-loading>

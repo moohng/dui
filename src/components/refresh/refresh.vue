@@ -1,6 +1,6 @@
 <template>
   <div class="refresh">
-    <div class="padding text-center" :class="myClass" v-pulldown="getPulldownOptions()">
+    <div class="pd text-center" :class="myClass" v-pulldown="getPulldownOptions()">
       <icon-loading v-if="status === 'init' || status === 'will' || status === 'refreshing'" :radian="rotateValue" :rotation="status === 'refreshing'"></icon-loading>
       {{pulldownText}}
     </div>

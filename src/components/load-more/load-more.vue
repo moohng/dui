@@ -1,5 +1,5 @@
 <template>
-  <div class="load-more padding text-center" v-show="nextStatus === 'loading' || (nextStatus === 'noMore' && !invisible)" v-pullup="getPullupOptions()">
+  <div class="load-more pd text-center" v-show="nextStatus === 'loading' || (nextStatus === 'noMore' && !invisible)" v-pullup="getPullupOptions()">
     <icon-loading v-show="nextStatus === 'loading'" rotation></icon-loading>
     {{pullupText}}
   </div>

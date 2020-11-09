@@ -6,37 +6,37 @@
         <div class="dui-icon__back" @click="$router.back()"></div>
       </div>
     </div>
-    <div class="padding-lr padding-tb-sm">行内</div>
-    <div class="padding bg-white flex flex-wrap">
-      <div class="margin-xxs">
+    <div class="plr ptb-sm">行内</div>
+    <div class="pd bg-white flex flex-wrap">
+      <div class="m-xxs">
         <button class="dui-button lg bg-red">lg</button>
       </div>
-      <div class="margin-xxs">
+      <div class="m-xxs">
         <button class="dui-button md bg-red">md</button>
       </div>
-      <div class="margin-xxs">
+      <div class="m-xxs">
         <button class="dui-button bg-red">default</button>
       </div>
-      <div class="margin-xxs">
+      <div class="m-xxs">
         <button class="dui-button sm line-red round">sm</button>
       </div>
-      <div class="margin-xxs">
+      <div class="m-xxs">
         <button class="dui-button xs bg-df">xs</button>
       </div>
     </div>
-    <div class="padding-lr padding-tb-sm">块级 + 图标</div>
-    <div class="padding bg-white">
+    <div class="plr ptb-sm">块级 + 图标</div>
+    <div class="pd bg-white">
       <button class="dui-button block lg bg-red">
-        <i class="dui-icon__search margin-right-xs"></i>
+        <i class="dui-icon__search mr-xs"></i>
         <span>大按钮</span>
       </button>
-      <button class="dui-button block md bg-red margin-top">
-        <i class="dui-icon__info margin-right-xs"></i>
+      <button class="dui-button block md bg-red mt">
+        <i class="dui-icon__info mr-xs"></i>
         <span>中等按钮</span>
       </button>
-      <button class="dui-button block bg-red margin-top">default</button>
-      <button class="dui-button block sm line-red round margin-top">small</button>
-      <button class="dui-button block xs line-orange margin-top">xsmall</button>
+      <button class="dui-button block bg-red mt">default</button>
+      <button class="dui-button block sm line-red round mt">small</button>
+      <button class="dui-button block xs line-orange mt">xsmall</button>
     </div>
   </div>
 </template>

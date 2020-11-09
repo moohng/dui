@@ -1,64 +1,64 @@
 /* 间隔 */
 @each $key, $value in (xxl: 48px, xl: 32px, lg: 24px, df: 16px, sm: 12px, xs: 8px, xxs: 4px) {
   @if $key == df {
-    @each $dir in top, right, bottom, left {
-      .margin-#{$dir} {
-        margin-#{$dir}: $value;
+    @each $dir, $dir2 in (t: top, r: right, b: bottom, l: left) {
+      .m#{$dir} {
+        margin-#{$dir2}: $value;
       }
-      .padding-#{$dir} {
-        padding-#{$dir}: $value;
+      .p#{$dir} {
+        padding-#{$dir2}: $value;
       }
     }
-    .margin {
+    .mg {
       margin: $value;
     }
-    .padding {
+    .pd {
       padding: $value;
     }
-    .margin-tb {
+    .mtb {
       margin-top: $value;
       margin-bottom: $value;
     }
-    .margin-lr {
+    .mlr {
       margin-left: $value;
       margin-right: $value;
     }
-    .padding-tb {
+    .ptb {
       padding-top: $value;
       padding-bottom: $value;
     }
-    .padding-lr {
+    .plr {
       padding-left: $value;
       padding-right: $value;
     }
   } @else {
-    @each $dir in top, right, bottom, left {
-      .margin-#{$dir}-#{$key} {
-        margin-#{$dir}: $value;
+    @each $dir, $dir2 in (t: top, r: right, b: bottom, l: left) {
+      .m#{$dir}-#{$key} {
+        margin-#{$dir2}: $value;
       }
-      .padding-#{$dir}-#{$key} {
-        padding-#{$dir}: $value;
+      .p#{$dir}-#{$key} {
+        padding-#{$dir2}: $value;
       }
     }
-    .margin-#{$key} {
+    .m-#{$key} {
       margin: $value;
     }
-    .padding-#{$key} {
+    .p-#{$key} {
       padding: $value;
     }
-    .margin-tb-#{$key} {
+    .mtb-#{$key} {
       margin-top: $value;
       margin-bottom: $value;
     }
-    .margin-lr-#{$key} {
+    .mlr-#{$key} {
       margin-left: $value;
       margin-right: $value;
     }
-    .padding-tb-#{$key} {
+    .ptb-#{$key} {
       padding-top: $value;
       padding-bottom: $value;
     }
-    .padding-lr-#{$key} {
+    .plr-#{$key} {
       padding-left: $value;
       padding-right: $value;
     }
@@ -162,10 +162,6 @@
   }
 }
 
-.radius {
-  border-radius: 9px;
-  overflow: hidden;
-}
 @each $key, $value in (xl: 20px, lg: 15px, md: 12px, df: 10px, sm: 8px, xs: 6px, xxs: 3px) {
   .radius.#{$key} {
     border-radius: $value;

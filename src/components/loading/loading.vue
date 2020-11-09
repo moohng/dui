@@ -1,9 +1,9 @@
 <template>
   <div class="dui-loading" :class="{ toggle: show }">
     <div class="mask transparent"></div>
-    <div class="dui-loading__body padding">
+    <div class="dui-loading__body pd">
       <i class="dui-icon__loading"></i>
-      <div class="margin-top-sm">{{ loadingText }}</div>
+      <div class="mt-sm">{{ loadingText }}</div>
     </div>
   </div>
 </template>
