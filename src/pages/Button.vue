@@ -26,7 +26,7 @@
     </div>
     <div class="plr ptb-sm">块级 + 图标</div>
     <div class="pd bg-white">
-      <button class="dui-button block lg bg-red">
+      <button class="dui-button block lg bg-red" disabled @click="onTest">
         <i class="dui-icon__search mr-xs"></i>
         <span>大按钮</span>
       </button>
@@ -34,12 +34,22 @@
         <i class="dui-icon__info mr-xs"></i>
         <span>中等按钮</span>
       </button>
-      <button class="dui-button block bg-red mt">default</button>
+      <button class="dui-button block bg-red loading mt" @click="onTest">default</button>
       <button class="dui-button block sm line-red round mt">small</button>
       <button class="dui-button block xs line-orange mt">xsmall</button>
     </div>
   </div>
 </template>
+
+<script>
+export default {
+  methods: {
+    onTest() {
+      this.$toast('禁用弹不出来')
+    },
+  },
+}
+</script>
 
 <style lang="scss" scoped>
 .dui-button {

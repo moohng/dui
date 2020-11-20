@@ -115,9 +115,12 @@
       background-color: $value;
     }
   }
-  .text#{$name},
+  .text#{$name} {
+    color: $value;
+  }
   .line#{$name} {
     color: $value;
+    border-color: initial;
   }
 }
 
@@ -135,7 +138,7 @@
   position: relative;
   border-color: rgba(0, 0, 0, 0.1);
   &[class*=line] {
-    border-color: currentColor;
+    border-color: initial;
   }
   &::after {
     content: '';
@@ -162,11 +165,12 @@
   }
 }
 
-@each $key, $value in (xl: 20px, lg: 15px, md: 12px, df: 10px, sm: 8px, xs: 6px, xxs: 3px) {
-  .radius.#{$key} {
-    border-radius: $value;
-    overflow: hidden;
-  }
+.radius {
+  border-radius: 10px;
+  overflow: hidden;
+}
+@each $key, $value in (xxl: 20px, xl: 16px, lg: 14px, md: 12px, df: 10px, sm: 8px, xs: 6px, xxs: 3px) {
+  .radius.#{$key},
   .radius-#{$key} {
     border-radius: $value;
     overflow: hidden;
@@ -178,4 +182,8 @@
   &.cover {
     background-size: cover;
   }
+}
+
+.round {
+	border-radius: 2000px;
 }

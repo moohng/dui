@@ -122,17 +122,14 @@
   height: 0;
 }
 
-@each $size, $height in (
-  (xl, 2),
-  (lg, 1.8),
-  (df, 1.6),
-  (sm, 1.4),
-  (xs, 1.2),
-  (xxs, 1),
-) {
-  .line-#{$size} {
-    line-height: $height;
-  }
+.lh-0 {
+  line-height: 0;
+}
+.lh-1 {
+  line-height: 1;
+}
+.lh {
+  line-height: 1.6;
 }
 
 .fl {
@@ -173,10 +170,6 @@
 }
 .full-height {
   height: 100%;
-}
-
-.round {
-	border-radius: 2000px;
 }
 
 .block {

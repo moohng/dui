@@ -25,6 +25,13 @@ export default {
 }
 </script>
 
+<style lang="scss">
+@import './assets/styles/navbar.scss';
+@import './assets/styles/avatar.scss';
+@import './assets/styles/list.scss';
+@import './styles/icon.scss';
+</style>
+
 <style lang="scss" scoped>
 .page-enter,
 .page-leave-to {

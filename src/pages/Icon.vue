@@ -3,7 +3,7 @@
     <div v-if="hasNavbar" class="dui-nav-bar placeholder bg-red">
       <div class="dui-nav-bar--fixed dui-nav-bar__content">
         <div class="dui-nav-bar__title">{{$route.meta.title}}</div>
-        <div class="dui-icon__back" @click="$router.back()"></div>
+        <div class="iconfont icon-arrow-left" @click="$router.back()"></div>
       </div>
     </div>
     <div class="grid text-center">
@@ -27,31 +27,7 @@ export default {
     return {
       iconList: [
         'dui-icon__arrow',
-        'dui-icon__arrow--left',
         'dui-icon__back',
-        'dui-icon__loading',
-        'dui-icon__clear',
-        'dui-icon__cancel',
-        'dui-icon__search',
-        'dui-icon__circle',
-        'dui-icon__download',
-        'dui-icon__safe-success',
-        'dui-icon__safe-warn',
-        'dui-icon__success',
-        'dui-icon__success-circle',
-        'dui-icon__success-no-circle',
-        'dui-icon__waiting',
-        'dui-icon__waiting-circle',
-        'dui-icon__warn',
-        'dui-icon__info',
-        'dui-icon__info-circle',
-        'dui-icon__delete',
-        'dui-icon__success-no-circle-thin',
-        'dui-icon__arrow-bold',
-        'dui-icon__back-arrow-thin',
-        'dui-icon__close',
-        'dui-icon__close-thin',
-        'dui-icon__back-circle',
       ],
     }
   },
