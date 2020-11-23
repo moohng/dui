@@ -10,8 +10,8 @@
       <div class="col-3 bg-white" v-for="(icon, index) in iconList" :key="index">
         <div class="square" @click="onCopy(icon)">
           <div class="pd-sm flex flex-column align-center">
-            <div class="mtb-sm" :class="icon"></div>
-            <div>{{ icon }}</div>
+            <i class="mtb-sm iconfont" :class="icon"></i>
+            <span>{{ icon }}</span>
           </div>
         </div>
       </div>
@@ -26,8 +26,16 @@ export default {
   data() {
     return {
       iconList: [
-        'dui-icon__arrow',
-        'dui-icon__back',
+        'icon-arrow',
+        'icon-arrow-left',
+        'icon-arrow-up',
+        'icon-arrow-down',
+        'icon-clear',
+        'icon-close',
+        'icon-cross',
+        'icon-search',
+        'icon-plus',
+        'icon-sub',
       ],
     }
   },
@@ -44,8 +52,7 @@ export default {
 [class^="col-"]:active {
   background-color: #fcfcfc;
 }
-.grid [class*="dui-icon"] {
-  width: 24px;
-  height: 24px;
+.grid .iconfont {
+  font-size: 24px;
 }
 </style>

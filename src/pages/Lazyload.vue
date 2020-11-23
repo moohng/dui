@@ -3,7 +3,7 @@
     <div v-if="hasNavbar" class="dui-nav-bar placeholder bg-red">
       <div class="dui-nav-bar--fixed dui-nav-bar__content">
         <div class="dui-nav-bar__title">{{$route.meta.title}}</div>
-        <div class="dui-icon__back" @click="$router.back()"></div>
+        <div class="iconfont icon-arrow-left" @click="$router.back()"></div>
       </div>
     </div>
     <div class="dui-list">

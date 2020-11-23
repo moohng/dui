@@ -1,5 +1,5 @@
 <template>
-  <div class="dui-loading" :class="{ toggle: show }">
+  <div class="dui-loading" v-show="show">
     <div class="mask transparent"></div>
     <div class="dui-loading__body pd">
       <i class="dui-icon__loading"></i>
@@ -9,6 +9,8 @@
 </template>
 
 <script>
+import modalHelper from '../../tools/modalHelper'
+
 export default {
   name: 'dui-loading',
   data() {
@@ -21,8 +23,10 @@ export default {
     open(text = this.loadingText) {
       this.loadingText = text;
       this.show = true;
+      modalHelper.afterOpen()
     },
     close() {
+      modalHelper.beforeClose()
       this.$emit('close');
       this.show = false;
     },

@@ -23,6 +23,24 @@ function jsConfig(name, input) {
     vue({
       css: false,
     }),
+    babel({
+      babelrc: false, // 忽略项目中的babel配置文件，使用此配置
+      presets: [
+        [
+          '@babel/preset-env',
+          {
+            modules: false,
+            useBuiltIns: 'usage',
+            corejs: '2',
+          }
+        ]
+      ],
+      plugins: [
+        "@babel/plugin-proposal-nullish-coalescing-operator",
+        "@babel/plugin-proposal-optional-chaining",
+      ],
+      exclude: 'node_modules/**',
+    }),
   ]
   return [{
     input,
@@ -35,28 +53,13 @@ function jsConfig(name, input) {
       postcss({
         extract: `${name}.min.css`,
         minimize: true,
-        plugins: [px2vw({
-          viewportWidth: 375,
-          rootValue: false,
-        }), autoprefixer()],
-      }),
-      babel({
-        babelrc: false, // 忽略项目中的babel配置文件，使用此配置
-        presets: [
-          [
-            '@babel/preset-env',
-            {
-              modules: false,
-              useBuiltIns: 'usage',
-              corejs: '2',
-            }
-          ]
-        ],
         plugins: [
-          "@babel/plugin-proposal-nullish-coalescing-operator",
-          "@babel/plugin-proposal-optional-chaining",
+          px2vw({
+            viewportWidth: 375,
+            rootValue: false,
+          }),
+          autoprefixer(),
         ],
-        exclude: 'node_modules/**',
       }),
       terser(),
     ]),

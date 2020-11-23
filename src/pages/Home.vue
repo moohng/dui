@@ -10,41 +10,41 @@
     <div class="dui-list indent">
       <div class="dui-item" @click="$router.push('layout')">
         <div class="flex-sub">Grid</div>
-        <div class="dui-icon__arrow text-light"></div>
+        <i class="iconfont icon-arrow text-light"></i>
       </div>
       <div class="dui-item" @click="$router.push('button')">
         <div class="flex-sub">Button</div>
-        <div class="dui-icon__arrow text-light"></div>
+        <i class="iconfont icon-arrow text-light"></i>
       </div>
       <div class="dui-item" @click="$router.push('icon')">
         <div class="flex-sub">Icon</div>
-        <div class="dui-icon__arrow text-light"></div>
+        <i class="iconfont icon-arrow text-light"></i>
       </div>
     </div>
     <div class="plr ptb-sm text-grey">组件</div>
     <div class="dui-list indent">
       <div class="dui-item" @click="$router.push('dialog')">
         <div class="flex-sub">Dialog</div>
-        <div class="dui-icon__arrow text-light"></div>
+        <i class="iconfont icon-arrow text-light"></i>
       </div>
       <div class="dui-item" @click="onToastClick">Toast</div>
       <div class="dui-item" @click="onActionSheetClick">Action Sheet</div>
       <div class="dui-item" @click="onLoadingClick">Loading</div>
       <div class="dui-item" @click="$router.push('layout')">
         <div class="flex-sub">Preview</div>
-        <div class="dui-icon__arrow text-light"></div>
+        <i class="iconfont icon-arrow text-light"></i>
       </div>
     </div>
     <div class="plr ptb-sm text-grey">插件</div>
     <div class="dui-list">
       <div class="dui-item" @click="$router.push('pulldown')">
         <div class="flex-sub">下拉刷新</div>
-        <div class="dui-icon__arrow text-light"></div>
+        <i class="iconfont icon-arrow text-light"></i>
       </div>
-      <div class="dui-item" @click="$router.push('lazyload')">
-        <div class="flex-sub">图片懒加载</div>
-        <div class="dui-icon__arrow text-light"></div>
-      </div>
+      <!-- <div class="dui-item" @click="$router.push('lazyload')">
+        <div class="flex-sub">图片加载</div>
+        <i class="iconfont icon-arrow text-light"></i>
+      </div> -->
     </div>
   </div>
 </template>

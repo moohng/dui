@@ -51,3 +51,10 @@
     @include position(absolute, 0, 0, 0, 0);
   }
 }
+
+@mixin center($pos: absolute) {
+  position: $pos;
+  left: 50%;
+  top: 50%;
+  transform: translate3d(-50%, -50%, 0);
+}

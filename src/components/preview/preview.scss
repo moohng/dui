@@ -28,23 +28,11 @@
     background-color: inherit;
     pointer-events: inherit!important;
     vertical-align: middle;
-    .icon-loading {
-      position: absolute;
-      width: 28px;
-      height: 28px;
-      left: 50%;
-      top: 50%;
-      transform: translate(-50%, -50%);
-      fill: #f1f1f1;
-      animation: duiLoading 1.5s linear infinite;
-    }
-    @keyframes duiLoading {
-      0% {
-        transform: translate(-50%, -50%) rotate3d(0, 0, 1, 0deg);
-      }
-      100% {
-        transform: translate(-50%, -50%) rotate3d(0, 0, 1, 360deg);
-      }
+    .dui-icon__loading {
+      width: 36px;
+      height: 36px;
+      @include center;
+      color: #f1f1f1;
     }
   }
   &__index {

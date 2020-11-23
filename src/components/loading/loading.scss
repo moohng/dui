@@ -1,11 +1,10 @@
+// @import '../../styles/mixins.scss';
+@import '../../styles/mask.scss';
+
 .dui-loading {
-  display: none;
   &__body {
     width: 110px;
-    position: fixed;
-    top: 40%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    @include center(fixed);
     text-align: center;
     color: rgba(255, 255, 255, .9);
     background-color: #4c4c4c;
@@ -15,8 +14,5 @@
       width: 36px;
       height: 36px;
     }
-  }
-  &.toggle {
-    display: block;
   }
 }

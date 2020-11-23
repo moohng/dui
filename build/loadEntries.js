@@ -7,7 +7,6 @@ export default () => {
   const entries = fs.readdirSync(entryPath)
 
   const results = [
-    { name: 'lazyload', input: path.resolve('src/tools/lazyload.js') },
     { name: 'pulldown', input: path.resolve('src/tools/pulldown.js') },
     { name: 'pullup', input: path.resolve('src/tools/pullup.js') },
   ]
