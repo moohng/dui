@@ -21,16 +21,14 @@ dui 包括一套样式布局方案和一套组件库，样式分为基础样式�
 
 ### Script 导入
 
-全部导入（不推荐）
+
 
 ```html
+<!-- 全部导入（不推荐） -->
 <link type="stylesheet" href="//cdn.jsdelivr.net/npm/@moohng/dui/dist/dui.min.css" />
 <script src="//cdn.jsdelivr.net/npm/@moohng/dui/dist/dui.min.js"></script>
-```
 
-单个引用（`dui.base.min.css` 必须导入，它是页面的基础布局）
-
-```html
+<!-- 单个引用（`dui.base.min.css` 必须导入，它是页面的基础布局） -->
 <!-- 必须导入 -->
 <link type="stylesheet" href="//cdn.jsdelivr.net/npm/@moohng/dui/dist/dui.base.min.css" />
 <link type="stylesheet" href="//cdn.jsdelivr.net/npm/@moohng/dui/dist/dialog.min.css" />
@@ -41,9 +39,8 @@ dui 包括一套样式布局方案和一套组件库，样式分为基础样式�
 
 ### ES Module 导入
 
-全部导入（不推荐）
-
 ```js
+// 1. 全部导入
 // main.js
 import Vue from 'vue';
 import Dui from '@moohng/dui';
@@ -52,11 +49,8 @@ import '@moohng/dui/lib/dui/dui.css';
 
 // 全局注册
 Vue.use(Dui);
-```
 
-单个导入
-
-```js
+// 2. 单个导入
 import Vue from 'vue';
 // import { Dialog } from '@moohng/dui';
 import Dialog from '@moohng/dui/lib/dialog';
@@ -108,7 +102,7 @@ export default {
 ## 样式组件
 
 - [x] `Button`：按钮
-- [x] `NacBar`：顶部导航
+- [x] ~~`NacBar`：顶部导航~~
 - [x] `List`：列表
 - [x] `Icon`：常用图标
 
@@ -124,6 +118,6 @@ export default {
 
 Vue 插件从 DUI 中独立了出来，需要单独引入再使用
 
-- `v-src`：懒加载
+- ~~`v-src`：懒加载~~
 - `v-pulldown`：下拉刷新
 - `v-pullup`：加载更多

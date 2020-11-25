@@ -19,8 +19,3 @@ if (typeof window !== 'undefined' && window.Vue) {
 }
 
 export default LoadMore
-
-export {
-  Load,
-  LoadMore,
-}

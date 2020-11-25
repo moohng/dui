@@ -1,0 +1,19 @@
+.dui-list+.dui-list {
+  margin-top: 8px;
+}
+
+.no-bottom > .dui-item,
+.dui-item.no-bottom,
+.dui-item:last-child {
+  &::after {
+    border: 0;
+  }
+}
+
+.dui-item {
+  position: relative;
+  display: flex;
+  align-items: center;
+  min-height: 56px;
+  @extend .solid-bottom;
+}

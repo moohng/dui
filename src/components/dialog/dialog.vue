@@ -16,7 +16,7 @@
             v-for="(button, index) in buttons"
             :key="index"
             :class="[index > 0 ? 'solid-left' : ''].concat(button.class || [])"
-            @click="onClick(button, index)"
+            @click="onClick(index, button)"
           >{{ button.text || button }}</a>
         </div>
       </slot>
@@ -51,6 +51,10 @@ export default {
       type: [Array, String, Object],
       default: '',
     },
+    closable: {
+      type: Boolean,
+      default: false,
+    }
   },
   data() {
     return {
@@ -67,29 +71,24 @@ export default {
       modalHelper.afterOpen()
     },
     close() {
-      modalHelper.beforeClose()
-      this.$emit('close')
       this.toggle = false
       setTimeout(() => {
+        modalHelper.beforeClose()
         this.show = false
+        this.$emit('close')
       }, 300)
     },
-    async onClick(button, index, e) {
+    async onClick(index, button) {
       if (typeof button.onClick === 'function') {
-        await button.onClick(e)
-        this.close()
-      } else if (typeof this.click === 'function') {
-        await this.click(index, e)
-        this.close()
-      } else {
-        this.close()
+        await button.onClick(index, button)
       }
+      this.$emit('click', index, button)
+      this.close()
     },
-    async onMask(e) {
-      if (typeof this.click === 'function') {
-        this.click('mask', e)
-      } else {
-        this.$emit('mask')
+    async onMask() {
+      this.$emit('mask', this.close)
+      if (this.closable) {
+        this.close()
       }
     },
   },

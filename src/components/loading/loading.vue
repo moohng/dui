@@ -1,5 +1,5 @@
 <template>
-  <div class="dui-loading" v-show="show">
+  <div class="dui-loading" :class="{show}">
     <div class="mask transparent"></div>
     <div class="dui-loading__body pd">
       <i class="dui-icon__loading"></i>
@@ -27,8 +27,8 @@ export default {
     },
     close() {
       modalHelper.beforeClose()
-      this.$emit('close');
       this.show = false;
+      this.$emit('close');
     },
   },
 };

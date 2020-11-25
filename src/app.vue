@@ -1,8 +1,6 @@
 <template>
   <transition :name="transitionName">
-    <vue-page-stack>
-      <router-view></router-view>
-    </vue-page-stack>
+    <router-view ref="page"></router-view>
   </transition>
 </template>
 
@@ -14,11 +12,19 @@ export default {
     }
   },
   watch: {
-    $route(to) {
-      if (to.params['stack-key-dir'] === 'forward') {
-        this.transitionName = 'slide-left';
-      } else {
-        this.transitionName = 'slide-right';
+    $route(to, from) {
+
+      const scrollTop = document.scrollingElement.scrollTop
+      const $navbar = this.$el.querySelector('.dui-nav-bar--fixed')
+      if ($navbar) {
+        $navbar.style.top = `${scrollTop}px`
+      }
+      this.$el.style.top = `-${scrollTop}px`
+
+      this.transitionName = this.$router.isBack ? 'slide-right' : 'slide-left'
+
+      if (from.path  !== '/') {
+        this.$router.isBack = false
       }
     }
   },
@@ -28,7 +34,6 @@ export default {
 <style lang="scss">
 @import './assets/styles/navbar.scss';
 @import './assets/styles/avatar.scss';
-@import './assets/styles/list.scss';
 @import './styles/icon.scss';
 </style>
 
@@ -56,6 +61,11 @@ export default {
 .slide-right-enter-active,
 .slide-right-leave-active {
   transition: transform .4s;
+}
+.slide-left-leave-active {
+  position: fixed;
+  top: 0;
+  left: 0;
 }
 .slide-right-leave-active,
 .slide-left-enter-active {

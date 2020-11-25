@@ -60,9 +60,9 @@ export default {
       },
       unbind: el => {
         el.ob.unobserve(el)
-      }
-    }
-  }
+      },
+    },
+  },
 }
 </script>
 

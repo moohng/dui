@@ -106,4 +106,9 @@ router.beforeEach((to, from, next) => {
   next()
 })
 
+window.addEventListener('popstate', () => {
+  console.log('popstate', true)
+  router.isBack = true;
+});
+
 export default router

@@ -1,7 +1,8 @@
-// @import '../../styles/mixins.scss';
+@import '../../styles/mixins.scss';
 @import '../../styles/mask.scss';
 
 .dui-loading {
+  display: none;
   &__body {
     width: 110px;
     @include center(fixed);
@@ -14,5 +15,8 @@
       width: 36px;
       height: 36px;
     }
+  }
+  &.show {
+    display: block;
   }
 }

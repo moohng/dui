@@ -4,7 +4,6 @@ import commonjs from '@rollup/plugin-commonjs'
 import { terser } from 'rollup-plugin-terser'
 import vue from 'rollup-plugin-vue'
 import postcss from 'rollup-plugin-postcss'
-import px2vw from '@moohng/postcss-px2vw'
 import autoprefixer from 'autoprefixer'
 import del from 'del'
 
@@ -30,60 +29,59 @@ function jsConfig(name, input) {
           '@babel/preset-env',
           {
             modules: false,
-            useBuiltIns: 'usage',
-            corejs: '2',
+            useBuiltIns: false,
           }
         ]
       ],
       plugins: [
-        "@babel/plugin-proposal-nullish-coalescing-operator",
-        "@babel/plugin-proposal-optional-chaining",
+        '@babel/plugin-proposal-nullish-coalescing-operator',
+        '@babel/plugin-proposal-optional-chaining',
+        ['@babel/plugin-transform-runtime', {
+          corejs: 3,
+        }],
       ],
       exclude: 'node_modules/**',
+      babelHelpers: 'runtime',
     }),
   ]
-  return [{
-    input,
-    output: {
-      file: `dist/${name}.min.js`,
-      format: 'umd',
-      name,
+  return [
+    {
+      input,
+      output: {
+        file: `dist/${name}.min.js`,
+        format: 'iife',
+        name,
+        plugins: [terser()],
+        extend: true,
+      },
+      plugins: basePlugins.concat([
+        postcss({
+          extract: `${name}.min.css`,
+          minimize: true,
+          plugins: [
+            autoprefixer(),
+          ],
+        }),
+      ]),
     },
-    plugins: basePlugins.concat([
-      postcss({
-        extract: `${name}.min.css`,
-        minimize: true,
-        plugins: [
-          px2vw({
-            viewportWidth: 375,
-            rootValue: false,
-          }),
-          autoprefixer(),
-        ],
-      }),
-      terser(),
-    ]),
-  }, {
-    input,
-    output: {
-      file: name === 'dui.base' ? `lib/dui/${name}.js` : `lib/${name}/index.js`,
-      format: 'es',
-      name,
+    {
+      input,
+      output: {
+        file: name === 'dui.base' ? `lib/dui/${name}.js` : `lib/${name}/index.js`,
+        format: 'es',
+        name,
+      },
+      plugins: basePlugins.concat([
+        postcss({
+          extract: `${name}.css`,
+          // minimize: true,
+          plugins: [
+            autoprefixer(),
+          ],
+        }),
+      ]),
     },
-    plugins: basePlugins.concat([
-      postcss({
-        extract: `${name}.css`,
-        // minimize: true,
-        plugins: [
-          px2vw({
-            viewportWidth: 375,
-            rootValue: false,
-          }),
-          autoprefixer(),
-        ],
-      }),
-    ])
-  }]
+  ]
 }
 
 del(['dist', 'lib'])

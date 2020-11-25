@@ -11,19 +11,28 @@
   <link rel="stylesheet" href="../dist/dialog.min.css">
   <link rel="stylesheet" href="../dist/preview.min.css">
   <link rel="stylesheet" href="../dist/refresh.min.css">
+  <style>
+    .grid .square img {
+      vertical-align: middle;
+      object-fit: cover;
+      background-color: #f1f1f1;
+    }
+  </style>
 </head>
 <body>
   <div class="dui-page" id="app">
     <refresh @refresh="onRefresh">
-      <div class="padding-lr padding-tb-sm">图片预览</div>
-      <div class="grid bg-white padding-lr">
-        <div class="col-4 square xs bg-img cover radius" v-for="(img, index) in imgPaths" :key="index" :data-lazy="img" @click="$preview(imgPaths, index)"></div>
+      <div class="plr ptb-sm">图片预览</div>
+      <div class="grid bg-white plr">
+        <div class="col-4 square xs radius" v-for="(img, index) in imgPaths" :key="index" @click="$preview(imgPaths, index)">
+          <img class="abs" :src="img" referrerpolicy="no-referrer">
+        </div>
       </div>
       <!-- list -->
-      <div class="padding-lr padding-tb-sm">功能列表</div>
-      <div class="dui-list">
-        <div class="dui-item" @click="$dialog({ title: '标题', content: '您好吗' })">dialog</div>
-        <div class="dui-item" @click="$actionsheet(['一', '二'], { title: '标题' })">actionsheet</div>
+      <div class="plr ptb-sm">功能列表</div>
+      <div class="dui-list bg-white">
+        <div class="dui-item mlr" @click="$dialog({ title: '标题', content: '您好吗' })">dialog</div>
+        <div class="dui-item mlr" @click="$actionsheet(['一', '二'], { title: '标题' })">actionsheet</div>
       </div>
     </refresh>
   </div>
@@ -33,7 +42,6 @@
   <script src="../dist/actionsheet.min.js"></script>
   <script src="../dist/dialog.min.js"></script>
   <script src="../dist/refresh.min.js"></script>
-  <script src="../dist/lazyload.min.js"></script>
   <script>
     var vm = new Vue({
       el: '#app',

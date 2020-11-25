@@ -7,7 +7,7 @@
       <p class="text-center text-gray">移动端快速布局、高度可自定义Vue 2 UI组件库，以实用为主，避免重复造轮子。作者：Kevin，项目地址：<a href="https://github.com/moohng/dui">https://github.com/moohng/dui</a></p>
     </header>
     <div class="plr ptb-sm text-grey">基本布局（base）</div>
-    <div class="dui-list indent">
+    <div class="dui-list plr bg-white">
       <div class="dui-item" @click="$router.push('layout')">
         <div class="flex-sub">Grid</div>
         <i class="iconfont icon-arrow text-light"></i>
@@ -22,22 +22,22 @@
       </div>
     </div>
     <div class="plr ptb-sm text-grey">组件</div>
-    <div class="dui-list indent">
-      <div class="dui-item" @click="$router.push('dialog')">
+    <div class="dui-list bg-white no-bottom">
+      <div class="dui-item plr" @click="$router.push('dialog')">
         <div class="flex-sub">Dialog</div>
         <i class="iconfont icon-arrow text-light"></i>
       </div>
-      <div class="dui-item" @click="onToastClick">Toast</div>
-      <div class="dui-item" @click="onActionSheetClick">Action Sheet</div>
-      <div class="dui-item" @click="onLoadingClick">Loading</div>
-      <div class="dui-item" @click="$router.push('layout')">
+      <div class="dui-item plr" @click="onToastClick">Toast</div>
+      <div class="dui-item plr" @click="onActionSheetClick">Action Sheet</div>
+      <div class="dui-item plr" @click="onLoadingClick">Loading</div>
+      <div class="dui-item plr" @click="$router.push('layout')">
         <div class="flex-sub">Preview</div>
         <i class="iconfont icon-arrow text-light"></i>
       </div>
     </div>
     <div class="plr ptb-sm text-grey">插件</div>
-    <div class="dui-list">
-      <div class="dui-item" @click="$router.push('pulldown')">
+    <div class="dui-list bg-white">
+      <div class="dui-item mlr" @click="$router.push('pulldown')">
         <div class="flex-sub">下拉刷新</div>
         <i class="iconfont icon-arrow text-light"></i>
       </div>
@@ -66,7 +66,13 @@ export default {
         { name: '选项一' },
         { name: '选项二' },
         { name: '选项三' },
-      ])
+      ], {
+        title: '示例',
+        cancel: '注销',
+        cancelClass: 'text-red',
+      }).then((index) => {
+        console.log('您点击了：', index)
+      })
     },
     onDialogClick() {
       this.$dialog({

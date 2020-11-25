@@ -1,5 +1,5 @@
 const path = require('path');
-const px2vw = require('@moohng/postcss-px2vw');
+// const px2vw = require('@moohng/postcss-px2vw');
 const autoprefixer = require('autoprefixer')
 
 function addStyleResource(rule) {
@@ -29,10 +29,10 @@ module.exports = {
       postcss: {
         plugins: [
           autoprefixer(),
-          px2vw({
-            viewportWidth: 375,
-            rootValue: false,
-          }),
+          // px2vw({
+          //   viewportWidth: 375,
+          //   rootValue: false,
+          // }),
         ],
       },
     },

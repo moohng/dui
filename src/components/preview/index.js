@@ -37,9 +37,7 @@ Preview.install = function install(Vue) {
       closable: true,
       point,
     })
-    Vue.nextTick(() => {
-      Vue.duiPreview.open()
-    })
+    Vue.duiPreview.open()
   }
   Vue.prototype.$preview = preview
   // 注册组件

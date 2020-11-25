@@ -672,7 +672,7 @@
   dependencies:
     "@babel/helper-plugin-utils" "^7.10.4"
 
-"@babel/plugin-transform-runtime@^7.11.0":
+"@babel/plugin-transform-runtime@^7.11.0", "@babel/plugin-transform-runtime@^7.12.1":
   version "7.12.1"
   resolved "https://registry.npm.taobao.org/@babel/plugin-transform-runtime/download/@babel/plugin-transform-runtime-7.12.1.tgz?cache=0&sync_timestamp=1602800227616&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40babel%2Fplugin-transform-runtime%2Fdownload%2F%40babel%2Fplugin-transform-runtime-7.12.1.tgz#04b792057eb460389ff6a4198e377614ea1e7ba5"
   integrity sha1-BLeSBX60YDif9qQZjjd2FOoee6U=
@@ -816,6 +816,14 @@
     "@babel/plugin-transform-dotall-regex" "^7.4.4"
     "@babel/types" "^7.4.4"
     esutils "^2.0.2"
+
+"@babel/runtime-corejs3@^7.12.5":
+  version "7.12.5"
+  resolved "https://registry.npm.taobao.org/@babel/runtime-corejs3/download/@babel/runtime-corejs3-7.12.5.tgz#ffee91da0eb4c6dae080774e94ba606368e414f4"
+  integrity sha1-/+6R2g60xtrggHdOlLpgY2jkFPQ=
+  dependencies:
+    core-js-pure "^3.0.0"
+    regenerator-runtime "^0.13.4"
 
 "@babel/runtime@^7.11.0", "@babel/runtime@^7.8.4":
   version "7.12.5"
@@ -2914,6 +2922,11 @@ core-js-compat@^3.6.2, core-js-compat@^3.6.5:
   dependencies:
     browserslist "^4.14.6"
     semver "7.0.0"
+
+core-js-pure@^3.0.0:
+  version "3.7.0"
+  resolved "https://registry.npm.taobao.org/core-js-pure/download/core-js-pure-3.7.0.tgz?cache=0&sync_timestamp=1604675609400&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fcore-js-pure%2Fdownload%2Fcore-js-pure-3.7.0.tgz#28a57c861d5698e053f0ff36905f7a3301b4191e"
+  integrity sha1-KKV8hh1WmOBT8P82kF96MwG0GR4=
 
 core-js@^2.4.0:
   version "2.6.11"
@@ -9701,11 +9714,6 @@ vue-loader@^15.9.2:
     loader-utils "^1.1.0"
     vue-hot-reload-api "^2.3.0"
     vue-style-loader "^4.1.0"
-
-vue-page-stack@^1.5.0:
-  version "1.5.0"
-  resolved "https://registry.npm.taobao.org/vue-page-stack/download/vue-page-stack-1.5.0.tgz#af92986fb8dc10039451a7d7af7d7073eb81fe92"
-  integrity sha1-r5KYb7jcEAOUUafXr31wc+uB/pI=
 
 vue-router@^3.1.6:
   version "3.4.9"

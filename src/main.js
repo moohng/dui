@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import VuePageStack from 'vue-page-stack'
+// import VuePageStack from 'vue-page-stack'
 import router from './router'
 import Dui from './components/dui'
 import LazyLoad from './tools/lazyload'
@@ -11,7 +11,7 @@ if (process.env.NODE_ENV !== 'production') {
   new VConsole()
 }
 
-Vue.use(VuePageStack, { router })
+// Vue.use(VuePageStack, { router })
 Vue.use(Dui)
 Vue.use(LazyLoad)
 
