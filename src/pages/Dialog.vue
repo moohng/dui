@@ -10,6 +10,9 @@
       <div class="dui-item" @click="onDialogClick">
         快捷调用<small class="ml-sm text-grey">this.$dialog</small>
       </div>
+      <div class="dui-item" @click="onDialogClick2">
+        快捷调用2<small class="ml-sm text-grey">this.$dialog</small>
+      </div>
       <div class="dui-item" @click="$refs.bgDialog.open()">背景图弹窗</div>
       <div class="dui-item" @click="$refs.imgDialog.open()">图片弹窗</div>
     </div>
@@ -34,6 +37,19 @@ export default {
           { text: '取消', class: '' },
           { text: '确定', class: 'text-red', onClick: () => alert('确定吗？') },
         ],
+      }).then((index) => {
+        console.log('您点击了：', index)
+      })
+    },
+    onDialogClick2() {
+      this.$dialog({
+        title: '弹窗标题2',
+        content: '弹窗内容，告知当前状态、信息和解决方法，描述文字尽量控制在三行之内'.split('').reverse().join(''),
+        buttons: [
+          { text: '取消', class: 'text-red' },
+          { text: '确定', class: 'text-blue' },
+        ],
+        closable: true,
       }).then((index) => {
         console.log('您点击了：', index)
       })

@@ -1,29 +1,19 @@
-import './toast.scss';
-import Toast from './toast.vue';
+import './toast.scss'
+import Toast from './toast.vue'
+import { mountComponent } from '../../tools/utils'
 
+Toast.install = app => {
+  let duiToast = null
 
-Toast.install = function install(Vue) {
-  if (install.installed) return;
-  install.installed = true;
-
-  Vue.prototype.$toast = function toast(text = '') {
-    if (!Vue.duiToast) {
-      const ToastApp = Vue.extend(Toast);
-      Vue.duiToast = new ToastApp();
-      const sub = document.createElement('div');
-      document.body.appendChild(sub);
-      Vue.duiToast.$mount(sub);
+  app.config.globalProperties.$toast = (text = '') => {
+    if (!duiToast) {
+      const { instance } = mountComponent(Toast)
+      duiToast = instance
     }
-    setTimeout(() => {
-      Vue.duiToast.show(text);
-    }, 20);
-  };
+    duiToast.show(text)
+  }
 
-  Vue.component(Toast.name, Toast);
-};
-
-if (typeof window !== 'undefined' && window.Vue) {
-  Toast.install(window.Vue);
+  app.component(Toast.name, Toast)
 }
 
-export default Toast;
+export default Toast

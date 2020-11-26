@@ -1,7 +1,7 @@
 <template>
-  <div v-if="show" class="dui-preview" :class="{toggle}" ref="slider" :style="{transformOrigin: `${pageX}px ${pageY}px`, transitionDuration}" @click="onClose">
+  <div id="slider" v-show="show" class="dui-preview" :class="{toggle}" :style="{transformOrigin: `${point.x}px ${point.y}px`}" @click="onClose">
     <div class="dui-preview__wrap">
-      <div class="dui-preview__slide bg-img" v-for="(item, index) in options" :key="index" :style="{backgroundImage: `url(${loadedList[index]})`}">
+      <div class="dui-preview__slide bg-img" v-for="(item, index) in options" :key="item" :style="{backgroundImage: `url(${loadedList[index]})`}">
         <i class="dui-icon__loading" v-show="!loadedList[index]"></i>
       </div>
     </div>
@@ -13,11 +13,18 @@
 </template>
 
 <script>
+import { onUnmounted, ref, watch, nextTick } from 'vue'
 import BScroll from '@better-scroll/core'
 import SlidePlugin from '@better-scroll/slide'
 import modalHelper from '../../tools/modalHelper'
 
 BScroll.use(SlidePlugin)
+
+function loadImage(src, onload) {
+  const image = new Image()
+  image.onload = () => onload(src)
+  image.src = src
+}
 
 export default {
   name: 'dui-preview',
@@ -36,92 +43,93 @@ export default {
     },
     point: {
       type: Object,
-      default: null,
+      default: () => {},
     },
   },
-  data() {
-    return {
-      current: this.index,
-      show: false,
-      toggle: false,
-      loadedList: [],
-      transitionDuration: null,
-      pageX: 0,
-      pageY: 0,
+  emits: ['close'],
+  setup(props, { emit }) {
+    const show = ref(false)
+    const toggle = ref(false)
+    const loadedList = ref([])
+
+    const current = ref(props.index)
+    watch(() => props.index, (val) => {
+      current.value = val
+    })
+
+    let bs = null
+    const onSlide = ({ pageX }) => {
+      current.value = pageX
+      loadImage(props.options[pageX], src => {
+        loadedList.value[pageX] = src
+      })
     }
-  },
-  watch: {
-    point({ pageX, pageY }) {
-      // 禁用过滤动画
-      this.transitionDuration = '0s'
-      this.pageX = pageX
-      this.pageY = pageY
-    },
-    index(val) {
-      this.current = val
-    },
-  },
-  methods: {
-    open() {
-      this.show = true
-      setTimeout(() => {
-        this.bs && this.bs.destroy()
-        this.bs = new BScroll(this.$refs.slider, {
-          probeType: 2,
-          scrollX: true,
-          scrollY: false,
-          slide: {
-            autoplay: false,
-            loop: false,
-            threshold: 100,
-          },
-          useTransition: true,
-          momentum: false,
-          bounce: false,
-          stopPropagation: true,
-          click: true,
-        })
-        const onSlide = ({ pageX }) => {
-          this.current = pageX
-          this.loadImage(this.options[pageX], src => {
-            this.$set(this.loadedList, pageX, src)
+
+    const open = () => {
+      show.value = true
+      nextTick(() => {
+        if (!bs) {
+          bs = new BScroll('#slider', {
+            probeType: 2,
+            scrollX: true,
+            scrollY: false,
+            slide: {
+              autoplay: false,
+              loop: false,
+              threshold: 100,
+            },
+            useTransition: true,
+            momentum: false,
+            bounce: false,
+            stopPropagation: true,
+            click: true,
           })
+          bs.on('slideWillChange', onSlide)
         }
-        this.bs.on('slideWillChange', onSlide)
+
         // 初始化
-        if (this.index === 0) {
+        if (current.value === 0) {
           onSlide({ pageX: 0 })
         }
-        this.bs.goToPage(this.index, 0, 0)
-        // 开启过渡动画
-        this.transitionDuration = null
-        this.toggle = true
-      }, 20)
-      modalHelper.afterOpen()
-    },
-    close() {
+        bs.goToPage(current.value, 0, 0)
+        toggle.value = true
+        modalHelper.afterOpen()
+      })
+    }
+
+    const close = () => {
       modalHelper.beforeClose()
-      this.toggle = false
+      toggle.value = false
       setTimeout(() => {
-        this.show = false
-        this.bs && this.bs.destroy()
-        this.bs = null
+        show.value = false
+        if (bs) {
+          bs.destroy()
+          bs = null
+        }
       }, 300)
-    },
-    onClose() {
-      if (this.closable) {
-        this.$emit('close')
-        this.close()
+    }
+
+    onUnmounted(() => {
+      if (bs) {
+        bs.destroy()
+        bs = null
       }
-    },
-    loadImage(src, onload) {
-      const image = new Image()
-      image.onload = () => onload(src)
-      image.src = src
-    },
-  },
-  destroyed() {
-    this.bs && this.bs.destroy()
+    })
+
+    return {
+      show,
+      toggle,
+      current,
+      loadedList,
+      open,
+      close,
+      onClose() {
+        if (props.closable) {
+          emit('close')
+          close()
+        }
+      },
+    }
   },
 }
 </script>

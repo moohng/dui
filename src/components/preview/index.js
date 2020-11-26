@@ -1,51 +1,46 @@
+import { reactive, ref } from 'vue'
 import './preview.scss'
 import Preview from './preview.vue'
-import { assignProps } from '../../tools/utils'
+import { mountComponent } from '../../tools/utils'
 
 
-Preview.install = function install(Vue) {
-  if (install.installed) return
-  install.installed = true
+Preview.install = app => {
+  let duiPreview = null
 
-  let point = null
+  const preRef = ref(null)
+  const state = reactive({})
+
   document.body.addEventListener('click', ({ clientX, clientY }) => {
-    if (!Vue.duiPreview || !Vue.duiPreview.show) {
-      point = {
-        pageX: clientX,
-        pageY: clientY,
+    if (!duiPreview || !preRef?.value?.show) {
+      state.point = {
+        x: clientX,
+        y: clientY,
       }
     }
   }, { capture: true })
 
-  function preview(options, index = 0) {
+  app.config.globalProperties.$preview = (options, index = 0) => {
     if (!Array.isArray(options)) {
       options = [options]
     }
-    if (!Vue.duiPreview) {
-      // 创建挂载节点
-      const sub = document.createElement('div')
-      document.body.appendChild(sub)
-      // 创建组件实例
-      const PreviewApp = Vue.extend(Preview)
-      Vue.duiPreview = new PreviewApp()
-      // 挂载组件
-      Vue.duiPreview.$mount(sub)
+    if (!duiPreview) {
+      const { instance } = mountComponent({
+        render() {
+          return <Preview ref={el => preRef.value = el} options={state.options} index={state.index} point={state.point} closable={true} />
+        },
+      })
+      duiPreview = instance
     }
-    assignProps(Vue.duiPreview, {
-      options,
-      index,
-      closable: true,
-      point,
-    })
-    Vue.duiPreview.open()
+
+    // 更新数据
+    state.options = options
+    state.index = index
+    // 打开
+    preRef.value.open()
   }
-  Vue.prototype.$preview = preview
   // 注册组件
-  Vue.component(Preview.name, Preview)
+  app.component(Preview.name, Preview)
 }
 
-if (typeof window !== 'undefined' && window.Vue) {
-  Preview.install(window.Vue)
-}
 
 export default Preview

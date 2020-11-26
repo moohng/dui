@@ -29,6 +29,7 @@
       </div>
       <div class="dui-item plr" @click="onToastClick">Toast</div>
       <div class="dui-item plr" @click="onActionSheetClick">Action Sheet</div>
+      <div class="dui-item plr" @click="onActionSheetClick2">Action Sheet 2</div>
       <div class="dui-item plr" @click="onLoadingClick">Loading</div>
       <div class="dui-item plr" @click="$router.push('layout')">
         <div class="flex-sub">Preview</div>
@@ -74,14 +75,17 @@ export default {
         console.log('您点击了：', index)
       })
     },
-    onDialogClick() {
-      this.$dialog({
-        title: '弹窗标题',
-        content: '弹窗内容，告知当前状态、信息和解决方法，描述文字尽量控制在三行之内',
-        buttons: [
-          { text: '取消', class: '' },
-          { text: '确定', class: 'text-red' },
-        ],
+    onActionSheetClick2() {
+      this.$actionsheet([
+        { name: '选项1' },
+        { name: '选项2' },
+        { name: '选项3' },
+      ], {
+        title: '示例2',
+        cancel: '退出',
+        cancelClass: 'text-orange',
+      }).then((index) => {
+        console.log('您点击了2：', index)
       })
     },
     onLoadingClick() {

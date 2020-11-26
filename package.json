@@ -6,10 +6,10 @@
   "author": "Kevin",
   "scripts": {
     "serve": "vue-cli-service serve",
-    "demo": "live-server --no-browser --watch=demo,dist",
     "build": "vue-cli-service build",
+    "lint": "vue-cli-service lint",
     "build:lib": "rollup -c build/rollup.config.js",
-    "lint": "vue-cli-service lint"
+    "demo": "live-server --no-browser --watch=demo,dist"
   },
   "main": "dist/dui.min.js",
   "module": "lib/dui/index.js",
@@ -19,20 +19,16 @@
     "lib",
     "src"
   ],
-  "keywords": [
-    "dui",
-    "ui",
-    "vue",
-    "component",
-    "dialog",
-    "toast"
-  ],
-  "repository": {
-    "type": "git",
-    "url": "git@github.com:moohng/dui.git"
-  },
-  "publishConfig": {
-    "access": "public"
+  "dependencies": {
+    "@better-scroll/core": "^2.0.0-beta.10",
+    "@better-scroll/slide": "^2.0.0-beta.10",
+    "@moohng/dan": "^1.5.2",
+    "ali-oss": "^6.10.0",
+    "axios": "^0.19.2",
+    "md5": "^2.3.0",
+    "vconsole": "^3.3.4",
+    "vue": "^3.0.2",
+    "vue-router": "^4.0.0-rc.5"
   },
   "devDependencies": {
     "@babel/core": "^7.10.5",
@@ -45,9 +41,10 @@
     "@rollup/plugin-babel": "^5.1.0",
     "@rollup/plugin-commonjs": "^14.0.0",
     "@rollup/plugin-node-resolve": "^8.4.0",
-    "@vue/cli-plugin-babel": "~4.4.0",
-    "@vue/cli-plugin-eslint": "~4.4.0",
-    "@vue/cli-service": "~4.4.0",
+    "@vue/cli-plugin-babel": "~4.5.9",
+    "@vue/cli-plugin-eslint": "~4.5.9",
+    "@vue/cli-service": "^4.5.9",
+    "@vue/compiler-sfc": "^3.0.2",
     "autoprefixer": "^9.7.6",
     "babel-eslint": "^10.1.0",
     "del": "^5.1.0",
@@ -69,6 +66,14 @@
   "gitHooks": {
     "pre-commit": "lint-staged"
   },
+  "keywords": [
+    "dui",
+    "ui",
+    "vue",
+    "component",
+    "dialog",
+    "toast"
+  ],
   "license": "MIT",
   "lint-staged": {
     "*.{js,jsx,vue}": [
@@ -76,15 +81,11 @@
       "git add"
     ]
   },
-  "dependencies": {
-    "@better-scroll/core": "^2.0.0-beta.10",
-    "@better-scroll/slide": "^2.0.0-beta.10",
-    "@moohng/dan": "^1.5.2",
-    "ali-oss": "^6.10.0",
-    "axios": "^0.19.2",
-    "md5": "^2.3.0",
-    "vconsole": "^3.3.4",
-    "vue": "^2.6.11",
-    "vue-router": "^3.1.6"
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:moohng/dui.git"
   }
 }

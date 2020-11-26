@@ -1,5 +1,4 @@
-import Vue from 'vue'
-import VueRouter from 'vue-router'
+import { createRouter, createWebHistory } from 'vue-router'
 import Home from '../pages/Home.vue'
 import Layout from '../pages/Layout.vue'
 import Button from '../pages/Button.vue'
@@ -11,7 +10,6 @@ import PullDown from '../pages/PullDown.vue'
 
 import Lazyload from '../pages/Lazyload.vue'
 
-Vue.use(VueRouter)
 
 const routes = [
   {
@@ -88,15 +86,16 @@ const routes = [
   // },
 ]
 
-const router = new VueRouter({
+const router = createRouter({
+  history: createWebHistory(),
   routes,
   scrollBehavior(to, from, savedPosition) {
     if (savedPosition) {
       return savedPosition
     }
     return {
-      x: 0,
-      y: 0,
+      left: 0,
+      top: 0,
     }
   },
 })
@@ -107,7 +106,6 @@ router.beforeEach((to, from, next) => {
 })
 
 window.addEventListener('popstate', () => {
-  console.log('popstate', true)
   router.isBack = true;
 });
 

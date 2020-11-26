@@ -63,6 +63,7 @@ function jsConfig(name, input) {
           ],
         }),
       ]),
+      external: ['vue'],
     },
     {
       input,
@@ -80,6 +81,7 @@ function jsConfig(name, input) {
           ],
         }),
       ]),
+      external: ['vue'],
     },
   ]
 }

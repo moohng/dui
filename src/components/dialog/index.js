@@ -1,50 +1,46 @@
+import { reactive, ref } from 'vue'
 import './dialog.scss'
 import Dialog from './dialog.vue'
-import { assignProps } from '../../tools/utils'
+import { mountComponent } from '../../tools/utils'
 
 
-Dialog.install = function install(Vue) {
-  if (install.installed) return
-  install.installed = true
+Dialog.install = (app) => {
+  let duiDialog = null
+  const dialogRef = ref(null)
+  const state = reactive({})
 
-  Vue.prototype.$dialog = function dialog({
+  app.config.globalProperties.$dialog = ({
     title,
     content,
     buttons,
     closable,
-  } = {}, clickCallback) {
+  } = {}, clickCallback) => {
     return new Promise((resolve) => {
-      if (!Vue.duiDialog) {
-        // 创建挂载节点
-        const sub = document.createElement('div')
-        document.body.appendChild(sub)
-        // 创建组件实例
-        const DialogApp = Vue.extend(Dialog)
-        Vue.duiDialog = new DialogApp()
-        // 挂载组件
-        Vue.duiDialog.$mount(sub)
-      }
-      assignProps(Vue.duiDialog, {
-        title,
-        content,
-        buttons,
-        closable,
-      })
-      Vue.duiDialog.$on('click', (index, info) => {
+      state.handleClick = (...args) => {
         if (typeof clickCallback === 'function') {
-          clickCallback(index, info)
+          clickCallback(...args)
         }
-        resolve(index)
-      })
-      Vue.duiDialog.open()
+        resolve(...args)
+      }
+      if (!duiDialog) {
+        const { instance } = mountComponent({
+          render() {
+            return <Dialog ref={el => dialogRef.value = el} title={state.title} content={state.content} buttons={state.buttons} closable={state.closable} onClick={state.handleClick} />
+          },
+        })
+        duiDialog = instance
+      }
+
+      state.title = title
+      state.content = content
+      state.buttons = buttons
+      state.closable = closable
+
+      dialogRef.value.open()
     })
   }
   // 注册组件
-  Vue.component(Dialog.name, Dialog)
-}
-
-if (typeof window !== 'undefined' && window.Vue) {
-  Dialog.install(window.Vue)
+  app.component(Dialog.name, Dialog)
 }
 
 export default Dialog

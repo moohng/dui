@@ -1,7 +1,9 @@
 <template>
-  <transition :name="transitionName">
-    <router-view ref="page"></router-view>
-  </transition>
+  <router-view v-slot="{ Component }">
+    <transition :name="transitionName">
+      <component :is="Component"></component>
+    </transition>
+  </router-view>
 </template>
 
 <script>
@@ -13,13 +15,12 @@ export default {
   },
   watch: {
     $route(to, from) {
-
-      const scrollTop = document.scrollingElement.scrollTop
-      const $navbar = this.$el.querySelector('.dui-nav-bar--fixed')
-      if ($navbar) {
-        $navbar.style.top = `${scrollTop}px`
-      }
-      this.$el.style.top = `-${scrollTop}px`
+      // const scrollTop = document.scrollingElement.scrollTop
+      // const $navbar = document.querySelector('.dui-nav-bar--fixed')
+      // if ($navbar) {
+      //   $navbar.style.top = `${scrollTop}px`
+      // }
+      // this.$el.style.top = `-${scrollTop}px`
 
       this.transitionName = this.$router.isBack ? 'slide-right' : 'slide-left'
 

@@ -5,6 +5,8 @@
 </template>
 
 <script>
+import { reactive, onUnmounted, toRefs } from 'vue'
+
 export default {
   name: 'dui-toast',
   props: {
@@ -13,30 +15,37 @@ export default {
       default: '',
     },
   },
-  data() {
-    return {
-      toastText: this.text,
+  setup(props) {
+    const state = reactive({
+      toastText: props.text,
       toastShow: false,
-    };
-  },
-  methods: {
-    show(text) {
+    })
+
+    let timer = null
+
+    const show = text => {
       if (text) {
-        this.toastText = text;
+        state.toastText = text;
       }
-      if (this.timer) {
-        clearTimeout(this.timer);
+      if (timer) {
+        clearTimeout(timer);
       }
-      this.toastShow = true;
-      this.timer = setTimeout(() => {
-        this.toastShow = false;
+      state.toastShow = true;
+      timer = setTimeout(() => {
+        state.toastShow = false;
       }, 2000);
-    },
-  },
-  destroyed() {
-    if (this.timer) {
-      clearTimeout(this.timer);
+    }
+
+    onUnmounted(() => {
+      if (timer) {
+        clearTimeout(timer);
+      }
+    })
+
+    return {
+      ...toRefs(state),
+      show,
     }
   },
-};
+}
 </script>
