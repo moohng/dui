@@ -1,4 +1,3 @@
-import './loading.scss'
 import Loading from './loading.vue'
 import { mountComponent } from '../../tools/utils'
 

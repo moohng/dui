@@ -4,13 +4,12 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>dui</title>
-  <script src="//cdn.bootcdn.net/ajax/libs/vue/2.6.11/vue.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vue@3.0.3/dist/vue.global.prod.js"></script>
   <!-- <link rel="stylesheet" href="../dist/dui.min.css"> -->
   <link rel="stylesheet" href="../dist/dui.base.min.css">
   <link rel="stylesheet" href="../dist/actionsheet.min.css">
   <link rel="stylesheet" href="../dist/dialog.min.css">
   <link rel="stylesheet" href="../dist/preview.min.css">
-  <link rel="stylesheet" href="../dist/refresh.min.css">
   <style>
     .grid .square img {
       vertical-align: middle;
@@ -37,37 +36,39 @@
     </refresh>
   </div>
 
-  <!-- <script src="../dist/dui.min.js"></script> -->
-  <script src="../dist/preview.min.js"></script>
+  <script src="../dist/dui.min.js"></script>
+  <!-- <script src="../dist/preview.min.js"></script>
   <script src="../dist/actionsheet.min.js"></script>
   <script src="../dist/dialog.min.js"></script>
-  <script src="../dist/refresh.min.js"></script>
+  <script src="../dist/refresh.min.js"></script> -->
   <script>
-    var vm = new Vue({
-      el: '#app',
-      data: {
-        content: 'Hello Dui',
+    var app = Vue.createApp({
+      setup: function () {
+        return {
+          content: 'Hello Dui',
+          imgPaths: [
+            'http://b-ssl.duitang.com/uploads/item/201410/09/20141009224754_AswrQ.jpeg',
+            'https://c-ssl.duitang.com/uploads/item/202003/08/20200308000020_ECSFH.thumb.1000_0.jpeg',
+            'https://c-ssl.duitang.com/uploads/item/202007/17/20200717131129_tTkGB.thumb.1000_0.jpeg',
+            'https://c-ssl.duitang.com/uploads/item/201808/13/20180813200538_vqnje.thumb.700_0.jpeg',
+            'https://c-ssl.duitang.com/uploads/item/202005/26/20200526000816_sLrLa.thumb.700_0.jpeg',
+            'https://c-ssl.duitang.com/uploads/item/202001/03/20200103105513_yzcxj.thumb.700_0.jpeg',
+            'https://c-ssl.duitang.com/uploads/item/202004/20/20200420210204_vxdjh.thumb.700_0.png',
+          ],
+          onRefresh(finished) {
+            return new Promise((resolve) => {
+              setTimeout(() => {
+                finished(true)
+              }, 2000)
+            })
+          },
+        }
+      },
+    });
 
-        imgPaths: [
-          'http://b-ssl.duitang.com/uploads/item/201410/09/20141009224754_AswrQ.jpeg',
-          'https://c-ssl.duitang.com/uploads/item/202003/08/20200308000020_ECSFH.thumb.1000_0.jpeg',
-          'https://c-ssl.duitang.com/uploads/item/202007/17/20200717131129_tTkGB.thumb.1000_0.jpeg',
-          'https://c-ssl.duitang.com/uploads/item/201808/13/20180813200538_vqnje.thumb.700_0.jpeg',
-          'https://c-ssl.duitang.com/uploads/item/202005/26/20200526000816_sLrLa.thumb.700_0.jpeg',
-          'https://c-ssl.duitang.com/uploads/item/202001/03/20200103105513_yzcxj.thumb.700_0.jpeg',
-          'https://c-ssl.duitang.com/uploads/item/202004/20/20200420210204_vxdjh.thumb.700_0.png',
-        ],
-      },
-      methods: {
-        onRefresh(finished) {
-          return new Promise((resolve) => {
-            setTimeout(() => {
-              finished(true)
-            }, 2000)
-          })
-        },
-      },
-    })
+    // app.use(dialog)
+
+    app.mount('#app');
   </script>
 </body>
 </html>

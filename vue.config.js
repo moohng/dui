@@ -7,8 +7,8 @@ function addStyleResource(rule) {
     .loader('style-resources-loader')
     .options({
       patterns: [
-        path.resolve(__dirname, './src/styles/vars.scss'),
-        path.resolve(__dirname, './src/styles/mixins.scss'),
+        path.resolve(__dirname, './src/components/style/vars.scss'),
+        path.resolve(__dirname, './src/components/style/mixins.scss'),
       ],
     });
 }

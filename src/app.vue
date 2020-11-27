@@ -35,7 +35,7 @@ export default {
 <style lang="scss">
 @import './assets/styles/navbar.scss';
 @import './assets/styles/avatar.scss';
-@import './styles/icon.scss';
+@import './components/style.scss';
 </style>
 
 <style lang="scss" scoped>

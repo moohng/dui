@@ -1,5 +1,4 @@
 import { reactive, ref } from 'vue'
-import './actionsheet.scss'
 import Actionsheet from './actionsheet.vue'
 import { mountComponent } from '../../tools/utils'
 
@@ -41,6 +40,10 @@ Actionsheet.install = app => {
   }
   // 注册组件
   app.component(Actionsheet.name, Actionsheet)
+}
+
+if (typeof window.Vue !== 'undefined') {
+  Actionsheet.install(window.Vue)
 }
 
 export default Actionsheet

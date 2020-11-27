@@ -1,4 +1,3 @@
-import '../styles/base.scss'
 import ActionSheet from './actionsheet'
 import Dialog from './dialog'
 import Toast from './toast'
@@ -16,6 +15,10 @@ function install(app) {
   app.use(Preview)
   app.use(Refresh)
   app.use(LoadMore)
+}
+
+if (typeof window.Vue !== 'undefined') {
+  install(window.Vue)
 }
 
 export default {

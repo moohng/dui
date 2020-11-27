@@ -24,6 +24,7 @@ export default {
       default: false,
     },
   },
+  emits: ['load-more'],
   computed: {
     pullupText() {
       return mapPullUpText[this.nextStatus];

@@ -1,5 +1,4 @@
 import { reactive, ref } from 'vue'
-import './preview.scss'
 import Preview from './preview.vue'
 import { mountComponent } from '../../tools/utils'
 

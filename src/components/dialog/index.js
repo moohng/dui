@@ -1,5 +1,4 @@
 import { reactive, ref } from 'vue'
-import './dialog.scss'
 import Dialog from './dialog.vue'
 import { mountComponent } from '../../tools/utils'
 

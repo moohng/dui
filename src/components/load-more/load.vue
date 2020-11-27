@@ -27,6 +27,7 @@ export default {
       default: false,
     },
   },
+  emits: ['load'],
   computed: {
     pullupText() {
       return mapPullUpText[this.nextStatus];
@@ -48,7 +49,7 @@ export default {
   },
   directives: {
     load: {
-      bind: (el, { value }) => {
+      mounted: (el, { value }) => {
         el.ob = new IntersectionObserver(entries => {
           entries.forEach($item => {
             if ($item.target === el && $item.intersectionRatio > 0) {
@@ -58,7 +59,7 @@ export default {
         })
         el.ob.observe(el)
       },
-      unbind: el => {
+      unmounted: el => {
         el.ob.unobserve(el)
       },
     },

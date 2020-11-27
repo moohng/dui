@@ -12,17 +12,14 @@ function setImage(el, src) {
 function plugin(Vue) {
   // v-src 自定义指令
   Vue.directive('src', {
-    inserted: (el, { value }) => {
+    mounted: (el, { value }) => {
       setImage(el, value)
     },
-    updated: (el, { value }) => {
+    unmounted: (el, { value }) => {
       setImage(el, value)
     },
   })
 }
 
-if (typeof window.Vue !== 'undefined') {
-  plugin(window.Vue)
-}
 
 export default plugin

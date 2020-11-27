@@ -1,4 +1,3 @@
-import './toast.scss'
 import Toast from './toast.vue'
 import { mountComponent } from '../../tools/utils'
 
