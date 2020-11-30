@@ -17,15 +17,12 @@ function install(app) {
   app.use(LoadMore)
 }
 
-if (typeof window.Vue !== 'undefined') {
-  install(window.Vue)
-}
-
 export default {
   install,
 }
 
 export {
+  install,
   ActionSheet,
   Dialog,
   Toast,

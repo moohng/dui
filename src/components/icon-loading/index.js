@@ -1,9 +1,10 @@
 import IconLoading from './icon-loading.vue'
 
 
-IconLoading.install = app => {
+export const install = app => {
   // 注册组件
   app.component(IconLoading.name, IconLoading)
 }
 
+IconLoading.install = install
 export default IconLoading

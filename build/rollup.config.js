@@ -1,15 +1,15 @@
-import babel from '@rollup/plugin-babel'
-import resolve from '@rollup/plugin-node-resolve'
-import commonjs from '@rollup/plugin-commonjs'
-import { terser } from 'rollup-plugin-terser'
-import vue from 'rollup-plugin-vue'
-import postcss from 'rollup-plugin-postcss'
-import autoprefixer from 'autoprefixer'
+const resolve = require('@rollup/plugin-node-resolve')
+const commonjs = require('@rollup/plugin-commonjs')
+const { babel } = require('@rollup/plugin-babel')
+const { terser } = require('rollup-plugin-terser')
+const vue = require('rollup-plugin-vue')
+const postcss = require('rollup-plugin-postcss')
+const autoprefixer = require('autoprefixer')
 
 const loadEntries = require('./loadEntries')
 
 const entries = [
-  // ...loadEntries(),
+  ...loadEntries(),
   { name: 'dui', input: 'src/components/dui.js' },
 ]
 
@@ -40,7 +40,7 @@ function jsConfig(name, input) {
     vue({
       target: 'browser',
     }),
-    resolve(),
+    resolve.default(),
     commonjs(), // 兼容 commonjs 规范的第三方模块使用 ES6 方式导入
   ]
   return [
@@ -52,6 +52,9 @@ function jsConfig(name, input) {
         name,
         plugins: [terser()],
         extend: true,
+        globals: {
+          vue: 'Vue',
+        },
       },
       plugins: basePlugins.concat([
         postcss({
@@ -61,7 +64,7 @@ function jsConfig(name, input) {
           ],
         }),
       ]),
-      // external: ['vue'],
+      external: ['vue'],
     },
     {
       input,
@@ -69,6 +72,9 @@ function jsConfig(name, input) {
         file: name === 'dui' ? `lib/${name}.js` : `lib/${name}/index.js`,
         format: 'es',
         name,
+        globals: {
+          vue: 'Vue',
+        },
       },
       plugins: basePlugins.concat([
         postcss({
@@ -77,7 +83,7 @@ function jsConfig(name, input) {
           ],
         }),
       ]),
-      // external: ['vue'],
+      external: ['vue'],
     },
   ]
 }

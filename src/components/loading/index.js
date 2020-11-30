@@ -2,7 +2,7 @@ import Loading from './loading.vue'
 import { mountComponent } from '../../tools/utils'
 
 
-Loading.install = app => {
+export const install = app => {
   let duiLoading = null
 
   app.config.globalProperties.$loading = text => {
@@ -17,5 +17,5 @@ Loading.install = app => {
   app.component(Loading.name, Loading)
 }
 
-
+Loading.install = install
 export default Loading

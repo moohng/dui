@@ -1,15 +1,15 @@
 {
   "name": "@moohng/dui",
-  "version": "1.4.0",
+  "version": "2.0.0",
   "private": false,
-  "description": "基于 Vue 2 的轻量级组件库",
+  "description": "基于 Vue 3 的轻量级组件库",
   "author": "Kevin",
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "build:lib": "rollup -c build/rollup.config.js",
-    "build:g": "gulp build",
+    "build:lib": "gulp build",
+    "build:js": "rollup -c build/rollup.config.js",
     "demo": "live-server --no-browser --watch=demo,dist"
   },
   "main": "lib/dui/index.js",

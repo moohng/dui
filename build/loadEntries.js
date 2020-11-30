@@ -1,6 +1,5 @@
 const path = require('path')
 const fs = require('fs')
-// const glob = require('glob')
 
 
 module.exports = function () {
@@ -8,8 +7,8 @@ module.exports = function () {
   const entries = fs.readdirSync(entryPath)
 
   const results = [
-    // { name: 'pulldown', input: path.resolve('src/tools/pulldown.js') },
-    // { name: 'pullup', input: path.resolve('src/tools/pullup.js') },
+    { name: 'pulldown', input: path.resolve('src/tools/pulldown.js') },
+    { name: 'pullup', input: path.resolve('src/tools/pullup.js') },
   ]
   for (const dir of entries) {
     const filePath = path.join(entryPath, dir)

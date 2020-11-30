@@ -1,7 +1,7 @@
 import Toast from './toast.vue'
 import { mountComponent } from '../../tools/utils'
 
-Toast.install = app => {
+export const install = app => {
   let duiToast = null
 
   app.config.globalProperties.$toast = (text = '') => {
@@ -15,4 +15,5 @@ Toast.install = app => {
   app.component(Toast.name, Toast)
 }
 
+Toast.install = install
 export default Toast

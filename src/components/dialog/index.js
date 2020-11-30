@@ -3,7 +3,7 @@ import Dialog from './dialog.vue'
 import { mountComponent } from '../../tools/utils'
 
 
-Dialog.install = (app) => {
+export const install = (app) => {
   let duiDialog = null
   const dialogRef = ref(null)
   const state = reactive({})
@@ -42,4 +42,5 @@ Dialog.install = (app) => {
   app.component(Dialog.name, Dialog)
 }
 
+Dialog.install = install
 export default Dialog

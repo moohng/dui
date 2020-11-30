@@ -5,6 +5,9 @@ const postcss = require('gulp-postcss')
 const autoprefixer = require('autoprefixer')
 const sass = require('gulp-sass')
 // const cleanCSS = require('gulp-clean-css')
+const rollup = require('rollup')
+
+const rollupConfig = require('./build/rollup.config')
 
 const base = 'src/components'
 
@@ -58,8 +61,19 @@ function cssMin(cb) {
   cb()
 }
 
+function createRollupTask(rollupConfig) {
+  return rollupConfig.map(config => {
+    const { output: outputConfig, ...inputConfig} = config
+    return function task () {
+      return rollup.rollup(inputConfig).then(bundle => {
+        return bundle.write(outputConfig)
+      })
+    }
+  })
+}
+
 function clean() {
   return del(['dist', 'lib'])
 }
 
-exports.build = series(clean, parallel(cssLib, cssMin))
+exports.build = series(clean, parallel(cssLib, cssMin, ...createRollupTask(rollupConfig)))

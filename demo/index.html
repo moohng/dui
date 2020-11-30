@@ -36,11 +36,11 @@
     </refresh>
   </div>
 
-  <script src="../dist/dui.min.js"></script>
-  <!-- <script src="../dist/preview.min.js"></script>
+  <!-- <script src="../dist/dui.min.js"></script> -->
+  <script src="../dist/preview.min.js"></script>
   <script src="../dist/actionsheet.min.js"></script>
   <script src="../dist/dialog.min.js"></script>
-  <script src="../dist/refresh.min.js"></script> -->
+  <script src="../dist/refresh.min.js"></script>
   <script>
     var app = Vue.createApp({
       setup: function () {
@@ -66,7 +66,10 @@
       },
     });
 
-    // app.use(dialog)
+    app.use(preview)
+    app.use(actionsheet)
+    app.use(dialog)
+    app.use(refresh)
 
     app.mount('#app');
   </script>

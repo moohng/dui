@@ -3,7 +3,7 @@ import Actionsheet from './actionsheet.vue'
 import { mountComponent } from '../../tools/utils'
 
 
-Actionsheet.install = app => {
+export const install = app => {
   let duiActionsheet = null;
   const asRef = ref(null)
   const state = reactive({})
@@ -42,8 +42,6 @@ Actionsheet.install = app => {
   app.component(Actionsheet.name, Actionsheet)
 }
 
-if (typeof window.Vue !== 'undefined') {
-  Actionsheet.install(window.Vue)
-}
 
+Actionsheet.install = install
 export default Actionsheet

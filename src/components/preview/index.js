@@ -3,7 +3,7 @@ import Preview from './preview.vue'
 import { mountComponent } from '../../tools/utils'
 
 
-Preview.install = app => {
+export const install = app => {
   let duiPreview = null
 
   const preRef = ref(null)
@@ -41,5 +41,5 @@ Preview.install = app => {
   app.component(Preview.name, Preview)
 }
 
-
+Preview.install = install
 export default Preview
