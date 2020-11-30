@@ -1,45 +1,47 @@
-import './actionsheet.scss';
-import Actionsheet from './actionsheet.vue';
-import { assignProps } from '../../tools/utils';
+import { reactive, ref } from 'vue'
+import Actionsheet from './actionsheet.vue'
+import { mountComponent } from '../../tools/utils'
 
 
-Actionsheet.install = function install(Vue) {
-  if (install.installed) return;
-  install.installed = true;
+export const install = app => {
+  let duiActionsheet = null;
+  const asRef = ref(null)
+  const state = reactive({})
 
-  Vue.prototype.$actionsheet = function actionsheet(menus = [], {
+  app.config.globalProperties.$actionsheet = (menus = [], {
     title,
     cancel,
     cancelClass,
-    onClick: callback,
-  } = {}) {
-    if (!Vue.duiActionsheet) {
-      // 创建挂载节点
-      const sub = document.createElement('div');
-      document.body.appendChild(sub);
-      // 创建组件实例
-      const ActionsheetApp = Vue.extend(Actionsheet);
-      Vue.duiActionsheet = new ActionsheetApp();
-      // 挂载组件
-      Vue.duiActionsheet.$mount(sub);
-    }
-    assignProps(Vue.duiActionsheet, {
-      menus,
-      title,
-      cancel,
-      cancelClass,
-    });
-    Vue.duiActionsheet.click = callback;
-    setTimeout(() => {
-      Vue.duiActionsheet.open();
-    }, 10);
-  };
-  // 注册组件
-  Vue.component(Actionsheet.name, Actionsheet);
-};
+    onClick: clickCallback,
+  } = {}) => {
+    return new Promise((resolve) => {
+      state.handleClick = (...args) => {
+        if (typeof clickCallback === 'function') {
+          clickCallback(...args)
+        }
+        resolve(...args)
+      }
+      if (!duiActionsheet) {
+        const { instance } = mountComponent({
+          render() {
+            return <Actionsheet ref={el => asRef.value = el} menus={state.menus} title={state.title} cancel={state.cancel} cancelClass={state.cancelClass} onClick={state.handleClick} />
+          },
+        })
+        duiActionsheet = instance
+      }
 
-if (typeof window.Vue !== 'undefined') {
-  Actionsheet.install(window.Vue);
+      state.title = title
+      state.cancel = cancel
+      state.cancelClass = cancelClass
+      state.menus = menus
+
+      asRef.value.open()
+    })
+  }
+  // 注册组件
+  app.component(Actionsheet.name, Actionsheet)
 }
 
-export default Actionsheet;
+
+Actionsheet.install = install
+export default Actionsheet

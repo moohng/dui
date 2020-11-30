@@ -1,6 +1,7 @@
+@import '../../style/mask.scss';
+
 .dui-dialog {
   &__body {
-    opacity: 0;
     position: fixed;
     top: 45%;
     left: 50%;
@@ -9,9 +10,10 @@
     transition: all .3s;
     overflow: hidden;
     z-index: 10000;
+    opacity: 0;
     pointer-events: none;
     &--default {
-      width: 640px;
+      width: 320px;
       max-width: 90%;
       line-height: 1.4;
       font-size: 16px;
@@ -26,7 +28,7 @@
   &__content:first-child {
     padding-top: 64px;
   }
-  &.toggle {
+  &.show {
     .dui-dialog__body {
       opacity: 1;
       pointer-events: auto;

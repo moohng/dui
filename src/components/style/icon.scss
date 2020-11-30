@@ -1,0 +1,39 @@
+@import '//at.alicdn.com/t/font_2218187_sz0w6mqc8a.css';
+
+// -------------
+// Loading
+// -------------
+.dui-icon__loading {
+  display: inline-flex;
+  animation: duiLoading 1s steps(60, end) infinite;
+}
+.dui-icon__loading::before,
+.dui-icon__loading::after {
+  content: '';
+  display: block;
+  flex: 1;
+  box-sizing: border-box;
+  border: 2px solid;
+  opacity: 0.5;
+}
+.dui-icon__loading::before {
+  border-top-left-radius: 36px;
+  border-bottom-left-radius: 36px;
+  border-right-width: 0;
+  mask-image: -webkit-linear-gradient(top,#000000 8%,rgba(0,0,0,0.3) 95%);
+}
+.dui-icon__loading::after {
+  border-top-right-radius: 36px;
+  border-bottom-right-radius: 36px;
+  border-left-width: 0;
+  mask-image: -webkit-linear-gradient(225deg,rgba(0,0,0,0) 45%,rgba(0,0,0,0.3) 95%);
+}
+
+@keyframes duiLoading {
+  0% {
+    transform: rotate3d(0, 0, 1, 0deg);
+  }
+  100% {
+    transform: rotate3d(0, 0, 1, 360deg);
+  }
+}

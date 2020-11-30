@@ -1,5 +1,5 @@
 const path = require('path');
-const px2vw = require('@moohng/postcss-px2vw');
+// const px2vw = require('@moohng/postcss-px2vw');
 const autoprefixer = require('autoprefixer')
 
 function addStyleResource(rule) {
@@ -7,8 +7,8 @@ function addStyleResource(rule) {
     .loader('style-resources-loader')
     .options({
       patterns: [
-        path.resolve(__dirname, './src/styles/vars.scss'),
-        path.resolve(__dirname, './src/styles/mixins.scss'),
+        path.resolve(__dirname, './src/components/style/vars.scss'),
+        path.resolve(__dirname, './src/components/style/mixins.scss'),
       ],
     });
 }
@@ -29,10 +29,10 @@ module.exports = {
       postcss: {
         plugins: [
           autoprefixer(),
-          px2vw({
-            viewportWidth: 375,
-            rootValue: false,
-          }),
+          // px2vw({
+          //   viewportWidth: 375,
+          //   rootValue: false,
+          // }),
         ],
       },
     },

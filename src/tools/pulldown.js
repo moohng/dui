@@ -137,19 +137,15 @@ class PullDown {
   }
 }
 
-PullDown.install = function install(Vue) {
-  Vue.directive('pulldown', {
-    inserted(el, { value }) {
+PullDown.install = app => {
+  app.directive('pulldown', {
+    mounted(el, { value }) {
       el.pulldown = new PullDown(el, value)
     },
-    unbind(el) {
+    unmounted(el) {
       el.pulldown.destroy()
     },
   })
-}
-
-if (typeof window.Vue !== 'undefined') {
-  PullDown.install(window.Vue)
 }
 
 export default PullDown

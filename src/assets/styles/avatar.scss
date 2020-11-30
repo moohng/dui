@@ -1,11 +1,13 @@
 .avatar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 64px;
   height: 64px;
   font-size: 24px;
-  @extend .text-white;
-  @extend .bg-img;
-  @extend .round;
-  @extend .flex-center;
+  color: #fff;
+  background: #f1f1f1 center / contain no-repeat;
+  border-radius: 2000px;
   &.xl {
     width: 80px;
     height: 80px;

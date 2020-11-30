@@ -1,12 +1,12 @@
 <template>
-  <div v-if="show" class="dui-actionsheet" :class="{ toggle }">
+  <div v-show="show" class="dui-actionsheet" :class="{ show: toggle }">
     <div class="mask" @click="close()"></div>
     <div class="dui-actionsheet__body" :class="{'dui-actionsheet__body--default': !$slots.default}">
       <slot>
-        <div class="dui-item" v-if="title">
+        <div class="dui-item bg-white" v-if="title">
           <p class="flex-sub text-sm text-gray text-center">{{ title }}</p>
         </div>
-        <div class="dui-list" v-if="menus.length">
+        <div class="dui-list bg-white" v-if="menus.length">
           <div
             class="dui-item justify-center text-lg"
             v-for="(menu, index) in menus" :key="menu.id || menu.key || index"
@@ -16,11 +16,11 @@
             {{ menu.name || menu }}
           </div>
         </div>
-        <div class="dui-list" v-if="cancel">
+        <div class="dui-list bg-white safe-bottom" v-if="cancel">
           <div
             class="dui-item justify-center text-lg"
             :class="[].concat(cancelClass || [])"
-            @click="close()"
+            @click="onClick('cancel')"
           >{{ cancel }}</div>
         </div>
       </slot>
@@ -51,6 +51,7 @@ export default {
       default: '',
     },
   },
+  emits: ['click', 'close'],
   data() {
     return {
       show: false,
@@ -66,23 +67,19 @@ export default {
       modalHelper.afterOpen()
     },
     close() {
-      modalHelper.beforeClose()
-      this.$emit('close')
       this.toggle = false
       setTimeout(() => {
-        this.show = false;
+        modalHelper.beforeClose()
+        this.show = false
+        this.$emit('close')
       }, 300)
     },
-    async onClick(index, menu, e) {
+    async onClick(index, menu = {}) {
       if (typeof menu.onClick === 'function') {
-        await menu.onClick(e)
-        this.close()
-      } else if (typeof this.click === 'function') {
-        await this.click(index, menu, e)
-        this.close()
-      } else {
-        this.close()
+        await menu.onClick()
       }
+      this.$emit('click', index, menu)
+      this.close()
     },
   },
 }

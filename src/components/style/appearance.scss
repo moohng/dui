@@ -115,9 +115,12 @@
       background-color: $value;
     }
   }
-  .text#{$name},
+  .text#{$name} {
+    color: $value;
+  }
   .line#{$name} {
     color: $value;
+    border-color: initial;
   }
 }
 
@@ -135,20 +138,29 @@
   position: relative;
   border-color: rgba(0, 0, 0, 0.1);
   &[class*=line] {
-    border-color: currentColor;
+    border-color: initial;
   }
   &::after {
     content: '';
     position: absolute;
-    width: calc(200% - 2PX);
-    height: calc(200% - 2PX);
+    width: 100%;
+    height: 100%;
     top: 0;
     left: 0;
-    transform: scale(.5);
     transform-origin: 0 0;
     border-color: inherit;
     border-radius: inherit;
     pointer-events: none;
+    @media screen and (-webkit-min-device-pixel-ratio: 2) {
+      width: 200%;
+      height: 200%;
+      transform: scale(.5);
+    }
+    @media screen and (-webkit-min-device-pixel-ratio: 3) {
+      width: 300%;
+      height: 300%;
+      transform: scale(.33333);
+    }
   }
 }
 .solid::after {
@@ -162,11 +174,12 @@
   }
 }
 
-@each $key, $value in (xl: 20px, lg: 15px, md: 12px, df: 10px, sm: 8px, xs: 6px, xxs: 3px) {
-  .radius.#{$key} {
-    border-radius: $value;
-    overflow: hidden;
-  }
+.radius {
+  border-radius: 10px;
+  overflow: hidden;
+}
+@each $key, $value in (xxl: 20px, xl: 16px, lg: 14px, md: 12px, df: 10px, sm: 8px, xs: 6px, xxs: 3px) {
+  .radius.#{$key},
   .radius-#{$key} {
     border-radius: $value;
     overflow: hidden;
@@ -178,4 +191,16 @@
   &.cover {
     background-size: cover;
   }
+}
+
+.round {
+	border-radius: 2000px;
+}
+
+.uppercase {
+  text-transform: uppercase;
+}
+
+.lowercase {
+  text-transform: lowercase;
 }

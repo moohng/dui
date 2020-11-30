@@ -58,10 +58,7 @@
 }
 
 .center {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%, 0);
+  @include center;
 }
 
 .abs {
@@ -122,17 +119,14 @@
   height: 0;
 }
 
-@each $size, $height in (
-  (xl, 2),
-  (lg, 1.8),
-  (df, 1.6),
-  (sm, 1.4),
-  (xs, 1.2),
-  (xxs, 1),
-) {
-  .line-#{$size} {
-    line-height: $height;
-  }
+.lh-0 {
+  line-height: 0;
+}
+.lh-1 {
+  line-height: 1;
+}
+.lh {
+  line-height: 1.6;
 }
 
 .fl {
@@ -175,10 +169,20 @@
   height: 100%;
 }
 
-.round {
-	border-radius: 2000px;
-}
-
 .block {
   display: block;
+}
+
+@each $dir in top, right, bottom, left, container {
+  @if ($dir == container) {
+    .safe {
+      padding: constant(safe-area-inset-top) constant(safe-area-inset-right) constant(safe-area-inset-bottom) constant(safe-area-inset-left);
+      padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+    }
+  } @else {
+    .safe-#{$dir} {
+      padding-#{$dir}: constant(safe-area-inset-#{$dir});
+      padding-#{$dir}: env(safe-area-inset-#{$dir});
+    }
+  }
 }

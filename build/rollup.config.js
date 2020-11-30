@@ -1,89 +1,92 @@
-import babel from '@rollup/plugin-babel'
-import resolve from '@rollup/plugin-node-resolve'
-import commonjs from '@rollup/plugin-commonjs'
-import { terser } from 'rollup-plugin-terser'
-import vue from 'rollup-plugin-vue'
-import postcss from 'rollup-plugin-postcss'
-import px2vw from '@moohng/postcss-px2vw'
-import autoprefixer from 'autoprefixer'
-import del from 'del'
+const resolve = require('@rollup/plugin-node-resolve')
+const commonjs = require('@rollup/plugin-commonjs')
+const { babel } = require('@rollup/plugin-babel')
+const { terser } = require('rollup-plugin-terser')
+const vue = require('rollup-plugin-vue')
+const postcss = require('rollup-plugin-postcss')
+const autoprefixer = require('autoprefixer')
 
-import loadEntries from './loadEntries'
+const loadEntries = require('./loadEntries')
 
 const entries = [
   ...loadEntries(),
   { name: 'dui', input: 'src/components/dui.js' },
-  { name: 'dui.base', input: 'src/styles/base.scss' },
 ]
 
 function jsConfig(name, input) {
   const basePlugins = [
-    resolve(),
-    commonjs(), // 兼容 commonjs 规范的第三方模块使用 ES6 方式导入
-    vue({
-      css: false,
+    babel({
+      babelrc: false, // 忽略项目中的babel配置文件，使用此配置
+      presets: [
+        [
+          '@babel/preset-env',
+          {
+            modules: false,
+            useBuiltIns: false,
+          }
+        ]
+      ],
+      plugins: [
+        '@vue/babel-plugin-jsx',
+        '@babel/plugin-proposal-nullish-coalescing-operator',
+        '@babel/plugin-proposal-optional-chaining',
+        ['@babel/plugin-transform-runtime', {
+          corejs: 3,
+        }],
+      ],
+      exclude: 'node_modules/**',
+      babelHelpers: 'runtime',
     }),
+    vue({
+      target: 'browser',
+    }),
+    resolve.default(),
+    commonjs(), // 兼容 commonjs 规范的第三方模块使用 ES6 方式导入
   ]
-  return [{
-    input,
-    output: {
-      file: `dist/${name}.min.js`,
-      format: 'umd',
-      name,
+  return [
+    {
+      input,
+      output: {
+        file: `dist/${name}.min.js`,
+        format: 'iife',
+        name,
+        plugins: [terser()],
+        extend: true,
+        globals: {
+          vue: 'Vue',
+        },
+      },
+      plugins: basePlugins.concat([
+        postcss({
+          minimize: true,
+          plugins: [
+            autoprefixer(),
+          ],
+        }),
+      ]),
+      external: ['vue'],
     },
-    plugins: basePlugins.concat([
-      postcss({
-        extract: `${name}.min.css`,
-        minimize: true,
-        plugins: [px2vw({
-          viewportWidth: 375,
-          rootValue: false,
-        }), autoprefixer()],
-      }),
-      babel({
-        babelrc: false, // 忽略项目中的babel配置文件，使用此配置
-        presets: [
-          [
-            '@babel/preset-env',
-            {
-              modules: false,
-              useBuiltIns: 'usage',
-              corejs: '2',
-            }
-          ]
-        ],
-        plugins: [
-          "@babel/plugin-proposal-nullish-coalescing-operator",
-          "@babel/plugin-proposal-optional-chaining",
-        ],
-        exclude: 'node_modules/**',
-      }),
-      terser(),
-    ]),
-  }, {
-    input,
-    output: {
-      file: name === 'dui.base' ? `lib/dui/${name}.js` : `lib/${name}/index.js`,
-      format: 'es',
-      name,
+    {
+      input,
+      output: {
+        file: name === 'dui' ? `lib/${name}.js` : `lib/${name}/index.js`,
+        format: 'es',
+        name,
+        globals: {
+          vue: 'Vue',
+        },
+      },
+      plugins: basePlugins.concat([
+        postcss({
+          plugins: [
+            autoprefixer(),
+          ],
+        }),
+      ]),
+      external: ['vue'],
     },
-    plugins: basePlugins.concat([
-      postcss({
-        extract: `${name}.css`,
-        // minimize: true,
-        plugins: [
-          px2vw({
-            viewportWidth: 375,
-            rootValue: false,
-          }),
-          autoprefixer(),
-        ],
-      }),
-    ])
-  }]
+  ]
 }
-
-del(['dist', 'lib'])
 
 module.exports = entries.reduce((results, { name, input }) => {
   if (input) {

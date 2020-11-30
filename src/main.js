@@ -1,38 +1,29 @@
-import Vue from 'vue'
-import VuePageStack from 'vue-page-stack'
+import { createApp } from 'vue'
 import router from './router'
 import Dui from './components/dui'
-import LazyLoad from './tools/lazyload'
+import Src from './tools/src'
 import App from './app.vue'
-import axios from './api/http'
 
 if (process.env.NODE_ENV !== 'production') {
   const VConsole = require('vconsole')
   new VConsole()
 }
 
-Vue.use(VuePageStack, { router })
-Vue.use(Dui)
-Vue.use(LazyLoad)
+const app = createApp(App)
 
-Vue.prototype.$http = axios
-Vue.prototype.$get = axios.get
-Vue.prototype.$post = axios.post
+app.use(Dui)
+app.use(Src)
+app.use(router)
 
-const ua = window.navigator.userAgent
-Vue.prototype.$isWeixin = /MicroMessenger/i.test(ua)
-
-Vue.mixin({
+app.mixin({
   data() {
+    const ua = window.navigator.userAgent
+    const isWeixin = /MicroMessenger/i.test(ua)
+
     return {
-      hasNavbar: !(this.$isWeixin)
+      hasNavbar: !isWeixin
     }
   },
 })
 
-Vue.config.productionTip = false
-
-new Vue({
-  router,
-  render: (h) => h(App),
-}).$mount('#app')
+app.mount('#app')

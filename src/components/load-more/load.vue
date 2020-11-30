@@ -1,16 +1,14 @@
 <template>
-  <div class="pd text-center">
+  <div class="pd flex-center">
     <div v-if="nextStatus === 'more'" v-load="onLoadMore"></div>
     <template v-else-if="nextStatus === 'loading' || (nextStatus === 'noMore' && !invisible)">
-      <icon-loading v-show="nextStatus === 'loading'" rotation></icon-loading>
+      <i class="dui-icon__loading mr-xs" v-show="nextStatus === 'loading'"></i>
       {{pullupText}}
     </template>
   </div>
 </template>
 
 <script>
-import IconLoading from '../icon-loading'
-
 const mapPullUpText = {
   loading: '正在加载...',
   noMore: '没有更多了~',
@@ -18,9 +16,6 @@ const mapPullUpText = {
 
 export default {
   name: 'load',
-  components: {
-    IconLoading,
-  },
   data() {
     return {
       nextStatus: '',
@@ -32,6 +27,7 @@ export default {
       default: false,
     },
   },
+  emits: ['load'],
   computed: {
     pullupText() {
       return mapPullUpText[this.nextStatus];
@@ -53,7 +49,7 @@ export default {
   },
   directives: {
     load: {
-      bind: (el, { value }) => {
+      mounted: (el, { value }) => {
         el.ob = new IntersectionObserver(entries => {
           entries.forEach($item => {
             if ($item.target === el && $item.intersectionRatio > 0) {
@@ -63,10 +59,17 @@ export default {
         })
         el.ob.observe(el)
       },
-      unbind: el => {
+      unmounted: el => {
         el.ob.unobserve(el)
-      }
-    }
-  }
+      },
+    },
+  },
 }
 </script>
+
+<style lang="scss" scoped>
+.dui-icon__loading {
+  width: 18px;
+  height: 18px;
+}
+</style>

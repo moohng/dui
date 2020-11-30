@@ -11,8 +11,7 @@
     background-color: transparent;
   }
 }
-.mask.show,
-.toggle .mask {
+.show > .mask {
   opacity: 1;
   pointer-events: auto;
 }

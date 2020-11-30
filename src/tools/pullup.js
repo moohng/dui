@@ -47,19 +47,15 @@ class PullUp {
   }
 }
 
-PullUp.install = function install(Vue) {
-  Vue.directive('pullup', {
-    inserted: (el, { value }) => {
+PullUp.install = app => {
+  app.directive('pullup', {
+    mounted: (el, { value }) => {
       el.pullup = new PullUp(el, value)
     },
-    unbind: (el) => {
+    unmounted: (el) => {
       el.pullup.destroy()
     },
   })
-}
-
-if (typeof window.Vue !== 'undefined') {
-  PullUp.install(window.Vue)
 }
 
 export default PullUp

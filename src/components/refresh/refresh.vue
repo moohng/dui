@@ -1,5 +1,5 @@
 <template>
-  <div class="refresh">
+  <div class="refresh safe-bottom">
     <div class="pd text-center" :class="myClass" v-pulldown="getPulldownOptions()">
       <icon-loading v-if="status === 'init' || status === 'will' || status === 'refreshing'" :radian="rotateValue" :rotation="status === 'refreshing'"></icon-loading>
       {{pulldownText}}
@@ -34,6 +34,7 @@ export default {
       default: '',
     },
   },
+  emits: ['refresh'],
   data() {
     return {
       status: 'init', // init will refreshing success error
@@ -71,11 +72,3 @@ export default {
   },
 }
 </script>
-
-<style lang="scss" scoped>
-@import "../../styles/mixins.scss";
-
-.refresh {
-  @include ipx(padding-bottom, env(safe-area-inset-bottom));
-}
-</style>

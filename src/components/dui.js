@@ -1,25 +1,20 @@
-import '../styles/base.scss'
 import ActionSheet from './actionsheet'
 import Dialog from './dialog'
 import Toast from './toast'
 import Loading from './loading'
-import Preivew from './preview'
+import Preview from './preview'
 import Refresh from './refresh'
 import LoadMore from './load-more'
 
-function install(Vue) {
+function install(app) {
   // 注册组件
-  Vue.use(ActionSheet)
-  Vue.use(Dialog)
-  Vue.use(Toast)
-  Vue.use(Loading)
-  Vue.use(Preivew)
-  Vue.use(Refresh)
-  Vue.use(LoadMore)
-}
-
-if (typeof window.Vue !== 'undefined') {
-  install(window.Vue)
+  app.use(ActionSheet)
+  app.use(Dialog)
+  app.use(Toast)
+  app.use(Loading)
+  app.use(Preview)
+  app.use(Refresh)
+  app.use(LoadMore)
 }
 
 export default {
@@ -27,11 +22,12 @@ export default {
 }
 
 export {
+  install,
   ActionSheet,
   Dialog,
   Toast,
   Loading,
-  Preivew,
+  Preview,
   Refresh,
   LoadMore,
 }

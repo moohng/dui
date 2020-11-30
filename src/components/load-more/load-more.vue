@@ -1,14 +1,11 @@
 <template>
   <div class="load-more pd text-center" v-show="nextStatus === 'loading' || (nextStatus === 'noMore' && !invisible)" v-pullup="getPullupOptions()">
-    <icon-loading v-show="nextStatus === 'loading'" rotation></icon-loading>
+    <i class="dui-icon__loading" v-show="nextStatus === 'loading'"></i>
     {{pullupText}}
   </div>
 </template>
 
 <script>
-import IconLoading from '../icon-loading'
-
-
 const mapPullUpText = {
   loading: '正在加载...',
   noMore: '没有更多了~',
@@ -16,9 +13,6 @@ const mapPullUpText = {
 
 export default {
   name: 'load-more',
-  components: {
-    IconLoading,
-  },
   data() {
     return {
       nextStatus: 'more',
@@ -30,6 +24,7 @@ export default {
       default: false,
     },
   },
+  emits: ['load-more'],
   computed: {
     pullupText() {
       return mapPullUpText[this.nextStatus];
@@ -59,3 +54,10 @@ export default {
   },
 }
 </script>
+
+<style lang="scss" scoped>
+.dui-icon__loading {
+  width: 18px;
+  height: 18px;
+}
+</style>

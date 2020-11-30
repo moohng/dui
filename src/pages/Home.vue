@@ -7,44 +7,45 @@
       <p class="text-center text-gray">移动端快速布局、高度可自定义Vue 2 UI组件库，以实用为主，避免重复造轮子。作者：Kevin，项目地址：<a href="https://github.com/moohng/dui">https://github.com/moohng/dui</a></p>
     </header>
     <div class="plr ptb-sm text-grey">基本布局（base）</div>
-    <div class="dui-list indent">
+    <div class="dui-list plr bg-white">
       <div class="dui-item" @click="$router.push('layout')">
         <div class="flex-sub">Grid</div>
-        <div class="dui-icon__arrow text-light"></div>
+        <i class="iconfont icon-arrow text-light"></i>
       </div>
       <div class="dui-item" @click="$router.push('button')">
         <div class="flex-sub">Button</div>
-        <div class="dui-icon__arrow text-light"></div>
+        <i class="iconfont icon-arrow text-light"></i>
       </div>
       <div class="dui-item" @click="$router.push('icon')">
         <div class="flex-sub">Icon</div>
-        <div class="dui-icon__arrow text-light"></div>
+        <i class="iconfont icon-arrow text-light"></i>
       </div>
     </div>
     <div class="plr ptb-sm text-grey">组件</div>
-    <div class="dui-list indent">
-      <div class="dui-item" @click="$router.push('dialog')">
+    <div class="dui-list bg-white no-bottom">
+      <div class="dui-item plr" @click="$router.push('dialog')">
         <div class="flex-sub">Dialog</div>
-        <div class="dui-icon__arrow text-light"></div>
+        <i class="iconfont icon-arrow text-light"></i>
       </div>
-      <div class="dui-item" @click="onToastClick">Toast</div>
-      <div class="dui-item" @click="onActionSheetClick">Action Sheet</div>
-      <div class="dui-item" @click="onLoadingClick">Loading</div>
-      <div class="dui-item" @click="$router.push('layout')">
+      <div class="dui-item plr" @click="onToastClick">Toast</div>
+      <div class="dui-item plr" @click="onActionSheetClick">Action Sheet</div>
+      <div class="dui-item plr" @click="onActionSheetClick2">Action Sheet 2</div>
+      <div class="dui-item plr" @click="onLoadingClick">Loading</div>
+      <div class="dui-item plr" @click="$router.push('layout')">
         <div class="flex-sub">Preview</div>
-        <div class="dui-icon__arrow text-light"></div>
+        <i class="iconfont icon-arrow text-light"></i>
       </div>
     </div>
     <div class="plr ptb-sm text-grey">插件</div>
-    <div class="dui-list">
-      <div class="dui-item" @click="$router.push('pulldown')">
+    <div class="dui-list bg-white">
+      <div class="dui-item mlr" @click="$router.push('pulldown')">
         <div class="flex-sub">下拉刷新</div>
-        <div class="dui-icon__arrow text-light"></div>
+        <i class="iconfont icon-arrow text-light"></i>
       </div>
-      <div class="dui-item" @click="$router.push('lazyload')">
-        <div class="flex-sub">图片懒加载</div>
-        <div class="dui-icon__arrow text-light"></div>
-      </div>
+      <!-- <div class="dui-item" @click="$router.push('lazyload')">
+        <div class="flex-sub">图片加载</div>
+        <i class="iconfont icon-arrow text-light"></i>
+      </div> -->
     </div>
   </div>
 </template>
@@ -66,16 +67,25 @@ export default {
         { name: '选项一' },
         { name: '选项二' },
         { name: '选项三' },
-      ])
+      ], {
+        title: '示例',
+        cancel: '注销',
+        cancelClass: 'text-red',
+      }).then((index) => {
+        console.log('您点击了：', index)
+      })
     },
-    onDialogClick() {
-      this.$dialog({
-        title: '弹窗标题',
-        content: '弹窗内容，告知当前状态、信息和解决方法，描述文字尽量控制在三行之内',
-        buttons: [
-          { text: '取消', class: '' },
-          { text: '确定', class: 'text-red' },
-        ],
+    onActionSheetClick2() {
+      this.$actionsheet([
+        { name: '选项1' },
+        { name: '选项2' },
+        { name: '选项3' },
+      ], {
+        title: '示例2',
+        cancel: '退出',
+        cancelClass: 'text-orange',
+      }).then((index) => {
+        console.log('您点击了2：', index)
       })
     },
     onLoadingClick() {

@@ -1,16 +1,10 @@
 import IconLoading from './icon-loading.vue'
 
 
-IconLoading.install = function install(Vue) {
-  if (install.installed) return
-  install.installed = true;
-
+export const install = app => {
   // 注册组件
-  Vue.component(IconLoading.name, IconLoading)
+  app.component(IconLoading.name, IconLoading)
 }
 
-if (typeof window !== 'undefined' && window.Vue) {
-  IconLoading.install(window.Vue)
-}
-
+IconLoading.install = install
 export default IconLoading

@@ -3,13 +3,13 @@
     <div v-if="hasNavbar" class="dui-nav-bar placeholder bg-red">
       <div class="dui-nav-bar--fixed dui-nav-bar__content">
         <div class="dui-nav-bar__title">{{$route.meta.title}}</div>
-        <div class="dui-icon__back" @click="$router.back()"></div>
+        <div class="iconfont icon-arrow-left" @click="$router.back()"></div>
       </div>
     </div>
     <div class="container">
       <refresh scroller=".container" @refresh="onRefresh">
-        <ul class="dui-list">
-          <li class="dui-item" v-for="n in listCount" :key="n">页面内容{{ n }}</li>
+        <ul class="dui-list bg-white">
+          <li class="dui-item mlr" v-for="n in listCount" :key="n">页面内容{{ n }}</li>
         </ul>
         <load ref="loadMore" @load="onLoadMore"></load>
       </refresh>
@@ -51,5 +51,12 @@ export default {
   height: 60vh;
   background: #ccc;
   overflow: auto;
+}
+ul {
+  margin: 0;
+  padding: 0;
+}
+li {
+  padding: 0;
 }
 </style>

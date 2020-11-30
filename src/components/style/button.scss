@@ -1,14 +1,17 @@
 .dui-button {
-  display: inline-block;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
   padding: 0 16px;
   height: 36px;
   font-size: 14px;
-  text-align: center;
   text-decoration: none;
   line-height: 1;
-  outline: 0;
-  border: 0;
+  outline-width: 0;
+  border-width: 0;
   border-radius: 6px;
+  appearance: none;
+  cursor: pointer;
   &:active {
     opacity: 0.9;
   }
@@ -16,20 +19,18 @@
   &.disabled {
     opacity: 0.6;
     color: #ffffff;
+    pointer-events: none;
+    cursor: not-allowed;
   }
   &[class*=line] {
     @extend .solid;
     background-color: transparent;
-    border-color: currentColor;
   }
   &.block {
     width: 100%;
   }
   &.round {
     @extend .round;
-  }
-  span {
-    vertical-align: middle;
   }
 }
 .dui-button.md {
