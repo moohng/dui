@@ -52,7 +52,7 @@ function cssMin(cb) {
       } else if (path.dirname === 'style') {  // base 样式
         path.basename = 'dui.base.min'
       } else {
-        path.basename = path.dirname.match(/^(\w+)\\/)[1] + '.min'
+        path.basename = path.dirname.match(/^(\w+)[/\\]/)[1] + '.min'
       }
       path.dirname = '.'
     }))
