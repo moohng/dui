@@ -1,5 +1,5 @@
 <template>
-  <div id="slider" v-show="show" class="dui-preview" :class="{toggle}" :style="{transformOrigin: `${point.x}px ${point.y}px`}" @click="onClose">
+  <div id="slider" v-if="show" class="dui-preview" :class="{toggle}" :style="{transformOrigin: `${point.x}px ${point.y}px`}" @click="onClose">
     <div class="dui-preview__wrap">
       <div class="dui-preview__slide bg-img" v-for="(item, index) in options" :key="item" :style="{backgroundImage: `url(${loadedList[index]})`}">
         <i class="dui-icon__loading" v-show="!loadedList[index]"></i>

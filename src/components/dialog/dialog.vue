@@ -1,5 +1,5 @@
 <template>
-  <div v-show="show" class="dui-dialog" :class="{ show: toggle }">
+  <div v-if="show" class="dui-dialog" :class="{ show: toggle }">
     <div class="mask" @click="onMask"></div>
     <div class="dui-dialog__body" :class="{'dui-dialog__body--default': !$slots.default}">
       <slot>
