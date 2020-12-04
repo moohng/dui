@@ -1,36 +1,10 @@
 <template>
-  <router-view v-slot="{ Component }">
-    <transition :name="transitionName">
+  <router-view v-slot="{ Component, route }">
+    <transition :name="route.meta.transition">
       <component :is="Component"></component>
     </transition>
   </router-view>
 </template>
-
-<script>
-export default {
-  data() {
-    return {
-      transitionName: '',
-    }
-  },
-  watch: {
-    $route(to, from) {
-      // const scrollTop = document.scrollingElement.scrollTop
-      // const $navbar = document.querySelector('.dui-nav-bar--fixed')
-      // if ($navbar) {
-      //   $navbar.style.top = `${scrollTop}px`
-      // }
-      // this.$el.style.top = `-${scrollTop}px`
-
-      this.transitionName = this.$router.isBack ? 'slide-right' : 'slide-left'
-
-      if (from.path  !== '/') {
-        this.$router.isBack = false
-      }
-    }
-  },
-}
-</script>
 
 <style lang="scss">
 @import './assets/styles/navbar.scss';
@@ -39,22 +13,21 @@ export default {
 </style>
 
 <style lang="scss" scoped>
-.page-enter,
+.page-enter-from,
 .page-leave-to {
-  opacity: 0;
-  transform: translate3d(0, 20px, 0);
+  opacity: .4;
 }
 .page-enter-active,
 .page-leave-active {
-  transition: all .2s;
+  transition: all .2s linear;
 }
 
-.slide-left-enter,
+.slide-left-enter-from,
 .slide-right-leave-to {
   transform: translate3d(100%, 0, 0);
 }
 .slide-left-leave-to,
-.slide-right-enter {
+.slide-right-enter-from {
   transform: translate3d(-30%, 0, 0);
 }
 .slide-left-enter-active,

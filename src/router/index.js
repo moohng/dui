@@ -1,4 +1,4 @@
-import { createRouter, createWebHistory } from 'vue-router'
+import { createRouter, createWebHashHistory } from 'vue-router'
 import Home from '../pages/Home.vue'
 import Layout from '../pages/Layout.vue'
 import Button from '../pages/Button.vue'
@@ -87,7 +87,7 @@ const routes = [
 ]
 
 const router = createRouter({
-  history: createWebHistory(),
+  history: createWebHashHistory(),
   routes,
   scrollBehavior(to, from, savedPosition) {
     if (savedPosition) {
@@ -102,11 +102,18 @@ const router = createRouter({
 
 router.beforeEach((to, from, next) => {
   document.title = to.meta.title ?? process.env.VUE_APP_TITLE
-  next()
+  setTimeout(next) // 保证 popstate 事件在路由切换前执行，专场动画需要
+})
+
+router.afterEach((to, from) => {
+  if (from.path !== to.path) {
+    to.meta.transition = router.isBack ? 'slide-right' : 'slide-left'
+    router.isBack = false
+  }
 })
 
 window.addEventListener('popstate', () => {
-  router.isBack = true;
-});
+  router.isBack = true
+})
 
 export default router

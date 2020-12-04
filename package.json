@@ -14,7 +14,7 @@
   },
   "main": "lib/dui/index.js",
   "module": "lib/dui/index.js",
-  "browser": "dist/dui.min.js",
+  "unpkg": "dist/dui.min.js",
   "files": [
     "dist",
     "lib",

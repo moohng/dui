@@ -21,7 +21,7 @@ const mapPullDownText = {
 }
 
 export default {
-  name: 'refresh',
+  name: 'dui-refresh',
   components: {
     IconLoading,
   },

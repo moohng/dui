@@ -7,12 +7,12 @@
       </div>
     </div>
     <div class="container">
-      <refresh scroller=".container" @refresh="onRefresh">
+      <dui-refresh scroller=".container" @refresh="onRefresh">
         <ul class="dui-list bg-white">
           <li class="dui-item mlr" v-for="n in listCount" :key="n">页面内容{{ n }}</li>
         </ul>
         <load ref="loadMore" @load="onLoadMore"></load>
-      </refresh>
+      </dui-refresh>
     </div>
   </div>
 </template>
