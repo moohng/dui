@@ -4,7 +4,6 @@ import { mountComponent } from '../../tools/utils'
 
 
 export const install = (app) => {
-  let duiDialog = null
   const dialogRef = ref(null)
   const state = reactive({})
 
@@ -21,14 +20,12 @@ export const install = (app) => {
         }
         resolve(...args)
       }
-      if (!duiDialog) {
-        const { instance } = mountComponent({
+
+        const { unmount } = mountComponent({
           render() {
-            return <Dialog ref={el => dialogRef.value = el} title={state.title} content={state.content} buttons={state.buttons} closable={state.closable} onClick={state.handleClick} />
+            return <Dialog ref={el => dialogRef.value = el} title={state.title} content={state.content} buttons={state.buttons} closable={state.closable} onClick={state.handleClick} onClose={unmount} />
           },
         })
-        duiDialog = instance
-      }
 
       state.title = title
       state.content = content

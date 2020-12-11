@@ -1,31 +1,33 @@
 <template>
-  <div v-if="show" class="dui-actionsheet" :class="{ show: toggle }">
-    <div class="mask" @click="close()"></div>
-    <div class="dui-actionsheet__body" :class="{'dui-actionsheet__body--default': !$slots.default}">
-      <slot>
-        <div class="dui-item bg-white" v-if="title">
-          <p class="flex-sub text-sm text-gray text-center">{{ title }}</p>
-        </div>
-        <div class="dui-list bg-white" v-if="menus.length">
-          <div
-            class="dui-item justify-center text-lg"
-            v-for="(menu, index) in menus" :key="menu.id || menu.key || index"
-            :class="[].concat(menu.class || [])"
-            @click="onClick(index, menu)"
-          >
-            {{ menu.name || menu }}
+  <teleport to="body">
+    <div v-if="show" class="dui-actionsheet" :class="{ show: toggle }">
+      <div class="mask" @click="close()"></div>
+      <div class="dui-actionsheet__body" :class="{'dui-actionsheet__body--default': !$slots.default}">
+        <slot>
+          <div class="dui-item bg-white" v-if="title">
+            <p class="flex-sub text-sm text-gray text-center">{{ title }}</p>
           </div>
-        </div>
-        <div class="dui-list bg-white safe-bottom" v-if="cancel">
-          <div
-            class="dui-item justify-center text-lg"
-            :class="[].concat(cancelClass || [])"
-            @click="onClick('cancel')"
-          >{{ cancel }}</div>
-        </div>
-      </slot>
+          <div class="dui-list bg-white" v-if="menus.length">
+            <div
+              class="dui-item justify-center text-lg"
+              v-for="(menu, index) in menus" :key="menu.id || menu.key || index"
+              :class="[].concat(menu.class || [])"
+              @click="onClick(index, menu)"
+            >
+              {{ menu.name || menu }}
+            </div>
+          </div>
+          <div class="dui-list bg-white safe-bottom" v-if="cancel">
+            <div
+              class="dui-item justify-center text-lg"
+              :class="[].concat(cancelClass || [])"
+              @click="onClick('cancel')"
+            >{{ cancel }}</div>
+          </div>
+        </slot>
+      </div>
     </div>
-  </div>
+  </teleport>
 </template>
 
 <script>

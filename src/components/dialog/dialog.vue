@@ -1,27 +1,29 @@
 <template>
-  <div v-if="show" class="dui-dialog" :class="{ show: toggle }">
-    <div class="mask" @click="onMask"></div>
-    <div class="dui-dialog__body" :class="{'dui-dialog__body--default': !$slots.default}">
-      <slot>
-        <div class="dui-dialog__hd plr-lg pt-xl pb" v-if="title">
-          <strong>{{ title }}</strong>
-        </div>
-        <div
-          class="dui-dialog__content plr-lg mb-xl text-grey"
-          v-if="content"
-        >{{ content }}</div>
-        <div class="dui-dialog__ft flex solid-top" v-if="buttons.length">
-          <a
-            class="flex-sub pd text-bold"
-            v-for="(button, index) in buttons"
-            :key="index"
-            :class="[index > 0 ? 'solid-left' : ''].concat(button.class || [])"
-            @click="onClick(index, button)"
-          >{{ button.text || button }}</a>
-        </div>
-      </slot>
+  <teleport to="body">
+    <div v-if="show" class="dui-dialog" :class="{ show: toggle }">
+      <div class="mask" @click="onMask"></div>
+      <div class="dui-dialog__body" :class="{'dui-dialog__body--default': !$slots.default}">
+        <slot>
+          <div class="dui-dialog__hd plr-lg pt-xl pb" v-if="title">
+            <strong>{{ title }}</strong>
+          </div>
+          <div
+            class="dui-dialog__content plr-lg mb-xl text-grey"
+            v-if="content"
+          >{{ content }}</div>
+          <div class="dui-dialog__ft flex solid-top" v-if="buttons.length">
+            <a
+              class="flex-sub pd text-bold"
+              v-for="(button, index) in buttons"
+              :key="index"
+              :class="[index > 0 ? 'solid-left' : ''].concat(button.class || [])"
+              @click="onClick(index, button)"
+            >{{ button.text || button }}</a>
+          </div>
+        </slot>
+      </div>
     </div>
-  </div>
+  </teleport>
 </template>
 
 <script>

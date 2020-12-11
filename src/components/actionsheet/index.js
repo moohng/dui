@@ -4,7 +4,6 @@ import { mountComponent } from '../../tools/utils'
 
 
 export const install = app => {
-  let duiActionsheet = null;
   const asRef = ref(null)
   const state = reactive({})
 
@@ -21,14 +20,12 @@ export const install = app => {
         }
         resolve(...args)
       }
-      if (!duiActionsheet) {
-        const { instance } = mountComponent({
-          render() {
-            return <Actionsheet ref={el => asRef.value = el} menus={state.menus} title={state.title} cancel={state.cancel} cancelClass={state.cancelClass} onClick={state.handleClick} />
-          },
-        })
-        duiActionsheet = instance
-      }
+
+      const { unmount } = mountComponent({
+        render() {
+          return <Actionsheet ref={el => asRef.value = el} menus={state.menus} title={state.title} cancel={state.cancel} cancelClass={state.cancelClass} onClick={state.handleClick} onClose={unmount} />
+        },
+      })
 
       state.title = title
       state.cancel = cancel
