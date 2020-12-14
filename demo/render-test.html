@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Render Test</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue@next/dist/vue.global.prod.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/react/umd/react.production.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/react-dom/umd/react-dom.production.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/babel-standalone@6.26.0/babel.min.js"></script>
+  <style>
+    #content {
+      height: 600px;
+      overflow: auto;
+      border: 1px solid lightgray;
+    }
+  </style>
+</head>
+<body>
+  <input id="num" type="number" placeholder="插入节点数量">
+  <button id="single">DOM 单个插入</button>
+  <button id="fragment">DOM Fragment 插入</button>
+  <button id="innerHtml">DOM innerHtml 插入</button>
+  <button id="vue">Vue 插入</button>
+  <button id="react">React 插入</button>
+
+  <p>js 执行时间: <span id="time">0</span>ms</p>
+  <button id="clear">清空</button>
+  <button id="refresh" onclick="location.reload();">刷新</button>
+
+  <ul id="content"></ul>
+
+  <script type="text/babel">
+    // import * as Vue from 'https://cdn.jsdelivr.net/npm/vue@next/dist/vue.esm-browser.prod.js'
+
+    const $num = document.querySelector('#num')
+    $num.value = 10000
+
+    const $content = document.querySelector('#content')
+    const $time = document.querySelector('#time')
+
+    function computeExecutionTime(func) {
+      if (typeof func !== 'function') {
+        throw new Error('func 必须是函数')
+      }
+      return function (...args) {
+        const startTime = Date.now()
+        func(...args)
+        const endTime = Date.now()
+        $time.innerText = endTime - startTime
+      }
+    }
+
+    document.querySelector('#single').addEventListener('click', computeExecutionTime(function () {
+      const num = $num.value
+      for (let i = 0; i < num; i++) {
+        const $li = document.createElement('li')
+        $li.innerText = `节点 ${i}`
+        // $li.appendChild(document.createTextNode(`节点 ${i}`))
+        $content.appendChild($li)
+      }
+    }))
+
+    document.querySelector('#fragment').addEventListener('click', computeExecutionTime(function () {
+      const num = $num.value
+      const $fragment = document.createDocumentFragment()
+      for (let i = 0; i < num; i++) {
+        const $li = document.createElement('li')
+        $li.innerText = `节点 ${i}`
+        // $li.appendChild(document.createTextNode(`节点 ${i}`))
+        $fragment.appendChild($li)
+      }
+      $content.appendChild($fragment)
+    }))
+
+    document.querySelector('#innerHtml').addEventListener('click', computeExecutionTime(function () {
+      const num = $num.value
+      let innerHTML = []
+      const liTpl = document.querySelector('#li')
+      for (let i = 0; i < num; i++) {
+        // innerHTML = innerHTML.concat(`<li>节点 ${i}</li>`) // 394ms
+        // innerHTML = [...innerHTML, `<li>节点 ${i}</li>`] // 93ms
+        // innerHTML.push(`<li>节点 ${i}</li>`) // 21ms
+        // innerHTML.splice(i, 0, `<li>节点 ${i}</li>`) // 23ms
+        innerHTML.push(templateCompile(liTpl, { index: i }))
+      }
+      $content.innerHTML = innerHTML.join('')
+    }))
+
+    document.querySelector('#vue').addEventListener('click', computeExecutionTime(function () {
+      const startTime = Date.now()
+      const num = +$num.value
+      const app = Vue.createApp({
+        template: `<li v-for="i in ${num}">节点 {{i}}</li>`, // 63ms
+        // setup() {
+        //   return function () {  // 73ms
+        //     const list = []
+        //     for (let i = 0; i < num; i++) {
+        //       list.push(Vue.h('li', {}, [`节点 ${i}`]))
+        //     }
+        //     return list
+        //   }
+        // },
+        // render() {  // 65ms
+        //   const list = []
+        //   for (let i = 0; i < num; i++) {
+        //     list.push(Vue.h('li', {}, [`节点 ${i}`]))
+        //   }
+        //   return list
+        // },
+        mounted() {
+          console.log('vue mounted', Date.now() - startTime)
+        },
+      })
+      app.mount($content)
+    }))
+
+    document.querySelector('#react').addEventListener('click', computeExecutionTime(function () {
+      console.time('react')
+      const num = +$num.value
+      function App() {
+        React.useEffect(function () {
+          console.timeEnd('react')
+        }, [])
+        const list = []
+        for (let i = 0; i < num; i++) {
+          // list.push(React.createElement('li', {}, [`节点 ${i}`]))
+          list.push(<li>节点 {i}</li>)
+        }
+        return list
+      }
+      // ReactDOM.render(React.createElement(App), $content)
+      ReactDOM.render(<App />, $content)
+    }))
+
+    document.querySelector('#clear').addEventListener('click', computeExecutionTime(function () {
+      $content.innerHTML = ''
+    }))
+
+    function templateCompile(html, options) {
+      return html.innerHTML.replace(/\{\{(\w+)\}\}/g, function (_, key) {
+        return options[key]
+      })
+    }
+  </script>
+
+  <script id="li" type="text/html">
+    <li>节点 {{index}}</li>
+  </script>
+</body>
+</html>
