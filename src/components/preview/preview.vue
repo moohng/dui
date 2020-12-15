@@ -12,25 +12,25 @@
   </div>
 </template>
 
-<script>
-import { onUnmounted, ref, watch, nextTick } from 'vue'
-import BScroll from '@better-scroll/core'
+<script lang="ts">
+import { onUnmounted, ref, watch, nextTick, defineComponent, PropType } from 'vue'
+import BScroll, { BScrollInstance } from '@better-scroll/core'
 import SlidePlugin from '@better-scroll/slide'
 import modalHelper from '../../tools/modalHelper'
 
 BScroll.use(SlidePlugin)
 
-function loadImage(src, onload) {
+function loadImage (src: string, onload: (src: string) => void) {
   const image = new Image()
   image.onload = () => onload(src)
   image.src = src
 }
 
-export default {
+export default defineComponent({
   name: 'dui-preview',
   props: {
     options: {
-      type: Array,
+      type: Array as PropType<string[]>,
       default: () => [],
     },
     index: {
@@ -43,22 +43,22 @@ export default {
     },
     point: {
       type: Object,
-      default: () => {},
+      default: () => ({}),
     },
   },
   emits: ['close'],
-  setup(props, { emit }) {
+  setup (props, { emit }) {
     const show = ref(false)
     const toggle = ref(false)
-    const loadedList = ref([])
+    const loadedList = ref<string[]>([])
 
     const current = ref(props.index)
     watch(() => props.index, (val) => {
       current.value = val
     })
 
-    let bs = null
-    const onSlide = ({ pageX }) => {
+    let bs: BScrollInstance
+    const onSlide = ({ pageX }: any) => {
       current.value = pageX
       loadImage(props.options[pageX], src => {
         loadedList.value[pageX] = src
@@ -104,7 +104,6 @@ export default {
         show.value = false
         if (bs) {
           bs.destroy()
-          bs = null
         }
       }, 300)
     }
@@ -112,7 +111,6 @@ export default {
     onUnmounted(() => {
       if (bs) {
         bs.destroy()
-        bs = null
       }
     })
 
@@ -123,7 +121,7 @@ export default {
       loadedList,
       open,
       close,
-      onClose() {
+      onClose () {
         if (props.closable) {
           emit('close')
           close()
@@ -131,5 +129,5 @@ export default {
       },
     }
   },
-}
+})
 </script>

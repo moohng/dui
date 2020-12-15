@@ -26,22 +26,24 @@
   </div>
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import { defineComponent } from 'vue'
+
+export default defineComponent({
   methods: {
-    onDialogClick() {
+    onDialogClick () {
       this.$dialog({
         title: '弹窗标题',
         content: '弹窗内容，告知当前状态、信息和解决方法，描述文字尽量控制在三行之内',
         buttons: [
           { text: '取消', class: '' },
-          { text: '确定', class: 'text-red', onClick: () => alert('确定吗？') },
+          { text: '确定', class: 'text-red', onClick: () => { alert('确定吗？') } },
         ],
       }).then((index) => {
         console.log('您点击了：', index)
       })
     },
-    onDialogClick2() {
+    onDialogClick2 () {
       this.$dialog({
         title: '弹窗标题2',
         content: '弹窗内容，告知当前状态、信息和解决方法，描述文字尽量控制在三行之内'.split('').reverse().join(''),
@@ -55,7 +57,7 @@ export default {
       })
     },
   },
-}
+})
 </script>
 
 <style lang="scss" scoped>

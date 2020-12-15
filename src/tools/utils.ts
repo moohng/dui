@@ -1,20 +1,11 @@
-import { createApp } from 'vue'
+import { createApp, Component } from 'vue'
 
-// props 赋值
-export function assignProps(vm, props) {
-  Object.entries(props).forEach(([key, value]) => {
-    if (value !== undefined) {
-      vm[key] = value
-    }
-  })
-}
-
-export function mountComponent(Component) {
+export function mountComponent (Com: Component) {
   // 创建挂载节点
   const root = document.createElement('div')
   document.body.appendChild(root)
   // 创建组件实例
-  const app = createApp(Component)
+  const app = createApp(Com)
   // 挂载组件
   const instance = app.mount(root)
 
@@ -23,17 +14,17 @@ export function mountComponent(Component) {
     unmount: () => {
       app.unmount(root)
       document.body.removeChild(root)
-    }
+    },
   }
 }
 
 // 节流函数
-export function throttle(func, time, isFirst) {
+export function throttle (func: Function, time: number, isFirst = false) {
   let lastTime = Date.now()
-  return (...args) => {
+  return (...args: any[]) => {
     if (isFirst) {
       lastTime = Date.now()
-      func.apply(this, args)
+      func(args)
       isFirst = false
       return
     }
@@ -41,13 +32,13 @@ export function throttle(func, time, isFirst) {
     const now = Date.now()
     if (now - lastTime >= time) {
       lastTime = now
-      func.apply(this, args)
+      func(args)
     }
   }
 }
 
 // 查找节点
-export function querySelector(selector, defaultSelector) {
+export function querySelector (selector: Function | Element | string, defaultSelector?: any) {
   if (typeof selector === 'function') {
     selector = selector()
   }
@@ -55,7 +46,7 @@ export function querySelector(selector, defaultSelector) {
     return selector
   }
   try {
-    const el = document.querySelector(selector)
+    const el = document.querySelector<any>(selector)
     if (el === null) {
       throw new Error()
     }
@@ -69,10 +60,10 @@ export function querySelector(selector, defaultSelector) {
 }
 
 // 空函数
-export function pop() {}
+export function pop (): void {}
 
 // ready
-export function domReady(func) {
+export function domReady (func: Function) {
   if (document.readyState === 'complete') {
     setTimeout(() => func(), 0)
   } else {

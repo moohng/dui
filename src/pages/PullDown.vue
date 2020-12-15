@@ -17,32 +17,38 @@
   </div>
 </template>
 
-<script>
-export default {
-  data() {
+<script lang="ts">
+import { defineComponent } from 'vue'
+// eslint-disable-next-line no-unused-vars
+import { RefreshEventCallBack } from '@/components/refresh'
+// eslint-disable-next-line no-unused-vars
+import { LoadMoreEventCallBack } from '@/components/load-more'
+
+export default defineComponent({
+  data () {
     return {
       listCount: 20,
     }
   },
   mounted () {
-    this.$refs.loadMore.finished()
+    (this.$refs.loadMore as any).finished()
   },
   methods: {
-    onRefresh(finished) {
+    onRefresh (finished: RefreshEventCallBack) {
       setTimeout(() => {
         this.listCount = 20
-        finished(true)
-        this.$refs.loadMore.refresh()
+        finished(true);
+        (this.$refs.loadMore as any).refresh()
       }, 2000)
     },
-    onLoadMore(finished) {
+    onLoadMore (finished: LoadMoreEventCallBack) {
       setTimeout(() => {
         this.listCount += 20
         finished(this.listCount > 50)
       }, 2000)
     },
   },
-}
+})
 </script>
 
 <style lang="scss" scoped>

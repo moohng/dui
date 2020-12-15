@@ -5,15 +5,19 @@
   </div>
 </template>
 
-<script>
-const mapPullUpText = {
+<script lang="ts">
+import { defineComponent } from 'vue'
+
+const mapPullUpText: {
+  [key: string]: string;
+} = {
   loading: '正在加载...',
   noMore: '没有更多了~',
 }
 
-export default {
+export default defineComponent({
   name: 'load-more',
-  data() {
+  data () {
     return {
       nextStatus: 'more',
     }
@@ -26,18 +30,18 @@ export default {
   },
   emits: ['load-more'],
   computed: {
-    pullupText() {
-      return mapPullUpText[this.nextStatus];
+    pullupText (): string {
+      return mapPullUpText[this.nextStatus]
     },
   },
   methods: {
-    getPullupOptions() {
+    getPullupOptions () {
       return {
         threshold: 0,
-        onLoadMore: (finished) => {
+        onLoadMore: (finished: (noMore: boolean) => void) => {
           if (this.nextStatus === 'more') {
             this.nextStatus = 'loading'
-            this.$emit('load-more', (noMore) => {
+            this.$emit('load-more', (noMore: boolean) => {
               finished(false)
               this.finished(noMore)
             })
@@ -45,14 +49,14 @@ export default {
         },
       }
     },
-    refresh() {
+    refresh () {
       this.nextStatus = 'more'
     },
-    finished(noMore = false) {
+    finished (noMore = false) {
       this.nextStatus = noMore ? 'noMore' : 'more'
     },
   },
-}
+})
 </script>
 
 <style lang="scss" scoped>

@@ -4,10 +4,10 @@
   </div>
 </template>
 
-<script>
-import { reactive, onUnmounted, toRefs } from 'vue'
+<script lang="ts">
+import { defineComponent, reactive, onUnmounted, toRefs } from 'vue'
 
-export default {
+export default defineComponent({
   name: 'dui-toast',
   props: {
     text: {
@@ -15,30 +15,30 @@ export default {
       default: '',
     },
   },
-  setup(props) {
+  setup (props) {
     const state = reactive({
       toastText: props.text,
       toastShow: false,
     })
 
-    let timer = null
+    let timer: number
 
-    const show = text => {
+    const show = (text: string) => {
       if (text) {
-        state.toastText = text;
+        state.toastText = text
       }
       if (timer) {
-        clearTimeout(timer);
+        clearTimeout(timer)
       }
-      state.toastShow = true;
-      timer = setTimeout(() => {
-        state.toastShow = false;
-      }, 2000);
+      state.toastShow = true
+      timer = window.setTimeout(() => {
+        state.toastShow = false
+      }, 2000)
     }
 
     onUnmounted(() => {
       if (timer) {
-        clearTimeout(timer);
+        clearTimeout(timer)
       }
     })
 
@@ -47,5 +47,5 @@ export default {
       show,
     }
   },
-}
+})
 </script>

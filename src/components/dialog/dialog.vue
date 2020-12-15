@@ -16,7 +16,7 @@
             v-for="(button, index) in buttons"
             :key="index"
             :class="[index > 0 ? 'solid-left' : ''].concat(button.class || [])"
-            @click="onClick(index, button)"
+            @click="handleClick(index, button)"
           >{{ button.text || button }}</a>
         </div>
       </slot>
@@ -24,10 +24,12 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
+import { defineComponent, PropType } from 'vue'
 import modalHelper from '../../tools/modalHelper'
+import { Button, ClickCallback } from './index'
 
-export default {
+export default defineComponent({
   name: 'dui-dialog',
   props: {
     title: {
@@ -39,7 +41,7 @@ export default {
       default: '',
     },
     buttons: {
-      type: Array,
+      type: Array as PropType<Button[]>,
       default: () => [
         {
           text: '确定',
@@ -54,24 +56,25 @@ export default {
     closable: {
       type: Boolean,
       default: false,
-    }
+    },
+    onClick: Function as PropType<ClickCallback>
   },
   emits: ['click', 'close', 'mask'],
-  data() {
+  data () {
     return {
       show: false,
       toggle: false,
     }
   },
   methods: {
-    open() {
+    open () {
       this.show = true
       setTimeout(() => {
         this.toggle = true
       }, 20)
       modalHelper.afterOpen()
     },
-    close() {
+    close () {
       this.toggle = false
       setTimeout(() => {
         modalHelper.beforeClose()
@@ -79,19 +82,19 @@ export default {
         this.$emit('close')
       }, 300)
     },
-    async onClick(index, button) {
+    async handleClick (index: number, button: Button) {
       if (typeof button.onClick === 'function') {
         await button.onClick(index, button)
       }
       this.$emit('click', index, button)
       this.close()
     },
-    async onMask() {
+    async onMask () {
       this.$emit('mask', this.close)
       if (this.closable) {
         this.close()
       }
     },
   },
-}
+})
 </script>

@@ -4,8 +4,10 @@
   </svg>
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import { defineComponent } from 'vue'
+
+export default defineComponent({
   name: 'icon-loading',
   props: {
     radian: {
@@ -17,7 +19,7 @@ export default {
       default: false,
     },
   },
-}
+})
 </script>
 
 <style lang="scss" scoped>

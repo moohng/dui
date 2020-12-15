@@ -8,28 +8,29 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
+import { defineComponent } from 'vue'
 import modalHelper from '../../tools/modalHelper'
 
-export default {
+export default defineComponent({
   name: 'dui-loading',
-  data() {
+  data () {
     return {
       show: false,
       loadingText: '数据加载中',
-    };
+    }
   },
   methods: {
-    open(text = this.loadingText) {
-      this.loadingText = text;
-      this.show = true;
+    open (text?: string) {
+      this.loadingText = text || this.loadingText
+      this.show = true
       modalHelper.afterOpen()
     },
-    close() {
+    close () {
       modalHelper.beforeClose()
-      this.show = false;
-      this.$emit('close');
+      this.show = false
+      this.$emit('close')
     },
   },
-};
+})
 </script>

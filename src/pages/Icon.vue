@@ -19,11 +19,12 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
+import { defineComponent } from 'vue'
 import copy from '@moohng/dan/lib/copy'
 
-export default {
-  data() {
+export default defineComponent({
+  data () {
     return {
       iconList: [
         'icon-arrow',
@@ -40,12 +41,12 @@ export default {
     }
   },
   methods: {
-    onCopy(icon) {
+    onCopy (icon: string) {
       copy(icon)
       this.$toast('已复制')
     },
   },
-}
+})
 </script>
 
 <style lang="scss" scoped>

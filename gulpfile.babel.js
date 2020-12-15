@@ -11,20 +11,20 @@ const rollupConfig = require('./build/rollup.config')
 
 const base = 'src/components'
 
-function cssLib(cb) {
+function cssLib (cb) {
   src([
     'src/components/style.scss',
     'src/components/**/style/index.scss',
   ], {
     base,
   }).pipe(sass({
-      outputStyle: 'expanded',
-    }))
+    outputStyle: 'expanded',
+  }))
     .pipe(postcss([
       autoprefixer(),
     ]))
     .pipe(rename(function (path) {
-      if (path.dirname === 'style') {  // base 样式
+      if (path.dirname === 'style') { // base 样式
         path.basename = 'base'
       } else if (path.basename === 'style') { // 所有样式
         path.basename = 'index'
@@ -36,20 +36,20 @@ function cssLib(cb) {
   cb()
 }
 
-function cssMin(cb) {
+function cssMin (cb) {
   src([
     'src/components/style.scss',
     'src/components/**/style/index.scss',
   ]).pipe(sass({
-      outputStyle: 'compressed',
-    }))
+    outputStyle: 'compressed',
+  }))
     .pipe(postcss([
       autoprefixer(),
     ]))
     .pipe(rename(function (path) {
       if (path.basename === 'style') { // 所有样式
         path.basename = 'dui.min'
-      } else if (path.dirname === 'style') {  // base 样式
+      } else if (path.dirname === 'style') { // base 样式
         path.basename = 'dui.base.min'
       } else {
         path.basename = path.dirname.match(/^(\w+)[/\\]/)[1] + '.min'
@@ -61,9 +61,9 @@ function cssMin(cb) {
   cb()
 }
 
-function createRollupTask(rollupConfig) {
+function createRollupTask (rollupConfig) {
   return rollupConfig.map(config => {
-    const { output: outputConfig, ...inputConfig} = config
+    const { output: outputConfig, ...inputConfig } = config
     return function task () {
       return rollup.rollup(inputConfig).then(bundle => {
         return bundle.write(outputConfig)
@@ -72,7 +72,7 @@ function createRollupTask(rollupConfig) {
   })
 }
 
-function clean() {
+function clean () {
   return del(['dist', 'lib'])
 }
 

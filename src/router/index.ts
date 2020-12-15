@@ -10,7 +10,6 @@ import PullDown from '../pages/PullDown.vue'
 
 import Lazyload from '../pages/Lazyload.vue'
 
-
 const routes = [
   {
     path: '/',
@@ -89,7 +88,7 @@ const routes = [
 const router = createRouter({
   history: createWebHashHistory(),
   routes,
-  scrollBehavior(to, from, savedPosition) {
+  scrollBehavior (to, from, savedPosition) {
     if (savedPosition) {
       return savedPosition
     }
@@ -105,15 +104,17 @@ router.beforeEach((to, from, next) => {
   setTimeout(next) // 保证 popstate 事件在路由切换前执行，专场动画需要
 })
 
+let isBack = false
+
 router.afterEach((to, from) => {
   if (from.path !== to.path) {
-    to.meta.transition = router.isBack ? 'slide-right' : 'slide-left'
-    router.isBack = false
+    to.meta.transition = isBack ? 'slide-right' : 'slide-left'
+    isBack = false
   }
 })
 
 window.addEventListener('popstate', () => {
-  router.isBack = true
+  isBack = true
 })
 
 export default router
