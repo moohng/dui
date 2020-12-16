@@ -21,9 +21,11 @@
   </div>
 </template>
 
-<script>
-export default {
-  data() {
+<script lang="ts">
+import { defineComponent } from 'vue'
+
+export default defineComponent({
+  data () {
     return {
       index: 2,
       imgPaths: [
@@ -37,5 +39,5 @@ export default {
       ],
     }
   },
-}
+})
 </script>

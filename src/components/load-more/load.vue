@@ -8,15 +8,19 @@
   </div>
 </template>
 
-<script>
-const mapPullUpText = {
+<script lang="ts">
+import { defineComponent } from 'vue'
+
+const mapPullUpText: {
+  [key: string]: string;
+} = {
   loading: '正在加载...',
   noMore: '没有更多了~',
 }
 
-export default {
+export default defineComponent({
   name: 'load',
-  data() {
+  data () {
     return {
       nextStatus: '',
     }
@@ -29,21 +33,21 @@ export default {
   },
   emits: ['load'],
   computed: {
-    pullupText() {
-      return mapPullUpText[this.nextStatus];
+    pullupText (): string {
+      return mapPullUpText[this.nextStatus]
     },
   },
   methods: {
-    onLoadMore() {
+    onLoadMore () {
       this.nextStatus = 'loading'
-      this.$emit('load', (noMore) => {
+      this.$emit('load', (noMore: boolean) => {
         this.finished(noMore)
       })
     },
-    refresh() {
+    refresh () {
       this.nextStatus = 'more'
     },
-    finished(noMore = false) {
+    finished (noMore = false) {
       this.nextStatus = noMore ? 'noMore' : 'more'
     },
   },
@@ -64,7 +68,7 @@ export default {
       },
     },
   },
-}
+})
 </script>
 
 <style lang="scss" scoped>

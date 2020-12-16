@@ -50,19 +50,23 @@
   </div>
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import { defineComponent } from 'vue'
+
+let timer: number
+
+export default defineComponent({
   name: 'Home',
-  data() {
+  data () {
     return {
       clickTimes: 0,
     }
   },
   methods: {
-    onToastClick() {
+    onToastClick () {
       this.$toast('你好啊')
     },
-    onActionSheetClick() {
+    onActionSheetClick () {
       this.$actionsheet([
         { name: '选项一' },
         { name: '选项二' },
@@ -75,7 +79,7 @@ export default {
         console.log('您点击了：', index)
       })
     },
-    onActionSheetClick2() {
+    onActionSheetClick2 () {
       this.$actionsheet([
         { name: '选项1' },
         { name: '选项2' },
@@ -88,20 +92,20 @@ export default {
         console.log('您点击了2：', index)
       })
     },
-    onLoadingClick() {
+    onLoadingClick () {
       this.$loading()
-      setTimeout(this.$loading.hide, 2000)
+      window.setTimeout(this.$loading.hide, 2000)
     },
-    onAvatarClick() {
-      this.timer && clearTimeout(this.timer)
+    onAvatarClick () {
+      timer && clearTimeout(timer)
       this.clickTimes += 1
       if (this.clickTimes >= 5) {
         this.$router.push({ name: 'Upload' })
       }
-      this.timer = setTimeout(() => {
+      timer = window.setTimeout(() => {
         this.clickTimes = 0
       }, 400)
     },
   },
-}
+})
 </script>

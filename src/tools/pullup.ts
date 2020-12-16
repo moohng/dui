@@ -1,14 +1,25 @@
+import { Plugin } from 'vue'
 import { querySelector, pop } from './utils'
 
+export type onLoadMoreCallback = (finished: Function) => void | Promise<void>
+
+export type PullUpOptions = {
+  threshold: number
+  onLoadMore: onLoadMoreCallback
+}
+
 class PullUp {
-  constructor(el, {
-    threshold,
-    onLoadMore = pop,
-  } = {}) {
+  private $el: any
+  private threshold: number
+  private onLoadMore: onLoadMoreCallback
+  private pullupHeight: number
+
+  private loading = false
+  private lastPosition = 0
+
+  constructor(el: any, { threshold, onLoadMore = pop }: PullUpOptions) {
     this.threshold = threshold
     this.onLoadMore = onLoadMore
-    this.loading = false
-    this.lastPosition = 0
 
     this.$el = querySelector(el, null)
 
@@ -23,7 +34,7 @@ class PullUp {
   }
 
   handlerScroll() {
-    const { scrollTop, scrollHeight, clientHeight } = document.scrollingElement
+    const { scrollTop, scrollHeight, clientHeight } = document.scrollingElement || document.documentElement
     const toBottom = scrollHeight - scrollTop - clientHeight
     if (!this.loading && toBottom < this.lastPosition && toBottom <= this.pullupHeight) {
       this.loading = true
@@ -47,15 +58,17 @@ class PullUp {
   }
 }
 
-PullUp.install = app => {
-  app.directive('pullup', {
-    mounted: (el, { value }) => {
-      el.pullup = new PullUp(el, value)
-    },
-    unmounted: (el) => {
-      el.pullup.destroy()
-    },
-  })
+const plugin: Plugin = {
+  install: (app) => {
+    app.directive('pullup', {
+      mounted: (el, { value }) => {
+        el.pullup = new PullUp(el, value)
+      },
+      unmounted: (el) => {
+        el.pullup.destroy()
+      },
+    })
+  },
 }
 
-export default PullUp
+export default plugin

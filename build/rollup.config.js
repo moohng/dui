@@ -1,20 +1,22 @@
-const resolve = require('@rollup/plugin-node-resolve')
-const commonjs = require('@rollup/plugin-commonjs')
+import resolve from '@rollup/plugin-node-resolve'
+import commonjs from '@rollup/plugin-commonjs'
+import jsx from 'acorn-jsx'
 const { babel } = require('@rollup/plugin-babel')
 const { terser } = require('rollup-plugin-terser')
 const vue = require('rollup-plugin-vue')
 const postcss = require('rollup-plugin-postcss')
 const autoprefixer = require('autoprefixer')
+const typescript = require('@rollup/plugin-typescript')
 
 const loadEntries = require('./loadEntries')
 
-const entries = [
-  ...loadEntries(),
-  { name: 'dui', input: 'src/components/dui.js' },
-]
+const entries = [...loadEntries(), { name: 'dui', input: 'src/components/dui.ts' }]
+
+const extensions = ['.ts', '.js', '.tsx', '.json']
 
 function jsConfig(name, input) {
   const basePlugins = [
+    typescript(),
     babel({
       babelrc: false, // 忽略项目中的babel配置文件，使用此配置
       presets: [
@@ -23,25 +25,35 @@ function jsConfig(name, input) {
           {
             modules: false,
             useBuiltIns: false,
-          }
-        ]
+          },
+        ],
+        ['@babel/preset-typescript'],
       ],
       plugins: [
         '@vue/babel-plugin-jsx',
         '@babel/plugin-proposal-nullish-coalescing-operator',
         '@babel/plugin-proposal-optional-chaining',
-        ['@babel/plugin-transform-runtime', {
-          corejs: 3,
-        }],
+        [
+          '@babel/plugin-transform-runtime',
+          {
+            corejs: 3,
+          },
+        ],
       ],
       exclude: 'node_modules/**',
       babelHelpers: 'runtime',
+      extensions,
     }),
     vue({
       target: 'browser',
     }),
-    resolve.default(),
-    commonjs(), // 兼容 commonjs 规范的第三方模块使用 ES6 方式导入
+    resolve({
+      extensions,
+      // modulesOnly: true,
+    }),
+    commonjs({
+      extensions,
+    }), // 兼容 commonjs 规范的第三方模块使用 ES6 方式导入
   ]
   return [
     {
@@ -59,12 +71,11 @@ function jsConfig(name, input) {
       plugins: basePlugins.concat([
         postcss({
           minimize: true,
-          plugins: [
-            autoprefixer(),
-          ],
+          plugins: [autoprefixer()],
         }),
       ]),
       external: ['vue'],
+      acornInjectPlugins: [jsx()],
     },
     {
       input,
@@ -78,12 +89,11 @@ function jsConfig(name, input) {
       },
       plugins: basePlugins.concat([
         postcss({
-          plugins: [
-            autoprefixer(),
-          ],
+          plugins: [autoprefixer()],
         }),
       ]),
       external: ['vue'],
+      acornInjectPlugins: [jsx()],
     },
   ]
 }

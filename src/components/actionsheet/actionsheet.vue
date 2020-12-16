@@ -12,7 +12,7 @@
               class="dui-item justify-center text-lg"
               v-for="(menu, index) in menus" :key="menu.id || menu.key || index"
               :class="[].concat(menu.class || [])"
-              @click="onClick(index, menu)"
+              @click="handleClick(index, menu)"
             >
               {{ menu.name || menu }}
             </div>
@@ -21,7 +21,7 @@
             <div
               class="dui-item justify-center text-lg"
               :class="[].concat(cancelClass || [])"
-              @click="onClick('cancel')"
+              @click="handleClick('cancel')"
             >{{ cancel }}</div>
           </div>
         </slot>
@@ -30,10 +30,12 @@
   </teleport>
 </template>
 
-<script>
+<script lang="ts">
+import { defineComponent, PropType } from 'vue'
+import { Menu, HandleClickCallback } from './index'
 import modalHelper from '../../tools/modalHelper'
 
-export default {
+export default defineComponent({
   name: 'dui-actionsheet',
   props: {
     title: {
@@ -41,48 +43,51 @@ export default {
       default: '',
     },
     menus: {
-      type: Array,
+      type: [Array, String] as PropType<Menu[] | string[]>,
       default: () => [],
     },
     cancel: {
-      type: [String, Boolean],
+      type: [String, Boolean] as PropType<string|boolean>,
       default: '取消',
     },
     cancelClass: {
-      type: [Array, String],
+      type: [Array, String] as PropType<string|string[]>,
       default: '',
     },
+    onClick: Function as PropType<HandleClickCallback>,
+    onClose: Function as PropType<() => void>,
   },
   emits: ['click', 'close'],
-  data() {
+  data () {
     return {
       show: false,
       toggle: false,
     }
   },
   methods: {
-    open() {
+    open () {
       this.show = true
-      setTimeout(() => {
+      window.setTimeout(() => {
         this.toggle = true
       }, 20)
       modalHelper.afterOpen()
     },
-    close() {
+    close () {
       this.toggle = false
-      setTimeout(() => {
+      window.setTimeout(() => {
         modalHelper.beforeClose()
         this.show = false
         this.$emit('close')
       }, 300)
     },
-    async onClick(index, menu = {}) {
-      if (typeof menu.onClick === 'function') {
-        await menu.onClick()
+    async handleClick (index: number, menu: Menu) {
+      if (typeof menu?.onClick === 'function') {
+        await menu?.onClick()
       }
-      this.$emit('click', index, menu)
+      this.onClick?.(index, menu)
+      // this.$emit('click', index, menu)
       this.close()
     },
   },
-}
+})
 </script>

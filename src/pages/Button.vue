@@ -42,14 +42,16 @@
   </div>
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import { defineComponent } from 'vue'
+
+export default defineComponent({
   methods: {
-    onTest() {
+    onTest () {
       this.$toast('禁用弹不出来')
     },
   },
-}
+})
 </script>
 
 <style lang="scss" scoped>

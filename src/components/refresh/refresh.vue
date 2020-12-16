@@ -8,11 +8,13 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
+import { defineComponent } from 'vue'
 import IconLoading from '../icon-loading'
 
-
-const mapPullDownText = {
+const mapPullDownText: {
+  [key: string]: string;
+} = {
   init: '下拉刷新',
   will: '松开刷新',
   refreshing: '正在刷新...',
@@ -20,7 +22,7 @@ const mapPullDownText = {
   error: '刷新失败',
 }
 
-export default {
+export default defineComponent({
   name: 'dui-refresh',
   components: {
     IconLoading,
@@ -35,31 +37,31 @@ export default {
     },
   },
   emits: ['refresh'],
-  data() {
+  data () {
     return {
       status: 'init', // init will refreshing success error
       rotateValue: 0,
     }
   },
   computed: {
-    pulldownText() {
-      return mapPullDownText[this.status];
+    pulldownText (): string {
+      return mapPullDownText[this.status]
     },
   },
   methods: {
-    getPulldownOptions() {
+    getPulldownOptions () {
       return {
         scroller: this.scroller,
         onPullDownRefresh: () => {
           this.status = 'refreshing'
           return new Promise((resolve) => {
-            this.$emit('refresh', (isSuccess) => {
-              resolve()
+            this.$emit('refresh', (isSuccess: boolean) => {
+              resolve(undefined)
               this.status = isSuccess ? 'success' : 'error'
             })
           })
         },
-        onPullDown: (y, flag) => {
+        onPullDown: (y: number, flag: boolean) => {
           this.rotateValue = 3 * y
           if (flag) {
             this.status = 'will'
@@ -70,5 +72,5 @@ export default {
       }
     },
   },
-}
+})
 </script>

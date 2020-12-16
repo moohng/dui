@@ -34,14 +34,19 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
+import { defineComponent } from 'vue'
 import OSS from 'ali-oss'
 import md5 from 'md5'
-import copy from '@moohng/dan/src/copy'
+import copy from '@moohng/dan/lib/copy'
+// eslint-disable-next-line no-unused-vars
+import { RefreshEventCallBack } from '@/components/refresh'
 
-export default {
+let ossClient: any
+
+export default defineComponent({
   name: 'Upload',
-  data() {
+  data () {
     return {
       showTip: false,
       pulldownText: '下拉刷新',
@@ -52,38 +57,38 @@ export default {
       nextStatus: '',
     }
   },
-  mounted() {
+  mounted () {
     this.auth().then(() => {
       this.getList('')
     })
   },
   methods: {
-    onRefresh(finished) {
+    onRefresh (finished: RefreshEventCallBack) {
       this.getList('').then(() => {
-        finished(true)
-        this.$refs.loadMore.refresh()
+        finished(true);
+        (this.$refs.loadMore as any).refresh()
       }).catch(() => {
         finished(false)
       })
     },
-    onLoadMore() {
+    onLoadMore () {
       this.getList()
     },
-    onPreview(imgPaths, index) {
-      if (typeof window.WeixinJSBridge !== 'undefined') {
+    onPreview (imgPaths: string[], index: number) {
+      try {
         window.WeixinJSBridge.invoke('imagePreview', {
           urls: imgPaths,
           current: imgPaths[index],
         })
-      } else {
+      } catch {
         this.$preview(imgPaths, index)
       }
       copy(imgPaths[index])
     },
-    auth() {
+    auth () {
       this.$loading('授权中...')
-      return this.$get('https://api.miu.moohng.com/sts').then((res) => {
-        this.ossClient = new OSS({
+      return this.$get('https://api.miu.moohng.com/sts').then((res: any) => {
+        ossClient = new OSS({
           accessKeyId: res.AccessKeyId,
           accessKeySecret: res.AccessKeySecret,
           stsToken: res.SecurityToken,
@@ -97,45 +102,46 @@ export default {
         this.$toast('授权失败，请稍后再试')
       }).finally(this.$loading.hide)
     },
-    async onUpload(e) {
+    async onUpload (e: any) {
       try {
         const file = e.target.files[0]
         console.log(file.name)
         let [name, ext] = file.name.split('.')
         name = this.prefixText + md5(name + '?' + Date.now())
         const filePath = ext ? (name + '.' + ext) : name
-        const { url } = await this.ossClient.put(filePath, file)
-        this.imgPaths.push(url)
+        const { url } = await ossClient.put(filePath, file)
+        this.imgPaths.push(url as never)
         copy(url)
       } catch (e) {
         this.showTip = true
       }
     },
-    async getList(marker = this.nextMarker) {
+    async getList (marker?: string) {
+      marker = marker || this.nextMarker
       try {
-        const result = await this.ossClient.list({
+        const result = await ossClient.list({
           marker,
           prefix: this.prefixText,
           'max-keys': 30,
         })
         const { nextMarker = '', objects } = result
         if (!marker) {
-          this.imgPaths = objects?.map(({ url }) => url) ?? []
+          this.imgPaths = objects?.map(({ url }: { url: any }) => url) ?? []
         } else {
-          this.imgPaths = this.imgPaths.concat(objects?.map(({ url }) => url) ?? [])
+          this.imgPaths = this.imgPaths.concat(objects?.map(({ url }: { url: any }) => url) ?? [])
         }
-        this.nextMarker = nextMarker
-        this.$refs.loadMore.finished(objects.length < 30)
+        this.nextMarker = nextMarker;
+        (this.$refs.loadMore as any).finished(objects.length < 30)
       } catch (e) {
         this.showTip = true
       }
     },
-    onSearch() {
+    onSearch () {
       this.imgPaths = []
       this.getList('')
     },
   },
-}
+})
 </script>
 
 <style lang="scss" scoped>

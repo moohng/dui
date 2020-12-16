@@ -15,9 +15,11 @@
   </div>
 </template>
 
-<script>
-export default {
-  data() {
+<script lang="ts">
+import { defineComponent } from 'vue'
+
+export default defineComponent({
+  data () {
     return {
       imgList: [
         'http://b-ssl.duitang.com/uploads/item/201410/09/20141009224754_AswrQ.jpeg',
@@ -50,9 +52,9 @@ export default {
         'https://c-ssl.duitang.com/uploads/item/202003/22/20200322164407_knaqh.thumb.700_0.jpg',
         'https://c-ssl.duitang.com/uploads/item/201905/08/20190508140933_iWAZj.thumb.700_0.jpeg',
       ],
-    };
+    }
   },
-};
+})
 </script>
 
 <style lang="scss" scoped>
