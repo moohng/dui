@@ -4,12 +4,12 @@ import { mountComponent } from '../../tools/utils'
 
 declare module '@vue/runtime-core' {
   interface ComponentCustomProperties {
-    $toast: (text?: string) => void;
+    $toast: (text?: string) => void
   }
 }
 
 const plugin: Plugin = {
-  install: app => {
+  install: (app) => {
     let duiToast: ComponentPublicInstance
 
     app.config.globalProperties.$toast = (text = '') => {
@@ -17,7 +17,7 @@ const plugin: Plugin = {
         const { instance } = mountComponent(Toast)
         duiToast = instance
       }
-      (duiToast as any).show(text)
+      ;(duiToast as any).show(text)
     }
 
     app.component(Toast.name, Toast)

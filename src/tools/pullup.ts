@@ -4,8 +4,8 @@ import { querySelector, pop } from './utils'
 export type onLoadMoreCallback = (finished: Function) => void | Promise<void>
 
 export type PullUpOptions = {
-  threshold: number;
-  onLoadMore: onLoadMoreCallback;
+  threshold: number
+  onLoadMore: onLoadMoreCallback
 }
 
 class PullUp {
@@ -17,10 +17,7 @@ class PullUp {
   private loading = false
   private lastPosition = 0
 
-  constructor (el: any, {
-    threshold,
-    onLoadMore = pop,
-  }: PullUpOptions) {
+  constructor(el: any, { threshold, onLoadMore = pop }: PullUpOptions) {
     this.threshold = threshold
     this.onLoadMore = onLoadMore
 
@@ -36,7 +33,7 @@ class PullUp {
     window.addEventListener('scroll', this.handlerScroll, false)
   }
 
-  handlerScroll () {
+  handlerScroll() {
     const { scrollTop, scrollHeight, clientHeight } = document.scrollingElement || document.documentElement
     const toBottom = scrollHeight - scrollTop - clientHeight
     if (!this.loading && toBottom < this.lastPosition && toBottom <= this.pullupHeight) {
@@ -52,17 +49,17 @@ class PullUp {
     this.lastPosition = toBottom
   }
 
-  finished () {
+  finished() {
     this.lastPosition = 0
   }
 
-  destroy () {
+  destroy() {
     window.removeEventListener('scroll', this.handlerScroll, false)
   }
 }
 
 const plugin: Plugin = {
-  install: app => {
+  install: (app) => {
     app.directive('pullup', {
       mounted: (el, { value }) => {
         el.pullup = new PullUp(el, value)

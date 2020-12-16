@@ -1,6 +1,6 @@
 import { App, DirectiveBinding } from 'vue'
 
-function setImage (el: HTMLElement, src: string) {
+function setImage(el: HTMLElement, src: string) {
   if (!src) {
     return
   }
@@ -11,7 +11,7 @@ function setImage (el: HTMLElement, src: string) {
   }
 }
 
-function plugin (app: App) {
+function plugin(app: App) {
   // v-src 自定义指令
   app.directive('src', {
     mounted: (el: HTMLElement, { value }: DirectiveBinding) => {

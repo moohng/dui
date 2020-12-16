@@ -4,42 +4,40 @@ import { mountComponent } from '../../tools/utils'
 
 declare module '@vue/runtime-core' {
   interface ComponentCustomProperties {
-    $actionsheet: (menus: Menus, options: ActionSheetOptions) => Promise<{index: number}>;
+    $actionsheet: (menus: Menus, options: ActionSheetOptions) => Promise<{ index: number }>
   }
 }
 
 export type HandleClickCallback = (...args: [(number | string)?, any?]) => void
 
 export type Menu = {
-  id?: number|string;
-  key?: number|string;
-  name: string;
-  class?: string;
-  onClick?: HandleClickCallback;
+  id?: number | string
+  key?: number | string
+  name: string
+  class?: string
+  onClick?: HandleClickCallback
 }
 
 export type Menus = Menu[] | string[]
 
 export type ActionSheetOptions = {
-  title?: string;
-  cancel?: string;
-  cancelClass?: string;
-  onClick?: HandleClickCallback;
-  handleClick?: HandleClickCallback;
+  title?: string
+  cancel?: string
+  cancelClass?: string
+  onClick?: HandleClickCallback
+  handleClick?: HandleClickCallback
 }
 
 const plugin: Plugin = {
-  install: app => {
+  install: (app) => {
     let duiActionsheet: ComponentPublicInstance
-    const asRef = ref<{open: Function}|null>(null)
-    const state = reactive<ActionSheetOptions & {menus?: Menus}>({})
+    const asRef = ref<{ open: Function } | null>(null)
+    const state = reactive<ActionSheetOptions & { menus?: Menus }>({})
 
-    app.config.globalProperties.$actionsheet = (menus: Menus, {
-      title,
-      cancel,
-      cancelClass,
-      onClick: clickCallback,
-    }: ActionSheetOptions) => {
+    app.config.globalProperties.$actionsheet = (
+      menus: Menus,
+      { title, cancel, cancelClass, onClick: clickCallback }: ActionSheetOptions
+    ) => {
       return new Promise((resolve) => {
         state.handleClick = (...args) => {
           if (typeof clickCallback === 'function') {
@@ -49,8 +47,17 @@ const plugin: Plugin = {
         }
         if (!duiActionsheet) {
           const { instance } = mountComponent({
-            render () {
-              return <Actionsheet ref={(el: any) => asRef.value = el} menus={state.menus} title={state.title} cancel={state.cancel} cancelClass={state.cancelClass} onClick={state.handleClick} />
+            render() {
+              return (
+                <Actionsheet
+                  ref={(el: any) => (asRef.value = el)}
+                  menus={state.menus}
+                  title={state.title}
+                  cancel={state.cancel}
+                  cancelClass={state.cancelClass}
+                  onClick={state.handleClick}
+                />
+              )
             },
           })
           duiActionsheet = instance

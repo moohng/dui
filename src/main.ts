@@ -20,14 +20,14 @@ app.use(router)
 
 declare module '@vue/runtime-core' {
   interface ComponentCustomProperties {
-    $get: AxiosInstance;
+    $get: AxiosInstance
   }
 }
 
 app.config.globalProperties.$get = axios.get
 
 app.mixin({
-  data () {
+  data() {
     const ua = window.navigator.userAgent
     const isWeixin = /MicroMessenger/i.test(ua)
 

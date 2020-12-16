@@ -6,35 +6,33 @@ export type ClickCallback = (...args: [number, any]) => void
 
 declare module '@vue/runtime-core' {
   interface ComponentCustomProperties {
-    $dialog: (options: DialogOptions, clickCallback?: ClickCallback) => Promise<{index: number}>;
+    $dialog: (options: DialogOptions, clickCallback?: ClickCallback) => Promise<{ index: number }>
   }
 }
 
 export type Button = {
-  text: string;
-  class?: string;
-  onClick?: (index: number, button: Button) => Promise<void> | void;
+  text: string
+  class?: string
+  onClick?: (index: number, button: Button) => Promise<void> | void
 }
 
-export type DialogOptions ={
-  title?: string;
-  content?: string;
-  closable?: boolean;
-  buttons?: Button[];
+export type DialogOptions = {
+  title?: string
+  content?: string
+  closable?: boolean
+  buttons?: Button[]
 }
 
 const plugin: Plugin = {
   install: (app) => {
     let duiDialog: ComponentPublicInstance
-    const dialogRef = ref<{open: Function}|null>(null)
-    const state = reactive<{handleClick?: ClickCallback} & DialogOptions>({})
+    const dialogRef = ref<{ open: Function } | null>(null)
+    const state = reactive<{ handleClick?: ClickCallback } & DialogOptions>({})
 
-    app.config.globalProperties.$dialog = ({
-      title,
-      content,
-      buttons,
-      closable,
-    }: DialogOptions, clickCallback?: ClickCallback) => {
+    app.config.globalProperties.$dialog = (
+      { title, content, buttons, closable }: DialogOptions,
+      clickCallback?: ClickCallback
+    ) => {
       return new Promise((resolve) => {
         state.handleClick = (...args: [number, any]) => {
           if (typeof clickCallback === 'function') {
@@ -44,8 +42,17 @@ const plugin: Plugin = {
         }
         if (!duiDialog) {
           const { instance } = mountComponent({
-            render () {
-              return <Dialog ref={(el: any) => dialogRef.value = el} title={state.title} content={state.content} buttons={state.buttons} closable={state.closable} onClick={state.handleClick} />
+            render() {
+              return (
+                <Dialog
+                  ref={(el: any) => (dialogRef.value = el)}
+                  title={state.title}
+                  content={state.content}
+                  buttons={state.buttons}
+                  closable={state.closable}
+                  onClick={state.handleClick}
+                />
+              )
             },
           })
           duiDialog = instance

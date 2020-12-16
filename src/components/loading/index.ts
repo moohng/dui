@@ -4,12 +4,12 @@ import { mountComponent } from '../../tools/utils'
 
 declare module '@vue/runtime-core' {
   interface ComponentCustomProperties {
-    $loading: ((text?: string) => void) & { hide: () => void };
+    $loading: ((text?: string) => void) & { hide: () => void }
   }
 }
 
 export const plugin: Plugin = {
-  install: app => {
+  install: (app) => {
     let duiLoading: ComponentPublicInstance
 
     app.config.globalProperties.$loading = (text: string) => {
@@ -17,7 +17,7 @@ export const plugin: Plugin = {
         const { instance } = mountComponent(Loading)
         duiLoading = instance
       }
-      (duiLoading as any).open(text)
+      ;(duiLoading as any).open(text)
       app.config.globalProperties.$loading.hide = (duiLoading as any).close
     }
     // 注册组件

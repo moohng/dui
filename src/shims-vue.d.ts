@@ -16,6 +16,6 @@ declare module 'ali-oss'
 
 interface Window {
   WeixinJSBridge: {
-    invoke: Function;
-  };
+    invoke: Function
+  }
 }

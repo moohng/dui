@@ -1,6 +1,6 @@
 import { createApp, Component } from 'vue'
 
-export function mountComponent (Com: Component) {
+export function mountComponent(Com: Component) {
   // 创建挂载节点
   const root = document.createElement('div')
   document.body.appendChild(root)
@@ -19,7 +19,7 @@ export function mountComponent (Com: Component) {
 }
 
 // 节流函数
-export function throttle (func: Function, time: number, isFirst = false) {
+export function throttle(func: Function, time: number, isFirst = false) {
   let lastTime = Date.now()
   return (...args: any[]) => {
     if (isFirst) {
@@ -38,7 +38,7 @@ export function throttle (func: Function, time: number, isFirst = false) {
 }
 
 // 查找节点
-export function querySelector (selector: Function | Element | string, defaultSelector?: any) {
+export function querySelector(selector: Function | Element | string, defaultSelector?: any) {
   if (typeof selector === 'function') {
     selector = selector()
   }
@@ -60,10 +60,10 @@ export function querySelector (selector: Function | Element | string, defaultSel
 }
 
 // 空函数
-export function pop (): void {}
+export function pop(): void {}
 
 // ready
-export function domReady (func: Function) {
+export function domReady(func: Function) {
   if (document.readyState === 'complete') {
     setTimeout(() => func(), 0)
   } else {
