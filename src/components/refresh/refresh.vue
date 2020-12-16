@@ -10,7 +10,7 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import IconLoading from '../icon-loading'
+import IconLoading from '../icon-loading/icon-loading.vue'
 
 const mapPullDownText: {
   [key: string]: string;
@@ -25,7 +25,7 @@ const mapPullDownText: {
 export default defineComponent({
   name: 'dui-refresh',
   components: {
-    IconLoading,
+    [IconLoading.name]: IconLoading,
   },
   props: {
     scroller: {

@@ -11,17 +11,15 @@
         <ul class="dui-list bg-white">
           <li class="dui-item mlr" v-for="n in listCount" :key="n">页面内容{{ n }}</li>
         </ul>
-        <load ref="loadMore" @load="onLoadMore"></load>
+        <load :ref="el => loadMore = el" @load="onLoadMore"></load>
       </dui-refresh>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
-// eslint-disable-next-line no-unused-vars
+import { defineComponent, ref } from 'vue'
 import { RefreshEventCallBack } from '@/components/refresh'
-// eslint-disable-next-line no-unused-vars
 import { LoadMoreEventCallBack } from '@/components/load-more'
 
 export default defineComponent({
@@ -30,15 +28,22 @@ export default defineComponent({
       listCount: 20,
     }
   },
+  setup() {
+    const loadMore = ref(null)
+
+    return {
+      loadMore
+    }
+  },
   mounted () {
-    (this.$refs.loadMore as any).finished()
+    (this.loadMore as any)?.finished?.()
   },
   methods: {
     onRefresh (finished: RefreshEventCallBack) {
       setTimeout(() => {
         this.listCount = 20
         finished(true);
-        (this.$refs.loadMore as any).refresh()
+        (this.loadMore as any)?.refresh?.()
       }, 2000)
     },
     onLoadMore (finished: LoadMoreEventCallBack) {
