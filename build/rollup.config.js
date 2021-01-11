@@ -1,12 +1,12 @@
 import resolve from '@rollup/plugin-node-resolve'
 import commonjs from '@rollup/plugin-commonjs'
-import jsx from 'acorn-jsx'
+// import jsx from 'acorn-jsx'
 const { babel } = require('@rollup/plugin-babel')
 const { terser } = require('rollup-plugin-terser')
 const vue = require('rollup-plugin-vue')
 const postcss = require('rollup-plugin-postcss')
 const autoprefixer = require('autoprefixer')
-const typescript = require('@rollup/plugin-typescript')
+// const typescript = require('@rollup/plugin-typescript')
 
 const loadEntries = require('./loadEntries')
 
@@ -16,19 +16,10 @@ const extensions = ['.ts', '.js', '.tsx', '.json']
 
 function jsConfig(name, input) {
   const basePlugins = [
-    typescript(),
+    // typescript(),
     babel({
       babelrc: false, // 忽略项目中的babel配置文件，使用此配置
-      presets: [
-        [
-          '@babel/preset-env',
-          {
-            modules: false,
-            useBuiltIns: false,
-          },
-        ],
-        ['@babel/preset-typescript'],
-      ],
+      presets: ['@babel/preset-typescript'],
       plugins: [
         '@vue/babel-plugin-jsx',
         '@babel/plugin-proposal-nullish-coalescing-operator',
@@ -75,7 +66,7 @@ function jsConfig(name, input) {
         }),
       ]),
       external: ['vue'],
-      acornInjectPlugins: [jsx()],
+      // acornInjectPlugins: [jsx()],
     },
     {
       input,
@@ -93,7 +84,7 @@ function jsConfig(name, input) {
         }),
       ]),
       external: ['vue'],
-      acornInjectPlugins: [jsx()],
+      // acornInjectPlugins: [jsx()],
     },
   ]
 }

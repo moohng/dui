@@ -1,6 +1,6 @@
-import { ComponentPublicInstance, Plugin, reactive, ref } from 'vue'
+import { Plugin, reactive, ref, nextTick } from 'vue'
 import Dialog from './dialog.vue'
-import { mountComponent } from '../../tools/utils'
+import { mountComponent, pop } from '../../tools/utils'
 
 export type ClickCallback = (...args: [number, any]) => void
 
@@ -25,8 +25,7 @@ export type DialogOptions = {
 
 const plugin: Plugin = {
   install: (app) => {
-    let duiDialog: ComponentPublicInstance
-    const dialogRef = ref<{ open: Function } | null>(null)
+    const dialogRef = ref<{ open: () => void } | null>(null)
     const state = reactive<{ handleClick?: ClickCallback } & DialogOptions>({})
 
     app.config.globalProperties.$dialog = (
@@ -40,31 +39,29 @@ const plugin: Plugin = {
           }
           resolve(args[0])
         }
-        if (!duiDialog) {
-          const { instance, unmount } = mountComponent({
-            render() {
-              return (
-                <Dialog
-                  ref={(el: any) => (dialogRef.value = el)}
-                  title={state.title}
-                  content={state.content}
-                  buttons={state.buttons}
-                  closable={state.closable}
-                  onClick={state.handleClick}
-                  onClose={unmount}
-                />
-              )
-            },
-          })
-          duiDialog = instance
-        }
+
+        const { unmount } = mountComponent({
+          render() {
+            return (
+              <Dialog
+                ref={(el: any) => (dialogRef.value = el)}
+                title={state.title}
+                content={state.content}
+                buttons={state.buttons}
+                closable={state.closable}
+                onClick={state.handleClick}
+                onClose={unmount}
+              />
+            )
+          },
+        })
 
         state.title = title
         state.content = content
         state.buttons = buttons
         state.closable = closable
 
-        dialogRef?.value?.open()
+        nextTick(dialogRef?.value?.open)
       })
     }
     // 注册组件

@@ -1,4 +1,4 @@
-import { ComponentPublicInstance, Plugin, reactive, ref } from 'vue'
+import { Plugin, reactive, ref, nextTick } from 'vue'
 import Actionsheet from './actionsheet.vue'
 import { mountComponent } from '../../tools/utils'
 
@@ -30,8 +30,7 @@ export type ActionSheetOptions = {
 
 const plugin: Plugin = {
   install: (app) => {
-    let duiActionsheet: ComponentPublicInstance
-    const asRef = ref<{ open: Function } | null>(null)
+    const asRef = ref<{ open: () => void } | null>(null)
     const state = reactive<ActionSheetOptions & { menus?: Menus }>({})
 
     app.config.globalProperties.$actionsheet = (
@@ -45,31 +44,28 @@ const plugin: Plugin = {
           }
           resolve(args[0])
         }
-        if (!duiActionsheet) {
-          const { instance, unmount } = mountComponent({
-            render() {
-              return (
-                <Actionsheet
-                  ref={(el: any) => (asRef.value = el)}
-                  menus={state.menus}
-                  title={state.title}
-                  cancel={state.cancel}
-                  cancelClass={state.cancelClass}
-                  onClick={state.handleClick}
-                  onClose={unmount}
-                />
-              )
-            },
-          })
-          duiActionsheet = instance
-        }
+        const { unmount } = mountComponent({
+          render() {
+            return (
+              <Actionsheet
+                ref={(el: any) => (asRef.value = el)}
+                menus={state.menus}
+                title={state.title}
+                cancel={state.cancel}
+                cancelClass={state.cancelClass}
+                onClick={state.handleClick}
+                onClose={unmount}
+              />
+            )
+          },
+        })
 
         state.title = title
         state.cancel = cancel
         state.cancelClass = cancelClass
         state.menus = menus
 
-        asRef?.value?.open()
+        nextTick(asRef?.value?.open)
       })
     }
     // 注册组件
