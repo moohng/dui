@@ -22,13 +22,12 @@
     "src"
   ],
   "dependencies": {
-    "@better-scroll/core": "^2.0.0-beta.10",
-    "@better-scroll/slide": "^2.0.0-beta.10",
     "@moohng/dan": "^1.5.2",
     "@types/md5": "^2.2.1",
     "ali-oss": "^6.12.0",
     "axios": "^0.19.2",
     "md5": "^2.3.0",
+    "swiper": "^6.4.5",
     "vconsole": "^3.3.4",
     "vue": "^3.0.2",
     "vue-router": "^4.0.0-rc.5"

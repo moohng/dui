@@ -1,10 +1,12 @@
 <template>
-  <div id="slider" v-if="show" class="dui-preview" :class="{toggle}" :style="{transformOrigin: `${point.x}px ${point.y}px`}" @click="onClose">
-    <div class="dui-preview__wrap">
-      <div class="dui-preview__slide bg-img" v-for="(item, index) in options" :key="item" :style="{backgroundImage: `url(${loadedList[index]})`}">
-        <i class="dui-icon__loading" v-show="!loadedList[index]"></i>
-      </div>
-    </div>
+  <div class="dui-preview" :class="{toggle}" :style="{transformOrigin: `${point.x}px ${point.y}px`}" @click="onClose">
+    <swiper @swiper="setControlledSwiper" @slide-change="onSlide">
+      <swiper-slide v-for="(item, index) in options" :key="item">
+        <div class="dui-preview__slide bg-img" :style="{backgroundImage: `url(${loadedList[index]})`}">
+          <i class="dui-icon__loading" v-show="!loadedList[index]"></i>
+        </div>
+      </swiper-slide>
+    </swiper>
     <slot>
       <!-- 索引 -->
       <div class="dui-preview__index">{{current + 1}}/{{options.length}}</div>
@@ -13,12 +15,12 @@
 </template>
 
 <script lang="ts">
-import { onUnmounted, ref, watch, nextTick, defineComponent, PropType } from 'vue'
-import BScroll, { BScrollInstance } from '@better-scroll/core'
-import SlidePlugin from '@better-scroll/slide'
+import { ref, nextTick, defineComponent, PropType } from 'vue'
+import SwiperCore, { Controller, Swiper as SwiperController } from 'swiper'
+import { Swiper, SwiperSlide } from 'swiper/vue'
 import modalHelper from '../../tools/modalHelper'
 
-BScroll.use(SlidePlugin)
+SwiperCore.use([Controller])
 
 function loadImage (src: string, onload: (src: string) => void) {
   const image = new Image()
@@ -28,6 +30,10 @@ function loadImage (src: string, onload: (src: string) => void) {
 
 export default defineComponent({
   name: 'dui-preview',
+  components: {
+    Swiper,
+    SwiperSlide,
+  },
   props: {
     options: {
       type: Array as PropType<string[]>,
@@ -48,79 +54,45 @@ export default defineComponent({
   },
   emits: ['close'],
   setup (props, { emit }) {
-    const show = ref(false)
     const toggle = ref(false)
     const loadedList = ref<string[]>([])
 
-    const current = ref(props.index)
-    watch(() => props.index, (val) => {
-      current.value = val
-    })
+    const controlledSwiper = ref<SwiperController|null>(null)
+    const setControlledSwiper = (swiper: SwiperController) => {
+      controlledSwiper.value = swiper
+    }
 
-    let bs: BScrollInstance
-    const onSlide = ({ pageX }: any) => {
-      current.value = pageX
-      loadImage(props.options[pageX], src => {
-        loadedList.value[pageX] = src
+    const current = ref(props.index)
+
+    const onSlide = ({ activeIndex }: any) => {
+      console.log(activeIndex)
+      current.value = activeIndex
+      loadImage(props.options[activeIndex], src => {
+        loadedList.value[activeIndex] = src
       })
     }
 
     const open = () => {
-      show.value = true
       nextTick(() => {
-        if (!bs) {
-          bs = new BScroll('#slider', {
-            probeType: 2,
-            scrollX: true,
-            scrollY: false,
-            slide: {
-              autoplay: false,
-              loop: false,
-              threshold: 100,
-            },
-            useTransition: true,
-            momentum: false,
-            bounce: false,
-            stopPropagation: true,
-            click: true,
-          })
-          bs.on('slideWillChange', onSlide)
-        }
-
-        // 初始化
-        if (current.value === 0) {
-          onSlide({ pageX: 0 })
-        }
-        bs.goToPage(current.value, 0, 0)
-        toggle.value = true
-        modalHelper.afterOpen()
+        controlledSwiper.value?.slideTo(+props.index, 0)
       })
+      toggle.value = true
+      modalHelper.afterOpen()
     }
 
     const close = () => {
       modalHelper.beforeClose()
       toggle.value = false
-      setTimeout(() => {
-        show.value = false
-        if (bs) {
-          bs.destroy()
-        }
-      }, 300)
     }
 
-    onUnmounted(() => {
-      if (bs) {
-        bs.destroy()
-      }
-    })
-
     return {
-      show,
       toggle,
       current,
       loadedList,
       open,
       close,
+      setControlledSwiper,
+      onSlide,
       onClose () {
         if (props.closable) {
           emit('close')

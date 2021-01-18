@@ -1,4 +1,5 @@
 @import '../../style/mixins.scss';
+@import '~swiper/swiper.scss';
 
 .dui-preview {
   @include fixed;
@@ -14,17 +15,11 @@
     pointer-events: auto;
     transform: scale(1);
   }
-  &__slide,
-  &__slide img {
-    width: 100vw;
-    height: 100vh;
-  }
-  &__wrap {
-    white-space: nowrap;
-  }
   &__slide {
     position: relative;
     display: inline-block;
+    width: 100vw;
+    height: 100vh;
     background-color: inherit;
     pointer-events: inherit!important;
     vertical-align: middle;

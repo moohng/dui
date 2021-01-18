@@ -14,6 +14,8 @@ declare module '@moohng/dan/lib/copy' {
 
 declare module 'ali-oss'
 
+declare module 'swiper/vue'
+
 interface Window {
   WeixinJSBridge: {
     invoke: Function
