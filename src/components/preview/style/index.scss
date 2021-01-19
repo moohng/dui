@@ -1,5 +1,5 @@
 @import '../../style/mixins.scss';
-@import '~swiper/swiper.scss';
+@import 'node_modules/swiper/swiper.scss';
 
 .dui-preview {
   @include fixed;
