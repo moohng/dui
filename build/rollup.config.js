@@ -1,12 +1,10 @@
 import resolve from '@rollup/plugin-node-resolve'
 import commonjs from '@rollup/plugin-commonjs'
-// import jsx from 'acorn-jsx'
 const { babel } = require('@rollup/plugin-babel')
 const { terser } = require('rollup-plugin-terser')
 const vue = require('rollup-plugin-vue')
 const postcss = require('rollup-plugin-postcss')
 const autoprefixer = require('autoprefixer')
-// const typescript = require('@rollup/plugin-typescript')
 
 const loadEntries = require('./loadEntries')
 
@@ -16,7 +14,6 @@ const extensions = ['.ts', '.js', '.tsx', '.json']
 
 function jsConfig(name, input) {
   const basePlugins = [
-    // typescript(),
     babel({
       babelrc: false, // 忽略项目中的babel配置文件，使用此配置
       presets: ['@babel/preset-typescript'],
@@ -66,7 +63,6 @@ function jsConfig(name, input) {
         }),
       ]),
       external: ['vue'],
-      // acornInjectPlugins: [jsx()],
     },
     {
       input,
@@ -83,8 +79,7 @@ function jsConfig(name, input) {
           plugins: [autoprefixer()],
         }),
       ]),
-      external: ['vue'],
-      // acornInjectPlugins: [jsx()],
+      external: ['vue', /@babel\/runtime/],
     },
   ]
 }
