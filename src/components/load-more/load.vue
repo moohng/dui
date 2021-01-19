@@ -10,6 +10,7 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
+import 'intersection-observer'
 
 const mapPullUpText: {
   [key: string]: string;

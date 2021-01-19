@@ -26,6 +26,7 @@
     "@types/md5": "^2.2.1",
     "ali-oss": "^6.12.0",
     "axios": "^0.19.2",
+    "intersection-observer": "^0.12.0",
     "md5": "^2.3.0",
     "swiper": "^6.4.5",
     "vconsole": "^3.3.4",
