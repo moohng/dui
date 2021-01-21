@@ -52,6 +52,7 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
+import { Toast, ActionSheet, Loading } from '../components/dui'
 
 let timer: number
 
@@ -64,7 +65,7 @@ export default defineComponent({
   },
   methods: {
     onToastClick () {
-      this.$toast('你好啊')
+      Toast('你好啊')
     },
     onActionSheetClick () {
       this.$actionsheet([
@@ -80,7 +81,7 @@ export default defineComponent({
       })
     },
     onActionSheetClick2 () {
-      this.$actionsheet([
+      ActionSheet([
         { name: '选项1' },
         { name: '选项2' },
         { name: '选项3' },
@@ -93,8 +94,8 @@ export default defineComponent({
       })
     },
     onLoadingClick () {
-      this.$loading()
-      window.setTimeout(this.$loading.hide, 2000)
+      const hide = this.$loading()
+      window.setTimeout(hide, 2000)
     },
     onAvatarClick () {
       timer && clearTimeout(timer)

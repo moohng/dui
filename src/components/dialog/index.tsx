@@ -1,12 +1,12 @@
-import { Plugin, reactive, ref, nextTick } from 'vue'
+import { App, ref, nextTick, defineComponent } from 'vue'
 import Dialog from './dialog.vue'
-import { mountComponent, pop } from '../../tools/utils'
+import { mountComponent } from '../../tools/utils'
 
 export type ClickCallback = (...args: [number, any]) => void
 
 declare module '@vue/runtime-core' {
   interface ComponentCustomProperties {
-    $dialog: (options: DialogOptions, clickCallback?: ClickCallback) => Promise<{ index: number }>
+    $dialog: (options: DialogOptions, clickCallback?: ClickCallback) => Promise<number>
   }
 }
 
@@ -23,50 +23,50 @@ export type DialogOptions = {
   buttons?: Button[]
 }
 
-const plugin: Plugin = {
-  install: (app) => {
-    const dialogRef = ref<{ open: () => void } | null>(null)
-    const state = reactive<{ handleClick?: ClickCallback } & DialogOptions>({})
-
-    app.config.globalProperties.$dialog = (
-      { title, content, buttons, closable }: DialogOptions,
+const dialog = (app: App<any> | DialogOptions, clickCallback?: ClickCallback): Promise<number> => {
+  if (typeof (app as App).component === 'function') {
+    ;(app as App).config.globalProperties.$dialog = (
+      options: DialogOptions,
       clickCallback?: ClickCallback
-    ) => {
-      return new Promise((resolve) => {
-        state.handleClick = (...args: [number, any]) => {
-          if (typeof clickCallback === 'function') {
-            clickCallback(...args)
-          }
-          resolve(args[0])
-        }
+    ): Promise<number> => dialog(options, clickCallback)
+    // 注册组件
+    ;(app as App).component(Dialog.name, Dialog)
+    return Promise.resolve(0)
+  } else {
+    const { title, content, buttons, closable } = app as DialogOptions
 
-        const { unmount } = mountComponent({
+    const dialogRef = ref<{ open: () => void } | null>(null)
+
+    return new Promise((resolve) => {
+      const handleClick = (...args: [number, any]) => {
+        if (typeof clickCallback === 'function') {
+          clickCallback(...args)
+        }
+        resolve(args[0])
+      }
+
+      const { unmount } = mountComponent(
+        defineComponent({
           render() {
+            const handleClose = () => unmount()
             return (
               <Dialog
                 ref={(el: any) => (dialogRef.value = el)}
-                title={state.title}
-                content={state.content}
-                buttons={state.buttons}
-                closable={state.closable}
-                onClick={state.handleClick}
-                onClose={unmount}
+                title={title}
+                content={content}
+                buttons={buttons}
+                closable={closable}
+                onClick={handleClick}
+                onClose={handleClose}
               />
             )
           },
         })
+      )
 
-        state.title = title
-        state.content = content
-        state.buttons = buttons
-        state.closable = closable
-
-        nextTick(dialogRef?.value?.open)
-      })
-    }
-    // 注册组件
-    app.component(Dialog.name, Dialog)
-  },
+      nextTick(dialogRef?.value?.open)
+    })
+  }
 }
 
-export default plugin
+export default dialog

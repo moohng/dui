@@ -1,27 +1,28 @@
-import { Plugin, ComponentPublicInstance } from 'vue'
+import { ComponentPublicInstance, App } from 'vue'
 import Toast from './toast.vue'
 import { mountComponent } from '../../tools/utils'
 
+type ToastFunction = (text?: string) => void
+
 declare module '@vue/runtime-core' {
   interface ComponentCustomProperties {
-    $toast: (text?: string) => void
+    $toast: ToastFunction
   }
 }
 
-const plugin: Plugin = {
-  install: (app) => {
-    let duiToast: ComponentPublicInstance
+let duiToast: ComponentPublicInstance
 
-    app.config.globalProperties.$toast = (text = '') => {
-      if (!duiToast) {
-        const { instance } = mountComponent(Toast)
-        duiToast = instance
-      }
-      ;(duiToast as any).show(text)
+const toast = (app: App<any> | string = '') => {
+  if (typeof app === 'string') {
+    if (!duiToast) {
+      const { instance } = mountComponent(Toast)
+      duiToast = instance
     }
-
+    ;(duiToast as any).show(app)
+  } else {
+    app.config.globalProperties.$toast = (text: string) => toast(text)
     app.component(Toast.name, Toast)
-  },
+  }
 }
 
-export default plugin
+export default toast

@@ -8,7 +8,7 @@
     </div>
     <div class="plr ptb-sm">图片预览</div>
     <div class="grid bg-white plr">
-      <div class="col-3 square xs bg-img cover radius" v-for="(img, index) in imgPaths" :key="index" v-src="img" @click="$preview(imgPaths, index)"></div>
+      <div class="col-3 square xs bg-img cover radius" v-for="(img, index) in imgPaths" :key="index" v-src="img" @click="onPreview(imgPaths, index)"></div>
     </div>
     <div class="plr ptb-sm">九宫格</div>
     <div class="grid bg-white text-center lines">
@@ -23,6 +23,7 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
+import { Preview } from '../components/dui'
 
 export default defineComponent({
   data () {
@@ -38,6 +39,11 @@ export default defineComponent({
         'https://c-ssl.duitang.com/uploads/item/202004/20/20200420210204_vxdjh.thumb.700_0.png',
       ],
     }
+  },
+  methods: {
+    onPreview(options: string[], index: number) {
+      this.$preview(options, index)
+    },
   },
 })
 </script>

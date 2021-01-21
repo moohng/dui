@@ -67,14 +67,14 @@ export default defineComponent({
   methods: {
     open () {
       this.show = true
-      window.setTimeout(() => {
+      setTimeout(() => {
         this.toggle = true
       }, 20)
       modalHelper.afterOpen()
     },
     close () {
       this.toggle = false
-      window.setTimeout(() => {
+      setTimeout(() => {
         modalHelper.beforeClose()
         this.show = false
         this.$emit('close')
@@ -84,8 +84,7 @@ export default defineComponent({
       if (typeof menu?.onClick === 'function') {
         await menu?.onClick()
       }
-      this.onClick?.(index, menu)
-      // this.$emit('click', index, menu)
+      this.$emit('click', index, menu)
       this.close()
     },
   },

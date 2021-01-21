@@ -13,8 +13,9 @@
     "build:lib": "gulp build",
     "demo": "live-server --no-browser --watch=demo,dist"
   },
-  "main": "lib/dui/index.js",
-  "module": "lib/dui/index.js",
+  "main": "lib/dui.js",
+  "module": "lib/dui.js",
+  "types": "src/components/dui.ts",
   "unpkg": "dist/dui.min.js",
   "files": [
     "dist",

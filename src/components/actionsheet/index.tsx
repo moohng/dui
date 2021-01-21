@@ -1,10 +1,10 @@
-import { Plugin, reactive, ref, nextTick } from 'vue'
+import { App, ref, nextTick, defineComponent } from 'vue'
 import Actionsheet from './actionsheet.vue'
 import { mountComponent } from '../../tools/utils'
 
 declare module '@vue/runtime-core' {
   interface ComponentCustomProperties {
-    $actionsheet: (menus: Menus, options: ActionSheetOptions) => Promise<{ index: number }>
+    $actionsheet: (menus: Menus, options: ActionSheetOptions) => Promise<number | string>
   }
 }
 
@@ -25,52 +25,50 @@ export type ActionSheetOptions = {
   cancel?: string
   cancelClass?: string
   onClick?: HandleClickCallback
-  handleClick?: HandleClickCallback
 }
 
-const plugin: Plugin = {
-  install: (app) => {
-    const asRef = ref<{ open: () => void } | null>(null)
-    const state = reactive<ActionSheetOptions & { menus?: Menus }>({})
+const actionsheet = (app: App<any> | Menus, options?: ActionSheetOptions): Promise<number | string> => {
+  if (typeof (app as App).component === 'function') {
+    ;(app as App).config.globalProperties.$actionsheet = (menus: Menus, options: ActionSheetOptions) =>
+      actionsheet(menus, options)
+    // 注册组件
+    ;(app as App).component(Actionsheet.name, Actionsheet)
 
-    app.config.globalProperties.$actionsheet = (
-      menus: Menus,
-      { title, cancel, cancelClass, onClick: clickCallback }: ActionSheetOptions
-    ) => {
-      return new Promise((resolve) => {
-        state.handleClick = (...args) => {
-          if (typeof clickCallback === 'function') {
-            clickCallback(...args)
-          }
-          resolve(args[0])
+    return Promise.resolve(0)
+  } else {
+    const { title, cancel, cancelClass, onClick: clickCallback } = options || {}
+    const asRef = ref<{ open: () => void } | null>(null)
+
+    return new Promise((resolve) => {
+      const handleClick: HandleClickCallback = (...args) => {
+        if (typeof clickCallback === 'function') {
+          clickCallback(...args)
         }
-        const { unmount } = mountComponent({
+        resolve(args[0]!)
+      }
+
+      const { unmount } = mountComponent(
+        defineComponent({
           render() {
+            const handleClose = () => unmount()
             return (
               <Actionsheet
                 ref={(el: any) => (asRef.value = el)}
-                menus={state.menus}
-                title={state.title}
-                cancel={state.cancel}
-                cancelClass={state.cancelClass}
-                onClick={state.handleClick}
-                onClose={unmount}
+                menus={app as Menus}
+                title={title}
+                cancel={cancel}
+                cancelClass={cancelClass}
+                onClick={handleClick}
+                onClose={handleClose}
               />
             )
           },
         })
+      )
 
-        state.title = title
-        state.cancel = cancel
-        state.cancelClass = cancelClass
-        state.menus = menus
-
-        nextTick(asRef?.value?.open)
-      })
-    }
-    // 注册组件
-    app.component(Actionsheet.name, Actionsheet)
-  },
+      nextTick(asRef?.value?.open)
+    })
+  }
 }
 
-export default plugin
+export default actionsheet

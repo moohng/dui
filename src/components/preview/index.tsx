@@ -1,4 +1,4 @@
-import { Plugin, ComponentPublicInstance, reactive, ref, defineComponent } from 'vue'
+import { reactive, ref, defineComponent, App } from 'vue'
 import Preview from './preview.vue'
 import { mountComponent } from '../../tools/utils'
 
@@ -8,72 +8,50 @@ declare module '@vue/runtime-core' {
   }
 }
 
-type Point = {
-  x: number
-  y: number
-}
-
 export type PreviewOptions = string[]
 
 type State = {
-  point?: Point
   options?: PreviewOptions
   index?: number
 }
 
-const plugin: Plugin = {
-  install: (app) => {
-    let duiPreview: ComponentPublicInstance
+const preview = (app: App<any> | PreviewOptions, index?: number) => {
+  if (Array.isArray(app)) {
+    let options = app
+    if (typeof options === 'string') {
+      options = [options]
+    }
 
-    const preRef = ref<{ show: boolean; open: Function } | null>(null)
-    const state = reactive<State>({})
+    const preRef = ref<{ toggle: boolean; open: Function } | null>(null)
+    const state = reactive<State>({
+      options,
+      index,
+    })
 
-    document.body.addEventListener(
-      'click',
-      ({ clientX, clientY }) => {
-        if (!duiPreview || !preRef?.value?.show) {
-          state.point = {
-            x: clientX,
-            y: clientY,
-          }
-        }
-      },
-      { capture: true }
+    const { unmount } = mountComponent(
+      defineComponent({
+        render() {
+          const handleClose = () => unmount()
+          return (
+            <Preview
+              ref={(el: any) => (preRef.value = el)}
+              options={state.options}
+              index={state.index}
+              closable={true}
+              onClose={handleClose}
+            />
+          )
+        },
+      })
     )
 
-    app.config.globalProperties.$preview = (options: PreviewOptions, index = 0) => {
-      if (!Array.isArray(options)) {
-        options = [options]
-      }
-
-      if (!duiPreview) {
-        const { instance } = mountComponent(
-          defineComponent({
-            render() {
-              return (
-                <Preview
-                  ref={(el: any) => (preRef.value = el)}
-                  options={state.options}
-                  index={state.index}
-                  point={state.point}
-                  closable={true}
-                />
-              )
-            },
-          })
-        )
-        duiPreview = instance
-      }
-
-      // 更新数据
-      state.options = options
-      state.index = index
-      // 打开
-      preRef?.value?.open()
-    }
+    // 打开
+    preRef?.value?.open(index)
+  } else {
+    app.config.globalProperties.$preview = (options: PreviewOptions, index = 0) => preview(options, index)
     // 注册组件
     app.component(Preview.name, Preview)
-  },
+  }
 }
 
-export default plugin
+export default preview

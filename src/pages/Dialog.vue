@@ -28,11 +28,12 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
+import { Dialog } from '../components/dui'
 
 export default defineComponent({
   methods: {
     onDialogClick () {
-      this.$dialog({
+      Dialog({
         title: '弹窗标题',
         content: '弹窗内容，告知当前状态、信息和解决方法，描述文字尽量控制在三行之内',
         buttons: [
