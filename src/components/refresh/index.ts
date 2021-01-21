@@ -4,7 +4,7 @@ import Pulldown from '../../tools/pulldown'
 
 export type RefreshEventCallBack = (isSuccess: boolean) => void
 
-export const plugin: Plugin = {
+const plugin: Plugin = {
   install: (app) => {
     app.use(Pulldown)
     // 注册组件

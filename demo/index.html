@@ -20,20 +20,20 @@
 </head>
 <body>
   <div class="dui-page" id="app">
-    <refresh @refresh="onRefresh">
+    <dui-refresh @refresh="onRefresh">
       <div class="plr ptb-sm">图片预览</div>
       <div class="grid bg-white plr">
-        <div class="col-4 square xs radius" v-for="(img, index) in imgPaths" :key="index" @click="$preview(imgPaths, index)">
+        <div class="col-4 square xs radius" v-for="(img, index) in imgPaths" :key="index" @click="preview(imgPaths, index)">
           <img class="abs" :src="img" referrerpolicy="no-referrer">
         </div>
       </div>
       <!-- list -->
       <div class="plr ptb-sm">功能列表</div>
       <div class="dui-list bg-white">
-        <div class="dui-item mlr" @click="$dialog({ title: '标题', content: '您好吗' })">dialog</div>
-        <div class="dui-item mlr" @click="$actionsheet(['一', '二'], { title: '标题' })">actionsheet</div>
+        <div class="dui-item mlr" @click="dialog({ title: '标题', content: '您好吗' })">dialog</div>
+        <div class="dui-item mlr" @click="actionsheet(['一', '二'], { title: '标题' })">actionsheet</div>
       </div>
-    </refresh>
+    </dui-refresh>
   </div>
 
   <!-- <script src="../dist/dui.min.js"></script> -->
@@ -55,21 +55,21 @@
             'https://c-ssl.duitang.com/uploads/item/202001/03/20200103105513_yzcxj.thumb.700_0.jpeg',
             'https://c-ssl.duitang.com/uploads/item/202004/20/20200420210204_vxdjh.thumb.700_0.png',
           ],
+          preview,
+          actionsheet,
+          dialog,
           onRefresh(finished) {
             return new Promise((resolve) => {
               setTimeout(() => {
-                finished(true)
-              }, 2000)
-            })
+                finished(true);
+              }, 2000);
+            });
           },
-        }
+        };
       },
     });
 
-    app.use(preview)
-    app.use(actionsheet)
-    app.use(dialog)
-    app.use(refresh)
+    app.use(refresh);
 
     app.mount('#app');
   </script>

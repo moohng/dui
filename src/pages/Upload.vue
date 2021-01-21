@@ -86,7 +86,7 @@ export default defineComponent({
       copy(imgPaths[index])
     },
     auth () {
-      this.$loading('授权中...')
+      const hide = this.$loading('授权中...')
       return this.$get('https://api.miu.moohng.com/sts').then((res: any) => {
         ossClient = new OSS({
           accessKeyId: res.AccessKeyId,
@@ -100,7 +100,7 @@ export default defineComponent({
         })
       }).catch(() => {
         this.$toast('授权失败，请稍后再试')
-      }).finally(this.$loading.hide)
+      }).finally(hide)
     },
     async onUpload (e: any) {
       try {
